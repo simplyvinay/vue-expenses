@@ -1,0 +1,4 @@
+/.vs
+/.vscode
+/vue-expense-api/bin/
+/vue-expense-api/obj
