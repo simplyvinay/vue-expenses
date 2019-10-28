@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vue-expense-api", "vue-expense-api\vue-expense-api.csproj", "{10F354A8-676A-437E-A167-81A603C613FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vue-expenses-api", "vue-expenses-api\vue-expenses-api.csproj", "{10F354A8-676A-437E-A167-81A603C613FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,9 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{10F354A8-676A-437E-A167-81A603C613FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -30,5 +27,11 @@ Global
 		{10F354A8-676A-437E-A167-81A603C613FE}.Release|x64.Build.0 = Release|Any CPU
 		{10F354A8-676A-437E-A167-81A603C613FE}.Release|x86.ActiveCfg = Release|Any CPU
 		{10F354A8-676A-437E-A167-81A603C613FE}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AA836CFB-ACBF-437F-B424-F5B9BA8354E6}
 	EndGlobalSection
 EndGlobal
