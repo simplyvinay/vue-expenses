@@ -1,9 +1,11 @@
 <template>
-  <v-app style="max-width: 1024px; margin: auto;">
-    <Navbar />
-    <v-content style="height: 100%">
-      <router-view></router-view>
-    </v-content>
+  <v-app>
+    <v-container pt-0>
+      <Navbar />
+      <v-content class="pa-4">
+        <router-view></router-view>
+      </v-content>
+    </v-container>
   </v-app>
 </template>
 
@@ -19,9 +21,3 @@ export default {
   })
 };
 </script>
-
-<style>
-.rounded-card {
-  border-radius: 10px;
-}
-</style>

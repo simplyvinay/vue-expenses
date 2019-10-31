@@ -34,8 +34,6 @@ export default {
         maintainAspectRatio: false,
         title: {
           display: true,
-          text: "Expenses",
-          position: "top",
           fontFamily: "'Roboto', sans-serif",
           fontSize: 14,
           fontColor: "#424242",

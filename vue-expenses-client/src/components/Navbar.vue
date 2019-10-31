@@ -1,57 +1,72 @@
 <template>
-  <v-container fluid pa-0 d-flex justify-space-between>
-    <div style="width: 75%">
-      <v-toolbar class="grey lighten-4 elevation-0">
-        <v-layout row justify-start align-center pl-6>
-          <v-icon x-large color="blue">credit_card</v-icon>
-          <div class="ml-2 title grey--text text--darken-3">Expenser</div>
-        </v-layout>
-        <v-spacer></v-spacer>
-        <v-toolbar-items class="pa-3">
-          <v-btn
-            class="subtitle-2 font-weight-regular"
-            text
-            flat
-            outline
-            v-for="link in links"
-            :key="link.text"
-            router
-            :to="link.route"
-          >
-            <span
-              text
-              flat
-              font-weight-thin
-              class="grey--text text--darken-3 text-capitalize"
-            >{{link.text}}</span>
-          </v-btn>
-        </v-toolbar-items>
-      </v-toolbar>
-    </div>
-    <div style="width: 25%">
-      <v-toolbar class="elevation-0">
-        <v-spacer></v-spacer>
-        <v-btn flat text>
-          <span>Sign Out</span>
-          <v-icon right>exit_to_app</v-icon>
-        </v-btn>
-      </v-toolbar>
-    </div>
-  </v-container>
+  <div>
+    <v-navigation-drawer v-model="sidebar" app right offset-y>
+      <v-list-item
+        v-for="item in menuItems"
+        :key="item.text"
+        :to="item.route"
+        @click.native.prevent="handleRoute(item)"
+      >
+        <v-list-item-icon>
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-list-item-icon>
+        <v-list-tile-content>{{ item.text }}</v-list-tile-content>
+      </v-list-item>
+    </v-navigation-drawer>
+
+    <v-toolbar app flat dense>
+      <v-toolbar-title class="text-uppercase">
+        <router-link to="/" tag="span" style="cursor: pointer" class="headline">
+          <span class="font-weight-light grey--text">Exelo</span>
+          <span class="font-weight-bold blue--text">{{ appTitle }}</span>
+        </router-link>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <span class="hidden-md-and-up">
+        <v-app-bar-nav-icon @click="sidebar = !sidebar"></v-app-bar-nav-icon>
+      </span>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn
+          text
+          dense
+          v-for="item in menuItems"
+          :key="item.text"
+          :to="item.route"
+          font-weight-thin
+          class="grey--text text--darken-2 text-capitalize"
+          @click.native.prevent="handleRoute(item)"
+        >{{ item.text }}</v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      links: [
-        { icon: "overview", text: "Overview", route: "/" },
+      appTitle: "Expenser",
+      sidebar: false,
+      menuItems: [
+        { icon: "dashboard", text: "Overview", route: "/" },
         { icon: "shopping_cart", text: "Expenses", route: "/expenses" },
         { icon: "insert_chart", text: "Reports", route: "/reports" },
-        { icon: "settings", text: "Settings", route: "/config" }
+        { icon: "settings", text: "Settings", route: "/config" },
+        { icon: "exit_to_app", text: "Sign Out", route: "/signout" }
       ]
     };
+  },
+  methods: {
+    handleRoute(item) {
+      if (item.route === "/signout") {
+        alert("Singed out");
+      } else {
+        this.$router.push(item.route);
+      }
+    }
   }
 };
 </script>
 
+<style>
+</style>

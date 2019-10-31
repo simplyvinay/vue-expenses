@@ -1,37 +1,33 @@
 <script>
-import { Doughnut } from "vue-chartjs";
+import { Pie } from "vue-chartjs";
+
 export default {
-  extends: Doughnut,
-  props: ["data", "options"],
+  extends: Pie,
+  props: ["options"],
   mounted() {
     this.renderChart(
       {
-        labels: ["Spent", "Remaining"],
+        labels: ["Green", "Red", "Blue"],
         datasets: [
           {
             label: "",
-            backgroundColor: ["#66BB6A", "#EEEEEE"],
-            data: [40, 20],
-            borderWidth: 3
+            backgroundColor: ["#41B883", "#E46651", "#00D8FF"],
+            data: [1, 10, 5]
           }
         ]
       },
       {
         responsive: true,
         maintainAspectRatio: false,
-        cutoutPercentage: 25,
         title: {
           display: true,
-          position: "top",
           fontFamily: "'Roboto', sans-serif",
           fontSize: 14,
           fontColor: "#424242",
-          padding: 5,
+          text: "Budget",
         },
         legend: {
           display: false
-        },
-        tooltips: {
         }
       }
     );
