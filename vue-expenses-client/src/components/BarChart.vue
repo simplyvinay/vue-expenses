@@ -4,9 +4,13 @@
 
 <script>
 export default {
+   props: {
+    theme: {
+      type: String     
+    }
+  },
   data() {
     return {
-      theme: this.$vuetify.theme.dark ? "dark" : "",
       options: {
         backgroundColor: this.$vuetify.theme.dark ? "#424242" : "",
         grid: {
@@ -86,7 +90,11 @@ export default {
         },
         //color: ["#2196f3"],
         tooltip: {
-          trigger: "item"
+          trigger: "item",
+          textStyle: {
+            fontSize: 12,
+            fontWeight: "normal"
+          }
         }
       }
     };

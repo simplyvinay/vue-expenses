@@ -1,10 +1,17 @@
 <template>
   <div>
-    <h1 class="headline blue--text text--lighten-1">Dashboard</h1>
+    <div style="display: flex; justify-content: space-between; align-items: center">
+      <h1 class="headline blue--text text--lighten-1">Dashboard</h1>
+      <v-switch v-model="mandatory" class="mx-2" @change="setTheme" label="Dark Theme"></v-switch>
+    </div>
+
     <v-container>
       <v-layout row justify-space-between>
         <v-flex xs12 md6>
-          <v-card class="pa-3 mr-2" raised>
+          <v-card
+            :class="{'pa-3 mr-2 mb-2': $vuetify.breakpoint.smAndDown, 'pa-3 mr-2': $vuetify.breakpoint.mdAndUp}"
+            raised
+          >
             <div class="body-1 pa-3 text-capitalize font-weight-medium">Add New Expense</div>
             <v-divider></v-divider>
             <v-form v-model="valid">
@@ -81,7 +88,15 @@
           <v-card class="pa-3 mr-2" tile min-height="360px" height="100%">
             <div class="body-1 pa-3 text-capitalize font-weight-medium">Monthly Budget</div>
             <v-divider></v-divider>
-            <DoughnutChart titleText="This Month" height="70" showLabelAndLines="true" showTitle="true" titleFontSize="15"/>
+            <DoughnutChart
+              titleText="This Month"
+              height="70"
+              showTitle="true"
+              titleFontSize="15"
+              :theme="theme"
+              :showLabel="true"
+              :showLabelLines="true"
+            />
             <v-container pb-0 pt-0>
               <v-layout row justify-space-around>
                 <v-card flat max-width="200">
@@ -102,21 +117,66 @@
             <v-card class="pa-3 mr-2" tile>
               <div class="body-1 pa-3 text-capitalize font-weight-medium">Budgets By Categories</div>
               <v-divider></v-divider>
-              <div style="display: flex; flex-wrap: nowrap; overflow-x: auto; height: 160px">
-                <div style="width: 200px; flex: 0 0 auto;">
-                  <DoughnutChart titleText="General Expenses" showTitle="false" height="100" titleFontSize="14" />
+              <div class="category-budgets">
+                <div class="category-budgets-budget">
+                  <DoughnutChart
+                    titleText="General Expenses"
+                    showTitle="true"
+                    height="90"
+                    titleFontSize="14"
+                    :theme="theme"
+                    :showTooltip="false"
+                  />
                 </div>
-                <div style="width: 200px; flex: 0 0 auto;">
-                  <DoughnutChart titleText="Shopping" showTitle="true" height="100" titleFontSize="14" />
+                <div class="category-budgets-budget">
+                  <DoughnutChart
+                    titleText="Shopping"
+                    showTitle="true"
+                    height="90"
+                    titleFontSize="14"
+                    :theme="theme"
+                    :showTooltip="false"
+                  />
                 </div>
-                <div style="width: 200px;flex: 0 0 auto;">
-                  <DoughnutChart titleText="Utilities" showTitle="true" height="100" titleFontSize="14" />
+                <div class="category-budgets-budget">
+                  <DoughnutChart
+                    titleText="Utilities"
+                    showTitle="true"
+                    height="90"
+                    titleFontSize="14"
+                    :theme="theme"
+                    :showTooltip="false"
+                  />
                 </div>
-                <div style="width: 200px;flex: 0 0 auto;">
-                  <DoughnutChart titleText="Groceries" showTitle="true" height="100" titleFontSize="14" />
+                <div class="category-budgets-budget">
+                  <DoughnutChart
+                    titleText="Groceries"
+                    showTitle="true"
+                    height="90"
+                    titleFontSize="14"
+                    :theme="theme"
+                    :showTooltip="false"
+                  />
                 </div>
-                <div style="width: 200px;flex: 0 0 auto;">
-                  <DoughnutChart titleText="Travel" showTitle="true" height="100" titleFontSize="14" />
+                <div class="category-budgets-budget">
+                  <DoughnutChart
+                    titleText="Travel"
+                    showTitle="true"
+                    height="90"
+                    titleFontSize="14"
+                    :theme="theme"
+                    :showTooltip="false"
+                  />
+                </div>
+                <div class="category-budgets-budget">
+                  <DoughnutChart
+                    titleText="Misc"
+                    showTitle="true"
+                    height="90"
+                    titleFontSize="14"
+                    :theme="theme"
+                    :showTooltip="false"
+                  />
                 </div>
               </div>
             </v-card>
@@ -132,10 +192,10 @@
                   <v-container>
                     <v-layout row wrap>
                       <v-flex xs12 md6>
-                        <BarChart />
+                        <BarChart :theme="theme"/>
                       </v-flex>
                       <v-flex xs12 md6>
-                        <PieChart />
+                        <PieChart :theme="theme"/>
                       </v-flex>
                     </v-layout>
                   </v-container>
@@ -155,9 +215,16 @@ import PieChart from "@/components/PieChart";
 
 export default {
   components: { DoughnutChart, BarChart, PieChart },
+  methods: {
+    setTheme(event) {
+      this.theme = event ? "dark" : "";
+      this.$vuetify.theme.dark = event;
+    }
+  },
   data() {
     return {
-      dateMenu: false
+      dateMenu: false,
+      theme: ""
     };
   }
 };
@@ -167,5 +234,19 @@ export default {
 .form-label label[for] {
   height: 20px;
   font-size: 10pt;
+}
+.category-budgets {
+  display: flex;
+  justify-content: space-evenly;
+  overflow: hidden;
+  height: 180px;
+  padding-left: 40px;
+}
+.category-budgets:hover {
+  overflow-x: scroll;
+}
+.category-budgets-budget {
+  width: 200px;
+  flex: 0 0 auto;
 }
 </style>
