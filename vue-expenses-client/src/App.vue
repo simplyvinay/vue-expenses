@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :style="{background: $vuetify.theme.themes[isDark].background}">
     <v-container pt-0>
       <Navbar />
       <v-content class="pa-4">
@@ -15,6 +15,14 @@ export default {
   name: "App",
   components: {
     Navbar
+  },
+  computed: {
+    isDark() {
+      return this.$vuetify.theme.dark ? "dark" : "light";
+    }
+  },
+  created(){
+    //this.$vuetify.theme.dark = true
   },
   data: () => ({
     //

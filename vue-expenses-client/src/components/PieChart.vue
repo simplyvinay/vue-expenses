@@ -1,36 +1,76 @@
-<script>
-import { Pie } from "vue-chartjs";
+<template>
+  <chart :options="options" style="width: 100%" :theme="theme" />
+</template>
 
+<script>
 export default {
-  extends: Pie,
-  props: ["options"],
-  mounted() {
-    this.renderChart(
-      {
-        labels: ["Green", "Red", "Blue"],
-        datasets: [
+  data() {
+    return {
+      theme: this.$vuetify.theme.dark ? "dark" : "",
+      options: {
+        backgroundColor: this.$vuetify.theme.dark ? "#424242" : "",
+        series: [
           {
-            label: "",
-            backgroundColor: ["#41B883", "#E46651", "#00D8FF"],
-            data: [1, 10, 5]
+            name: "Category",
+            type: "pie",
+            radius: "60%",
+            center: ["50%", "50%"],
+            roseType: "radius",
+            data: [
+              { value: 335, name: "General\nExpenses" },
+              { value: 310, name: "Shopping" },
+              { value: 234, name: "Utilities" },
+              { value: 210, name: "Groceries" },
+              { value: 400, name: "Travel" },
+            ],
+            itemStyle: {
+              emphasis: {
+                show: true,
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: "rgba(0, 0, 0, 0.5)"
+              }
+            },
+            label: {
+              normal: {
+                //position: "inner",
+                show: true,
+                //fontWeight: "bolder",
+                fontSize: "14"
+              }
+            },
+            labelLine: {
+              normal: {
+                show: true
+              }
+            }
           }
-        ]
-      },
-      {
-        responsive: true,
-        maintainAspectRatio: false,
+        ],
         title: {
-          display: true,
-          fontFamily: "'Roboto', sans-serif",
-          fontSize: 14,
-          fontColor: "#424242",
-          text: "Budget",
+          text: "Expense By Category",
+          //subtext: "All Time",
+          x: "center",
+          top: "20",
+          textStyle: {
+            //color: "#616161",
+            fontSize: 14,
+            fontWeight: 'normal'
+          }
         },
         legend: {
-          display: false
+          show: false,
+          orient: "vertical",
+          left: "left"
+        },
+        tooltip: {
+          trigger: "item",
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
         }
       }
-    );
+    };
   }
 };
 </script>
+
+<style>
+</style>

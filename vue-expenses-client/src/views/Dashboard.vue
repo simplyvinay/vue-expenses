@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h1 class="headline blue--text text--lighten-1">Overview</h1>
+    <h1 class="headline blue--text text--lighten-1">Dashboard</h1>
     <v-container>
       <v-layout row justify-space-between>
-        <v-flex xs12 md5>
-          <v-card class="pa-3 mr-2 mr-2" raised>
-            <div class="body-1 pa-3 grey--text text--darken-2 text-capitalize">Add New Expense</div>
+        <v-flex xs12 md6>
+          <v-card class="pa-3 mr-2" raised>
+            <div class="body-1 pa-3 text-capitalize font-weight-medium">Add New Expense</div>
             <v-divider></v-divider>
             <v-form v-model="valid">
               <v-container>
@@ -77,12 +77,12 @@
             </v-form>
           </v-card>
         </v-flex>
-        <v-flex xs12 md5>
-          <v-card class="pa-3 mr-2" outlined height="100%">
-            <div class="body-1 pa-3 grey--text text--darken-2 text-capitalize">Monthly Budget</div>
+        <v-flex xs12 md6>
+          <v-card class="pa-3 mr-2" tile min-height="360px" height="100%">
+            <div class="body-1 pa-3 text-capitalize font-weight-medium">Monthly Budget</div>
             <v-divider></v-divider>
-            <DoughnutChart :styles="graphsHeight1" />
-            <v-container pb-0 pt-10>
+            <DoughnutChart titleText="This Month" height="70" showLabelAndLines="true" showTitle="true" titleFontSize="15"/>
+            <v-container pb-0 pt-0>
               <v-layout row justify-space-around>
                 <v-card flat max-width="200">
                   <div class="caption">Monthly Limit</div>
@@ -97,24 +97,45 @@
             </v-container>
           </v-card>
         </v-flex>
-        <v-flex
-          xs12
-          md2
-        >Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore perferendis deleniti sapiente labore placeat aut mollitia. Aliquam officiis iusto qui pariatur, ducimus iste eveniet possimus ipsam error, suscipit deserunt dolor!</v-flex>
+        <v-flex xs12 md12>
+          <v-container px-0 pb-0>
+            <v-card class="pa-3 mr-2" tile>
+              <div class="body-1 pa-3 text-capitalize font-weight-medium">Budgets By Categories</div>
+              <v-divider></v-divider>
+              <div style="display: flex; flex-wrap: nowrap; overflow-x: auto; height: 160px">
+                <div style="width: 200px; flex: 0 0 auto;">
+                  <DoughnutChart titleText="General Expenses" showTitle="false" height="100" titleFontSize="14" />
+                </div>
+                <div style="width: 200px; flex: 0 0 auto;">
+                  <DoughnutChart titleText="Shopping" showTitle="true" height="100" titleFontSize="14" />
+                </div>
+                <div style="width: 200px;flex: 0 0 auto;">
+                  <DoughnutChart titleText="Utilities" showTitle="true" height="100" titleFontSize="14" />
+                </div>
+                <div style="width: 200px;flex: 0 0 auto;">
+                  <DoughnutChart titleText="Groceries" showTitle="true" height="100" titleFontSize="14" />
+                </div>
+                <div style="width: 200px;flex: 0 0 auto;">
+                  <DoughnutChart titleText="Travel" showTitle="true" height="100" titleFontSize="14" />
+                </div>
+              </div>
+            </v-card>
+          </v-container>
+        </v-flex>
         <v-flex xs12 md12>
           <v-container>
             <v-layout row wrap>
-              <v-flex xs12 md10>
-                <v-card class="pa-3 mr-2" outlined>
-                  <div class="body-1 pa-3 grey--text text--darken-2 text-capitalize">Breakdown</div>
+              <v-flex xs12 md12>
+                <v-card class="pa-3 mr-2" tile>
+                  <div class="body-1 pa-3 text-capitalize font-weight-medium">Breakdown</div>
                   <v-divider></v-divider>
                   <v-container>
                     <v-layout row wrap>
                       <v-flex xs12 md6>
-                        <BarChart :styles="graphsHeight" />
+                        <BarChart />
                       </v-flex>
                       <v-flex xs12 md6>
-                        <PieChart :styles="graphsHeight2" />
+                        <PieChart />
                       </v-flex>
                     </v-layout>
                   </v-container>
@@ -136,16 +157,7 @@ export default {
   components: { DoughnutChart, BarChart, PieChart },
   data() {
     return {
-      dateMenu: false,
-      graphsHeight: {
-        height: "280px"
-      },
-      graphsHeight1: {
-        height: "215px"
-      },
-      graphsHeight2: {
-        height: "275px"
-      }
+      dateMenu: false
     };
   }
 };
