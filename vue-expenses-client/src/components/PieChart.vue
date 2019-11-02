@@ -4,9 +4,13 @@
 
 <script>
 export default {
+  props: {
+    theme: {
+      type: String     
+    }
+  },
   data() {
     return {
-      theme: this.$vuetify.theme.dark ? "dark" : "",
       options: {
         backgroundColor: this.$vuetify.theme.dark ? "#424242" : "",
         series: [
@@ -64,7 +68,11 @@ export default {
         },
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
+          formatter: "{a} <br/>{b} : {c}<br/>({d}%)",
+          textStyle: {
+            fontSize: 12,
+            fontWeight: "normal"
+          }
         }
       }
     };

@@ -17,18 +17,35 @@ export default {
       type: Number,
       default: 18
     },
-    showLabelAndLines: {
+    showLabel: {
+      type: Boolean,
+      default: false
+    },
+    showLabelLines: {
       type: Boolean,
       default: false
     },
     height: {
       type: Number,
       default: 100
+    },
+    theme: {
+      type: String
+    },
+    showTooltip: {
+      type: Boolean,
+      default: true
+    }
+  },
+  methods: {
+    getRandomColor() {
+      var color = "hsl(" + Math.random() * 360 + ", 60%, 55%)";
+      return color;
     }
   },
   data() {
     return {
-      theme: this.$vuetify.theme.dark ? "dark" : "",
+      //theme: this.$vuetify.theme.dark ? "dark" : "",
       options: {
         backgroundColor: this.$vuetify.theme.dark ? "#424242" : "",
         series: [
@@ -51,18 +68,27 @@ export default {
             },
             label: {
               normal: {
-                show: this.showLabelAndLines,
-                fontSize: "14"
+                show: this.showLabel,
+                fontSize: "14",
+                position: this.showLabel ? "outside" : "center"
+              },
+              emphasis: {
+                show: !this.showLabel,
+                textStyle: {
+                  fontSize: "12",
+                  fontWeight: "bold"
+                },
+                formatter: "{b}\n({d}%)"
               }
             },
             labelLine: {
               normal: {
-                show: this.showLabelAndLines
+                show: this.showLabelLines
               }
             }
           }
         ],
-        color: ["#00c853", "#9575cd"],
+        color: [this.getRandomColor(), "#BDBDBD"],
         title: {
           text: this.titleText,
           //subtext: "Per Month",
@@ -80,8 +106,13 @@ export default {
           left: "left"
         },
         tooltip: {
+          show: this.showTooltip,
           trigger: "item",
-          formatter: "{a} <br/>{b} : {c} <br/>{d}%"
+          formatter: "{a} <br/>{b} : {c} <br/>({d}%)",
+          textStyle: {
+            fontSize: 12,
+            fontWeight: "normal"
+          }
         }
       },
       style: {
