@@ -3,6 +3,15 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
+import Echarts from 'vue-echarts';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/component/legend'
+import 'echarts/lib/component/tooltip'
+import 'echarts/lib/component/title'
+import 'echarts/theme/dark'
+
+Vue.component('chart', Echarts);
 
 Vue.config.productionTip = false
 

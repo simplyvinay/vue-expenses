@@ -33,7 +33,7 @@
           :key="item.text"
           :to="item.route"
           font-weight-thin
-          class="grey--text text--darken-2 text-capitalize"
+          class="text-capitalize"
           @click.native.prevent="handleRoute(item)"
         >{{ item.text }}</v-btn>
       </v-toolbar-items>
@@ -48,9 +48,8 @@ export default {
       appTitle: "Expenser",
       sidebar: false,
       menuItems: [
-        { icon: "dashboard", text: "Overview", route: "/" },
+        { icon: "dashboard", text: "Dashboard", route: "/" },
         { icon: "shopping_cart", text: "Expenses", route: "/expenses" },
-        { icon: "insert_chart", text: "Reports", route: "/reports" },
         { icon: "settings", text: "Settings", route: "/config" },
         { icon: "exit_to_app", text: "Sign Out", route: "/signout" }
       ]

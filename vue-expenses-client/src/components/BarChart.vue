@@ -1,68 +1,98 @@
-<script>
-import { Bar } from "vue-chartjs";
+<template>
+  <chart :options="options" style="width: 100%" :theme="theme" />
+</template>
 
+<script>
 export default {
-  extends: Bar,
-  props: ["options"],
-  mounted() {
-    this.renderChart(
-      {
-        labels: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec"
-        ],
-        datasets: [
-          {
-            label: "",
-            backgroundColor: "#0288D1",
-            data: [1, 20, 12, 32, 10, 40, 30, 39, 28, 20, 12, 11]            
-          }
-        ]
-      },
-      {
-        responsive: true,
-        maintainAspectRatio: false,
-        title: {
-          display: true,
-          fontFamily: "'Roboto', sans-serif",
-          fontSize: 14,
-          fontColor: "#424242",
-          padding: 20          
+  data() {
+    return {
+      theme: this.$vuetify.theme.dark ? "dark" : "",
+      options: {
+        backgroundColor: this.$vuetify.theme.dark ? "#424242" : "",
+        grid: {
+          show: false,
+          top: 80,
+          bottom: 80,
         },
-        legend: {
-          display: false
-        },
-        scales: {
-          xAxes: [
-            {
-              display: true,
-              barPercentage: 0.4,
-              gridLines: {
-                display: false,
-              }
-            }
+        xAxis: {
+          data: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
           ],
-          yAxes: [
-            {
-              display: true,
-              gridLines: {
-                display: false,
+          axisLabel: {
+            textStyle: {
+              //color: "#616161"
+            }
+          }
+        },
+        yAxis: [
+          {
+            type: "value",
+            splitLine: {
+              show: false
+            },
+            axisLabel: {
+              textStyle: {
+                //color: "#616161"
               }
             }
-          ]
+          }
+        ],
+        series: [
+          {
+            type: "bar",
+            data: [630, 750, 240, 800, 630, 750, 240, 920, 63, 750, 240, 780],
+            barWidth: "50%",
+            center: ["50%", "50%"],
+            label: {
+              normal: {
+                show: true,
+                // position: "inside",
+                // rotate: 90
+                position: "top"
+              }
+            },
+            itemStyle: {
+              normal: {},
+              emphasis: {
+                barBorderWidth: 1,
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
+                shadowColor: "rgba(0,0,0,0.8)"
+              }
+            }
+          }
+        ],
+        title: {
+          text: "Expenses By Month",
+          x: "center",
+          top: "20",
+          textStyle: {
+            //color: "#616161",
+            fontSize: 14,
+            fontWeight: "normal"
+          }
+        },
+        //color: ["#2196f3"],
+        tooltip: {
+          trigger: "item"
         }
       }
-    );
+    };
   }
 };
 </script>
+
+<style>
+</style>
