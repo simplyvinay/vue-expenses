@@ -51,7 +51,7 @@ export default {
           }
         ],
         title: {
-          text: "Expense By Category",
+          text: "Expenses By Category",
           //subtext: "All Time",
           x: "center",
           top: "20",

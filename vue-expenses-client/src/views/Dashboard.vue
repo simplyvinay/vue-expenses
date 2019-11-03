@@ -2,7 +2,7 @@
   <div>
     <div style="display: flex; justify-content: space-between; align-items: center">
       <h1 class="headline blue--text text--lighten-1">Dashboard</h1>
-      <v-switch v-model="mandatory" class="mx-2" @change="setTheme" label="Dark Theme"></v-switch>
+      <v-switch v-model="mandatory" class="mx-2" color="grey" @change="setTheme" label="Dark Theme"></v-switch>
     </div>
 
     <v-container>
