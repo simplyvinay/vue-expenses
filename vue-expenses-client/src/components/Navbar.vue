@@ -17,7 +17,7 @@
     <v-toolbar app flat dense>
       <v-toolbar-title class="text-uppercase">
         <router-link to="/" tag="span" style="cursor: pointer" class="headline">
-          <span class="font-weight-light grey--text">Exelo</span>
+          <span class="font-weight-light grey--text">Vue</span>
           <span class="font-weight-bold blue--text">{{ appTitle }}</span>
         </router-link>
       </v-toolbar-title>
@@ -45,7 +45,7 @@
 export default {
   data() {
     return {
-      appTitle: "Expenser",
+      appTitle: "Expenses",
       sidebar: false,
       menuItems: [
         { icon: "dashboard", text: "Dashboard", route: "/" },
