@@ -34,7 +34,6 @@
           :to="item.route"
           font-weight-thin
           class="text-capitalize"
-          @click.native.prevent="handleRoute(item)"
         >{{ item.text }}</v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -50,19 +49,10 @@ export default {
       menuItems: [
         { icon: "dashboard", text: "Dashboard", route: "/" },
         { icon: "shopping_cart", text: "Expenses", route: "/expenses" },
-        { icon: "settings", text: "Settings", route: "/config" },
-        { icon: "exit_to_app", text: "Sign Out", route: "/signout" }
+        { icon: "settings", text: "Settings", route: "/settings" },
+        { icon: "exit_to_app", text: "Sign Out", route: "/login" }
       ]
     };
-  },
-  methods: {
-    handleRoute(item) {
-      if (item.route === "/signout") {
-        alert("Singed out");
-      } else {
-        this.$router.push(item.route);
-      }
-    }
   }
 };
 </script>

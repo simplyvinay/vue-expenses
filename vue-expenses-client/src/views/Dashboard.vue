@@ -231,10 +231,6 @@ export default {
 </script>
 
 <style>
-.form-label label[for] {
-  height: 20px;
-  font-size: 10pt;
-}
 .category-budgets {
   display: flex;
   justify-content: space-evenly;
