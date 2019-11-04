@@ -17,14 +17,14 @@ namespace vue_expenses_api.Features.Users
         public class Command : IRequest<UserDto>
         {
             public Command(
-                string username,
+                string email,
                 string password)
             {
-                Username = username;
+                Email = email;
                 Password = password;
             }
 
-            public string Username { get; set; }
+            public string Email { get; set; }
             public string Password { get; set; }
 
         }
@@ -33,7 +33,7 @@ namespace vue_expenses_api.Features.Users
         {
             public CommandValidator()
             {
-                RuleFor(x => x.Username).NotNull().NotEmpty();
+                RuleFor(x => x.Email).NotNull().NotEmpty();
                 RuleFor(x => x.Password).NotNull().NotEmpty();
             }
         }
@@ -58,10 +58,10 @@ namespace vue_expenses_api.Features.Users
                 Command request,
                 CancellationToken cancellationToken)
             {
-                var sql = "SELECT * FROM [Users] WHERE Username=@username";
+                var sql = "SELECT * FROM [Users] WHERE Email=@email";
                 var customerDto = await _dbConnection.QuerySingleOrDefaultAsync<UserDto>(
                     sql,
-                    new {username = request.Username});
+                    new {email = request.Email});
 
                 if (customerDto == null)
                 {
@@ -80,7 +80,7 @@ namespace vue_expenses_api.Features.Users
                         new {Error = "Invalid credentials."});
                 }
 
-                customerDto.Token = await _jwtTokenGenerator.CreateToken(request.Username);
+                customerDto.Token = await _jwtTokenGenerator.CreateToken(request.Email);
                 return customerDto;
             }
         }
