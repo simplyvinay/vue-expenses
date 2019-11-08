@@ -1,7 +1,7 @@
 <template>
   <v-app :style="{background: $vuetify.theme.themes[isDark].background}">
+    <Navbar />
     <v-container pt-0>
-      <Navbar />
       <v-content class="pa-3">
         <router-view></router-view>
       </v-content>

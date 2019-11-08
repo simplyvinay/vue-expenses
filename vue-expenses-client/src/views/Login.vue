@@ -1,12 +1,12 @@
 <template>
-  <v-app id="inspire">
+  <v-app>
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
-              <v-toolbar color="blue" dark flat>
-                <v-toolbar-title>Login form</v-toolbar-title>
+              <v-toolbar color="primary" dark flat>
+                <v-toolbar-title>Login</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
                 <v-form>
