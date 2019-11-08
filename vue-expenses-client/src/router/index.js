@@ -10,16 +10,15 @@ Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
-  linkActiveClass: 'is-active',
   routes: [
     {
       path: '/', component: HomePage,
       children: [
         //HomePage's <router-view>
-        { path: '/', component: Dashboard },
         { path: '/dashboard', component: Dashboard },
         { path: '/expenses', component: Expenses },     
         { path: '/settings', component: Settings },     
+        { path: '/', component: Dashboard },
       ]
     },
     { path: '/login', component: Login },
@@ -35,7 +34,7 @@ router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem('user');
 
   if (authRequired && !loggedIn) {
-    return next('/login');
+    //return next('/login');
   }
 
   next();
