@@ -1,7 +1,12 @@
 <template>
   <div>
     <v-navigation-drawer v-model="sidebar" app left offset-y>
-      <v-list-item v-for="item in menuItems" :key="item.text" :to="item.route" active-class="blue--text">
+      <v-list-item
+        v-for="item in menuItems"
+        :key="item.text"
+        :to="item.route"
+        active-class="blue--text"
+      >
         <v-list-item-icon class="mr-2">
           <v-icon small>{{ item.icon }}</v-icon>
         </v-list-item-icon>
@@ -9,7 +14,7 @@
       </v-list-item>
     </v-navigation-drawer>
 
-    <v-toolbar app flat dark color="primary">
+    <v-toolbar app flat dense dark color="primary">
       <span class="hidden-md-and-up">
         <v-app-bar-nav-icon @click="sidebar = !sidebar"></v-app-bar-nav-icon>
       </span>
@@ -21,24 +26,14 @@
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn
-          text
-          v-for="item in menuItems"
-          :key="item.text"
-          :to="item.route"
-          font-weight-thin
-          class="body-2"
-        >{{ item.text }}</v-btn>
-      </v-toolbar-items>
       <!-- menu -->
-      <v-menu offset-y>
-        <template v-slot:activator="{ on }">
-          <v-avatar size="34px" color="blue lighten-2" class="ml-2" style="cursor: pointer">
-            <span class="white--text" v-on="on">CJ</span>
-          </v-avatar>          
+      <v-menu offset-y >
+        <template v-slot:activator="{ on }" class="ml-4">
+          <v-avatar size="34px" color="blue lighten-2" class="ml-2" style="cursor: pointer" v-on="on">
+            <span class="white--text">CJ</span>
+          </v-avatar>
         </template>
-        <v-list>
+        <v-list class="pt-4">
           <v-list-item v-for="item in profileItems" :key="item" router dense :to="item.route">
             <v-list-item-icon class="mr-2">
               <v-icon small>{{ item.icon }}</v-icon>
@@ -47,6 +42,24 @@
           </v-list-item>
         </v-list>
       </v-menu>
+    </v-toolbar>
+    <v-toolbar dense flat class="hidden-sm-and-down secondary-toolbar">
+      <v-toolbar-items>
+        <v-btn
+          text
+          v-for="item in menuItems"
+          :key="item.text"
+          :to="item.route"
+          font-weight-thin
+          active-class="blue--text"
+          class="body-2"
+        >
+          <span>
+            <v-icon small class="blue--text mr-2">{{ item.icon }}</v-icon>
+          </span>
+          {{ item.text }}
+        </v-btn>
+      </v-toolbar-items>
     </v-toolbar>
   </div>
 </template>
@@ -70,9 +83,28 @@ export default {
 };
 </script>
 
-<style scoped>
-::v-deep .v-toolbar__content{
+<style scoped lang="scss">
+::v-deep .v-toolbar__content {
   max-width: 1185px;
   margin: auto;
 }
+
+::v-deep .v-toolbar__items>a.v-btn--active:after {
+  content : "";
+  position: absolute;
+  left    : 20px;
+  bottom  : 0;
+  height  : 1px;
+  width   : 78%;
+  border-bottom:1px solid magenta;
+}
+
+::v-deep .secondary-toolbar .v-toolbar__content {
+  padding: 0;
+}
+
+::v-deep .v-btn:before {
+  background-color: transparent !important;
+}
+
 </style>

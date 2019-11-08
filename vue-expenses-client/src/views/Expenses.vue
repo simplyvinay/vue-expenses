@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1 class="headline blue--text text--lighten-1">Expenses</h1>
     <v-container>
       <v-layout row>
         <v-flex xs12>
