@@ -1,11 +1,11 @@
 <template>
-  <v-app>
+  <v-app >
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
-            <v-card class="elevation-12">
-              <v-toolbar color="primary" dark flat>
+            <v-card tile>
+              <v-toolbar flat color="primary" dark >
                 <v-toolbar-title>Login</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
@@ -32,7 +32,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn outlined class="blue--text" @click="handleSubmit">Login</v-btn>
+                <v-btn outlined class="primary--text" @click="handleSubmit">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>

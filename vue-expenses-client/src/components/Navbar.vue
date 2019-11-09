@@ -14,7 +14,7 @@
       </v-list-item>
     </v-navigation-drawer>
 
-    <v-toolbar app flat dense dark color="primary">
+    <v-toolbar flat dense dark color="primary">
       <span class="hidden-md-and-up">
         <v-app-bar-nav-icon @click="sidebar = !sidebar"></v-app-bar-nav-icon>
       </span>
@@ -34,7 +34,7 @@
           </v-avatar>
         </template>
         <v-list>
-          <v-list-item v-for="item in profileItems" :key="item" router dense :to="item.route">
+          <v-list-item v-for="item in profileItems" :key="item.text" router dense :to="item.route">
             <v-list-item-icon class="mr-2">
               <v-icon small>{{ item.icon }}</v-icon>
             </v-list-item-icon>
@@ -54,7 +54,7 @@
           <span>
             <v-icon small class="blue--text mr-1">{{ item.icon }}</v-icon>
           </span>
-          <span class="mt-1 body-2">
+          <span class="mt-1 subtitle-2 text-capitalize">
           {{ item.text }}
           </span>
         </v-btn>
@@ -76,7 +76,7 @@ export default {
         { icon: "settings", text: "Settings", route: "/settings" },
       ],
       profileItems: [
-        { icon: "perm_identity", text: "Profile", route: "/settings" },
+        { icon: "perm_identity", text: "Profile", route: "/profile" },
         { icon: "exit_to_app", text: "Sign Out", route: "/login" }
       ]
     };

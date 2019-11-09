@@ -6,6 +6,7 @@ import Dashboard from '@/views/Dashboard.vue'
 import Expenses from '@/views/Expenses.vue'
 import Stats from '@/views/Stats.vue'
 import Settings from '@/views/Settings.vue'
+import Profile from '@/views/Profile.vue'
 
 Vue.use(Router)
 
@@ -20,6 +21,7 @@ const router = new Router({
         { path: '/expenses', component: Expenses },     
         { path: '/stats', component: Stats },
         { path: '/settings', component: Settings },
+        { path: '/profile', component: Profile },
         { path: '/', component: Dashboard },
       ]
     },
