@@ -4,6 +4,7 @@ import Login from '@/views/Login.vue'
 import HomePage from '@/views/HomePage.vue'
 import Dashboard from '@/views/Dashboard.vue'
 import Expenses from '@/views/Expenses.vue'
+import Stats from '@/views/Stats.vue'
 import Settings from '@/views/Settings.vue'
 
 Vue.use(Router)
@@ -17,7 +18,8 @@ const router = new Router({
         //HomePage's <router-view>
         { path: '/dashboard', component: Dashboard },
         { path: '/expenses', component: Expenses },     
-        { path: '/settings', component: Settings },     
+        { path: '/stats', component: Stats },
+        { path: '/settings', component: Settings },
         { path: '/', component: Dashboard },
       ]
     },

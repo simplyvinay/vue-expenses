@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="headline blue--text text--lighten-1">Settings</h1>
+    <!-- <h1 class="headline blue--text text--lighten-1">Settings</h1> -->
     <v-container>
       <v-layout row justify-space-between>
         <v-flex xs12 md8>

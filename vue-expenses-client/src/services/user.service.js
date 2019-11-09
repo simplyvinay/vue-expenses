@@ -8,7 +8,7 @@ export const userService = {
 function login(email, password) {
 	return axios({
 		method: 'POST',
-		url: `${process.env.VUE_APP_APIURL}/login`,
+		url: `${process.env.VUE_APP_BASE_URL}/login`,
 		data: {
 			email,
 			password
