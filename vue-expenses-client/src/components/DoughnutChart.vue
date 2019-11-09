@@ -47,6 +47,9 @@ export default {
     return {
       //theme: this.$vuetify.theme.dark ? "dark" : "",
       options: {
+        textStyle: {
+          fontFamily: 'Nunito'
+        },
         backgroundColor: this.$vuetify.theme.dark ? "#424242" : "",
         series: [
           {

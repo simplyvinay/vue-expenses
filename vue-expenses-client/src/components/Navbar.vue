@@ -21,7 +21,7 @@
       <v-spacer class="hidden-md-and-up"></v-spacer>
       <v-toolbar-title class="text-uppercase">
         <router-link to="/" tag="span" style="cursor: pointer" class="headline">
-          <span class="font-weight-light">Vue</span>
+          <span class="grey--text text--lighten-1">Vue</span>
           <span class="font-weight-bold">{{ appTitle }}</span>
         </router-link>
       </v-toolbar-title>
@@ -33,7 +33,7 @@
             <span class="white--text">CJ</span>
           </v-avatar>
         </template>
-        <v-list class="pt-4">
+        <v-list>
           <v-list-item v-for="item in profileItems" :key="item" router dense :to="item.route">
             <v-list-item-icon class="mr-2">
               <v-icon small>{{ item.icon }}</v-icon>
@@ -50,14 +50,13 @@
           v-for="item in menuItems"
           :key="item.text"
           :to="item.route"
-          font-weight-thin
-          active-class="blue--text"
-          class="body-2"
         >
           <span>
-            <v-icon small class="blue--text mr-2">{{ item.icon }}</v-icon>
+            <v-icon small class="blue--text mr-1">{{ item.icon }}</v-icon>
           </span>
+          <span class="mt-1 body-2">
           {{ item.text }}
+          </span>
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -72,10 +71,12 @@ export default {
       sidebar: false,
       menuItems: [
         { icon: "dashboard", text: "Dashboard", route: "/dashboard" },
-        { icon: "shopping_cart", text: "Expenses", route: "/expenses" }
+        { icon: "shopping_cart", text: "Expenses", route: "/expenses" },
+        { icon: "insert_chart_outlined", text: "Stats", route: "/stats" },
+        { icon: "settings", text: "Settings", route: "/settings" },
       ],
       profileItems: [
-        { icon: "settings", text: "Settings", route: "/settings" },
+        { icon: "perm_identity", text: "Profile", route: "/settings" },
         { icon: "exit_to_app", text: "Sign Out", route: "/login" }
       ]
     };
@@ -92,11 +93,11 @@ export default {
 ::v-deep .v-toolbar__items>a.v-btn--active:after {
   content : "";
   position: absolute;
-  left    : 20px;
+  left    : 18px;
   bottom  : 0;
-  height  : 1px;
-  width   : 78%;
-  border-bottom:1px solid magenta;
+  height  : 2px;
+  width   : 75%;
+  border-bottom:1px solid #1E88E5;
 }
 
 ::v-deep .secondary-toolbar .v-toolbar__content {

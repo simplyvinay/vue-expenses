@@ -13,6 +13,9 @@ export default {
     return {
       options: {
         backgroundColor: this.$vuetify.theme.dark ? "#424242" : "",
+        textStyle: {
+          fontFamily: 'Nunito'
+        },
         series: [
           {
             name: "Category",

@@ -8,7 +8,7 @@
             :class="{'pa-3 mr-2 mb-2': $vuetify.breakpoint.smAndDown, 'pa-3 mr-2': $vuetify.breakpoint.mdAndUp}"
             raised
           >
-            <div class="body-1 pa-3 text-capitalize font-weight-medium">Add New Expense</div>
+            <div class="body-1 px-2 py-1 text-capitalize font-weight-medium">Add New Expense</div>
             <v-divider></v-divider>
             <v-form v-model="valid">
               <v-container>
@@ -74,7 +74,7 @@
                   </v-col>
                 </v-row>
                 <v-row class="justify-end">
-                  <v-btn outlined rounded class="blue--text">Submit</v-btn>
+                  <v-btn outlined class="blue--text">Submit</v-btn>
                 </v-row>
               </v-container>
             </v-form>
@@ -82,7 +82,7 @@
         </v-flex>
         <v-flex xs12 md6>
           <v-card class="pa-3 mr-2" tile min-height="360px" height="100%">
-            <div class="body-1 pa-3 text-capitalize font-weight-medium">Monthly Budget</div>
+            <div class="body-1 px-2 py-1 text-capitalize font-weight-medium">Monthly Budget</div>
             <v-divider></v-divider>
             <DoughnutChart
               titleText="This Month"
@@ -111,7 +111,7 @@
         <v-flex xs12 md12>
           <v-container px-0 pb-0>
             <v-card class="pa-3 mr-2" tile>
-              <div class="body-1 pa-3 text-capitalize font-weight-medium">Budgets By Categories</div>
+              <div class="body-1 px-2 py-1 text-capitalize font-weight-medium">Budgets By Categories</div>
               <v-divider></v-divider>
               <div class="category-budgets">
                 <div class="category-budgets-budget">
@@ -183,7 +183,7 @@
             <v-layout row wrap>
               <v-flex xs12 md12>
                 <v-card class="pa-3 mr-2" tile>
-                  <div class="body-1 pa-3 text-capitalize font-weight-medium">Breakdown</div>
+                  <div class="body-1 px-2 py-1 text-capitalize font-weight-medium">Breakdown</div>
                   <v-divider></v-divider>
                   <v-container>
                     <v-layout row wrap>
