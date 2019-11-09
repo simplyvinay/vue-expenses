@@ -45,12 +45,11 @@ export default {
   },
   data() {
     return {
-      //theme: this.$vuetify.theme.dark ? "dark" : "",
       options: {
+        backgroundColor: this.$vuetify.theme.dark ? "#424242" : "",
         textStyle: {
           fontFamily: 'Nunito'
         },
-        backgroundColor: this.$vuetify.theme.dark ? "#424242" : "",
         series: [
           {
             name: "Category",

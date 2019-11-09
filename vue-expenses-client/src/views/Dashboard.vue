@@ -5,10 +5,10 @@
       <v-layout row justify-space-between>
         <v-flex xs12 md6>
           <v-card
-            :class="{'pa-3 mr-2 mb-2': $vuetify.breakpoint.smAndDown, 'pa-3 mr-2': $vuetify.breakpoint.mdAndUp}"
+            :class="{'pa-2 mr-2 mb-2': $vuetify.breakpoint.smAndDown, 'pa-2 mr-2': $vuetify.breakpoint.mdAndUp}"
             raised
           >
-            <div class="body-1 px-2 py-1 text-capitalize font-weight-medium">Add New Expense</div>
+            <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Add New Expense</div>
             <v-divider></v-divider>
             <v-form v-model="valid">
               <v-container>
@@ -74,15 +74,15 @@
                   </v-col>
                 </v-row>
                 <v-row class="justify-end">
-                  <v-btn outlined class="blue--text">Submit</v-btn>
+                  <v-btn outlined small class="blue--text font-weight-bold">Submit</v-btn>
                 </v-row>
               </v-container>
             </v-form>
           </v-card>
         </v-flex>
         <v-flex xs12 md6>
-          <v-card class="pa-3 mr-2" tile min-height="360px" height="100%">
-            <div class="body-1 px-2 py-1 text-capitalize font-weight-medium">Monthly Budget</div>
+          <v-card class="pa-2 mr-2" tile min-height="340px" height="100%">
+            <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Monthly Budget</div>
             <v-divider></v-divider>
             <DoughnutChart
               titleText="This Month"
@@ -96,13 +96,13 @@
             <v-container pb-0 pt-0>
               <v-layout row justify-space-around>
                 <v-card flat max-width="200">
-                  <div class="caption">Monthly Limit</div>
-                  <span class="subtitle-2">35000</span>
+                  <div class="subtitle-2">Monthly Limit</div>
+                  <span class="subtitle-1">35000</span>
                 </v-card>
 
                 <v-card flat max-width="200">
-                  <div class="caption">Spent Amount</div>
-                  <span class="subtitle-2">20000</span>
+                  <div class="subtitle-2">Spent Amount</div>
+                  <span class="subtitle-1">20000</span>
                 </v-card>
               </v-layout>
             </v-container>
@@ -110,8 +110,8 @@
         </v-flex>
         <v-flex xs12 md12>
           <v-container px-0 pb-0>
-            <v-card class="pa-3 mr-2" tile>
-              <div class="body-1 px-2 py-1 text-capitalize font-weight-medium">Budgets By Categories</div>
+            <v-card class="pa-2 mr-2" tile>
+              <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Budgets By Categories</div>
               <v-divider></v-divider>
               <div class="category-budgets">
                 <div class="category-budgets-budget">
@@ -182,8 +182,8 @@
           <v-container>
             <v-layout row wrap>
               <v-flex xs12 md12>
-                <v-card class="pa-3 mr-2" tile>
-                  <div class="body-1 px-2 py-1 text-capitalize font-weight-medium">Breakdown</div>
+                <v-card class="pa-2 mr-2" tile>
+                  <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Breakdown</div>
                   <v-divider></v-divider>
                   <v-container>
                     <v-layout row wrap>

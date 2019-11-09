@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Navbar from "../components/Navbar";
+import Navbar from "@/components/Navbar";
 export default {
   components: {
     Navbar
@@ -37,20 +37,11 @@ export default {
 
 ::-webkit-scrollbar {
   width: 10px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: #757575;
-  background-image: -webkit-linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.2) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(255, 255, 255, 0.2) 50%,
-    rgba(255, 255, 255, 0.2) 75%,
-    transparent 75%,
-    transparent
-  );
 }
 
 .form-label label[for] {
@@ -59,7 +50,7 @@ export default {
 }
 
 .tableHeader {
-  /* height: 20px;
-    font-size: 16px !important; */
+  height: 20px;
+    font-size: 16px !important;
 }
 </style>
