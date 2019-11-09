@@ -26,6 +26,7 @@
                   class="ma-0 pa-0 form-label"
                   dense
                   counter="100"
+                  rows="2"
                   v-model="editedCategory.description"
                   label="Description"
                 ></v-textarea>
@@ -42,7 +43,7 @@
                   label="Colour"
                 >
                   <template v-slot:append>
-                    <v-menu top nudge-bottom="105" nudge-left="16" :close-on-content-click="false">
+                    <v-menu top nudge-bottom="110" nudge-left="20" :close-on-content-click="false">
                       <template v-slot:activator="{ on }">
                         <div :style="swatchStyle(editedCategory)" v-on="on" />
                       </template>

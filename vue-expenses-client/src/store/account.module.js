@@ -18,7 +18,7 @@ const actions = {
                 },
                 error => {
                     commit('loginFailure', error.message);
-                    dispatch('alert/error', error.message, { root: true });
+                    dispatch('alert/setAlert', {message: error.message, color: 'error'}, { root: true });
                 }
             );
     },

@@ -119,7 +119,7 @@ namespace vue_expenses_api
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
             }
             else
             {

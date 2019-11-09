@@ -1,13 +1,16 @@
 <template>
   <div>
-    <v-switch v-model="mandatory" class="ma-0 pa-0" color="grey" @change="setTheme" label="Dark Theme"></v-switch>
+    <v-switch
+      v-model="mandatory"
+      class="ma-0 pa-0"
+      color="grey"
+      @change="setTheme"
+      label="Dark Theme"
+    ></v-switch>
     <v-container>
       <v-layout row justify-space-between>
         <v-flex xs12 md6>
-          <v-card
-            :class="{'pa-2 mr-2 mb-2': $vuetify.breakpoint.smAndDown, 'pa-2 mr-2': $vuetify.breakpoint.mdAndUp}"
-            raised
-          >
+          <v-card class="pa-2 mr-2" raised>
             <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Add New Expense</div>
             <v-divider></v-divider>
             <v-form v-model="valid">
@@ -81,7 +84,12 @@
           </v-card>
         </v-flex>
         <v-flex xs12 md6>
-          <v-card class="pa-2 mr-2" tile min-height="340px" height="100%">
+          <v-card
+            :class="{'pa-2 mr-2 mt-2': $vuetify.breakpoint.smAndDown, 'pa-2 mr-2': $vuetify.breakpoint.mdAndUp}"
+            tile
+            min-height="340px"
+            height="100%"
+          >
             <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Monthly Budget</div>
             <v-divider></v-divider>
             <DoughnutChart
@@ -111,7 +119,9 @@
         <v-flex xs12 md12>
           <v-container px-0 pb-0>
             <v-card class="pa-2 mr-2" tile>
-              <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Budgets By Categories</div>
+              <div
+                class="blue--text px-2 py-1 text-capitalize font-weight-medium"
+              >Budgets By Categories</div>
               <v-divider></v-divider>
               <div class="category-budgets">
                 <div class="category-budgets-budget">
@@ -188,10 +198,10 @@
                   <v-container>
                     <v-layout row wrap>
                       <v-flex xs12 md6>
-                        <BarChart :theme="theme"/>
+                        <BarChart :theme="theme" />
                       </v-flex>
                       <v-flex xs12 md6>
-                        <PieChart :theme="theme"/>
+                        <PieChart :theme="theme" />
                       </v-flex>
                     </v-layout>
                   </v-container>
