@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       form: {
-        email: "",
+        email: "test@test.com",
         password: "",
         submitted: false
       }

@@ -1,27 +1,20 @@
 <template>
-  <v-app :style="{background: $vuetify.theme.themes[isDark].background}">
+  <div>
     <Navbar />
     <v-container pt-2>
       <v-content class="pt-1 pl-1">
         <router-view></router-view>
       </v-content>
-    </v-container>
-  </v-app>
+    </v-container>    
+  </div>
 </template>
 
 <script>
 import Navbar from "@/components/Navbar";
+
 export default {
   components: {
     Navbar
-  },
-  computed: {
-    isDark() {
-      return this.$vuetify.theme.dark ? "dark" : "light";
-    }
-  },
-  created() {
-    //this.$vuetify.theme.dark = true
   },
   data: () => ({
     //
@@ -51,6 +44,6 @@ export default {
 
 .tableHeader {
   height: 20px;
-    font-size: 16px !important;
+  font-size: 16px !important;
 }
 </style>

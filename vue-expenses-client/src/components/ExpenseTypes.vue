@@ -25,6 +25,8 @@
                 <v-textarea
                   class="ma-0 pa-0 form-label"
                   dense
+                  counter="100"
+                  rows="2"
                   v-model="editedType.description"
                   label="Description"
                 ></v-textarea>
