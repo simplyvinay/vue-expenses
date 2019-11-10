@@ -13,16 +13,10 @@ export default new Vuetify({
     themes: {
       light: {
         primary: '#2779bd',
-        success: colors.green.lighten1,
-        info: colors.blue.lighten1,
-        error: colors.red.lighten1,
         background: colors.grey.lighten3
       },
       dark: {
-        primary: '#2779bd',
-        success: colors.green.lighten1,
-        info: colors.blue.lighten1,
-        error: colors.red.lighten1
+        primary: '#2779bd'
       },
     },
   }
