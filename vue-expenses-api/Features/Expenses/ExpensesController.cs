@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using vue_expenses_api.Dtos;
+using vue_expenses_api.Infrastructure;
 
 namespace vue_expenses_api.Features.Expenses
 {
@@ -15,7 +16,8 @@ namespace vue_expenses_api.Features.Expenses
         private readonly IMediator _mediator;
 
         public ExpensesController(
-            IMediator mediator)
+            IMediator mediator,
+            ExpensesContext dbContext)
         {
             _mediator = mediator;
         }

@@ -22,7 +22,7 @@ namespace vue_expenses_api.Infrastructure
 
         public DbSet<User> Users { get; set; }
         public DbSet<Expense> Expenses { get; set; }
-        public DbSet<ExpenseCategory> ExpenseCateogries { get; set; }
+        public DbSet<ExpenseCategory> ExpenseCategories { get; set; }
         public DbSet<ExpenseType> ExpenseTypes { get; set; }
 
         protected override void OnConfiguring(
@@ -76,58 +76,61 @@ namespace vue_expenses_api.Infrastructure
                 .WithMany(e => e.Expenses);
 
             #region Seed
+
             var createdAt = DateTime.Now;
             var salt = Guid.NewGuid().ToByteArray();
-            modelBuilder.Entity<User>().HasData(
-                new User(
+            var user = new User(
+                "John",
+                "Doe",
+                "foo@bar.com",
+                new PasswordHasher().Hash(
                     "test",
-                    "foo@bar.com",
-                    new PasswordHasher().Hash(
-                        "test",
-                        salt),
-                    salt
-                )
-                {
-                    Id = 1,
-                    CreatedAt = createdAt,
-                    UpdatedAt = createdAt
-                });
-
-            var expenseCategory = new ExpenseCategory(
-                "General Expenses",
-                "")
+                    salt),
+                salt
+            )
             {
                 Id = 1,
                 CreatedAt = createdAt,
                 UpdatedAt = createdAt
             };
-            var expenseType = new ExpenseType(
-                "Credit Card",
-                "")
-            {
-                Id = 1,
-                CreatedAt = createdAt,
-                UpdatedAt = createdAt
-            };
+            modelBuilder.Entity<User>().HasData(user);
 
             modelBuilder.Entity<ExpenseCategory>().HasData(
-                expenseCategory
+                new
+                {
+                    Id = 1,
+                    Name = "General Expenses",
+                    Budget = 0m,
+                    Colour = "",
+                    CreatedAt = createdAt,
+                    UpdatedAt = createdAt,
+                    UserId = user.Id
+                }
             );
             modelBuilder.Entity<ExpenseType>().HasData(
-                expenseType
+                new
+                {
+                    Id = 1,
+                    Name = "Credit Card",
+                    CreatedAt = createdAt,
+                    UpdatedAt = createdAt,
+                    UserId = user.Id
+                }
             );
             modelBuilder.Entity<Expense>().HasData(
                 new
                 {
                     Id = 1,
                     Date = DateTime.Now,
-                    CategoryId = expenseCategory.Id,
-                    TypeId = expenseType.Id,
+                    CategoryId = 1,
+                    TypeId = 1,
                     Value = 10m,
                     CreatedAt = createdAt,
-                    UpdatedAt = createdAt
+                    UpdatedAt = createdAt,
+                    UserId = user.Id
                 }
-            ); 
+            );
+
             #endregion
         }
     }

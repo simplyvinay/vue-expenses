@@ -9,7 +9,7 @@ namespace vue_expenses_api.Infrastructure.Security
     public interface IJwtTokenGenerator
     {
         Task<string> CreateToken(
-            string username);
+            string email);
     }
 
     public class JwtTokenGenerator : IJwtTokenGenerator
@@ -23,13 +23,13 @@ namespace vue_expenses_api.Infrastructure.Security
         }
 
         public async Task<string> CreateToken(
-            string username)
+            string email)
         {
             var claims = new[]
             {
                 new Claim(
                     JwtRegisteredClaimNames.Sub,
-                    username),
+                    email),
                 new Claim(
                     JwtRegisteredClaimNames.Jti,
                     await _jwtOptions.JtiGenerator()),

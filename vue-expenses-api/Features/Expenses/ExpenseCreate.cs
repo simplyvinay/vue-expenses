@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using vue_expenses_api.Domain;
 using vue_expenses_api.Dtos;
 using vue_expenses_api.Infrastructure;
+using vue_expenses_api.Infrastructure.Security;
 
 namespace vue_expenses_api.Features.Expenses
 {
@@ -49,27 +51,33 @@ namespace vue_expenses_api.Features.Expenses
         public class Handler : IRequestHandler<Command, ExpenseDto>
         {
             private readonly ExpensesContext _context;
+            private readonly ICurrentUser _currentUser;
 
             public Handler(
-                ExpensesContext db)
+                ExpensesContext db,
+                ICurrentUser currentUser)
             {
                 _context = db;
+                _currentUser = currentUser;
             }
 
             public async Task<ExpenseDto> Handle(
                 Command request,
                 CancellationToken cancellationToken)
             {
+                var user = _context.Users.Single(x => x.Email == _currentUser.EmailId);
+
                 var expense = new Expense(
                     request.Date,
-                    _context.ExpenseCateogries.SingleOrDefaultAsync(
+                    _context.ExpenseCategories.SingleOrDefaultAsync(
                         x => x.Id == request.CategoryId,
                         cancellationToken).Result,
                     _context.ExpenseTypes.SingleOrDefaultAsync(
                         x => x.Id == request.TypeId,
                         cancellationToken).Result,
                     request.Value,
-                    request.Comments);
+                    request.Comments,
+                    user);
 
                 await _context.Expenses.AddAsync(
                     expense,

@@ -14,13 +14,15 @@ namespace vue_expenses_api.Domain
             ExpenseCategory category,
             ExpenseType type,
             decimal value,
-            string comments)
+            string comments,
+            User user)
         {
             Date = date;
             Category = category;
             Type = type;
             Value = value;
             Comments = comments;
+            User = user;
         }
 
         public DateTime Date { get; set; }
@@ -28,5 +30,6 @@ namespace vue_expenses_api.Domain
         public ExpenseType Type { get; set; }
         public decimal Value { get; set; }
         public string Comments { get; set; }
+        public User User { get; set; }
     }
 }

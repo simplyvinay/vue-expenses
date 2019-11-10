@@ -4,7 +4,10 @@ namespace vue_expenses_api.Dtos
 {
     public class UserDto
     {
-        protected UserDto() {}
+        protected UserDto()
+        {
+        }
+
         public UserDto(
             string username,
             string email,
