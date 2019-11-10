@@ -10,7 +10,7 @@
       {{alert.message}}
       <v-icon small dark @click="alert.show = false">close</v-icon>
     </v-snackbar>
-    <router-view></router-view>asd
+    <router-view></router-view>
   </v-app>
 </template>
 
