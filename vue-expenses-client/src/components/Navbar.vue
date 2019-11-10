@@ -10,11 +10,11 @@
         <v-list-item-icon class="mr-2">
           <v-icon small>{{ item.icon }}</v-icon>
         </v-list-item-icon>
-        <v-list-tile-content>{{ item.text }}</v-list-tile-content>
+        <v-list-item-title>{{ item.text }}</v-list-item-title>
       </v-list-item>
     </v-navigation-drawer>
 
-    <v-toolbar flat dense dark color="primary">
+    <v-toolbar dense dark color="primary">
       <span class="hidden-md-and-up">
         <v-app-bar-nav-icon @click="sidebar = !sidebar"></v-app-bar-nav-icon>
       </span>
@@ -34,7 +34,7 @@
               <span class="white--text">JD</span>
             </v-avatar>
             <div class="hidden-sm-and-down">
-              <v-btn flat text class="pa-1">
+              <v-btn text class="pa-1">
                 <span class="text-capitalize">John Doe</span>
                 <v-icon>expand_more</v-icon>
               </v-btn>

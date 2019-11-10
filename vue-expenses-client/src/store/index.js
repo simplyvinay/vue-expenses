@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { account } from '@/store/account';
+import { alert } from '@/store/alert';
 
-import { account } from '@/store/account.module';
-import { alert } from '@/store/alert.module';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({

@@ -1,4 +1,6 @@
 import { userService } from '@/services/user.service';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER } from '@/store/mutationTypes'
+import { LOGIN, LOGOUT, SET_ALERT } from '@/store/actionTypes'
 import router from '@/router/index';
 
 const user = JSON.parse(localStorage.getItem('user'));
@@ -7,41 +9,41 @@ const state = user
     : { status: {}, user: null };
 
 const actions = {
-    login({ dispatch, commit }, { email, password }) {
-        commit('loginRequest', { email });
+    [LOGIN]({ dispatch, commit }, { email, password }) {
+        commit(LOGIN_REQUEST, { email });
 
         userService.login(email, password)
             .then(
                 user => {
-                    commit('loginSuccess', user);
+                    commit(LOGIN_SUCCESS, user);
                     router.push('/');
                 },
                 error => {
-                    commit('loginFailure', error.message);
-                    dispatch('alert/setAlert', {message: error.message, color: 'error'}, { root: true });
+                    commit(LOGIN_FAILURE, error.message);
+                    dispatch(`alert/${SET_ALERT}`, { message: error.message, color: 'error' }, { root: true });
                 }
             );
     },
-    logout({ commit }) {
+    [LOGOUT]({ commit }) {
         userService.logout();
-        commit('logout');
+        commit(LOGOUT_USER);
     }
 };
 
 const mutations = {
-    loginRequest(state, user) {
+    [LOGIN_REQUEST](state, user) {
         state.status = { loggingIn: true };
         state.user = user;
     },
-    loginSuccess(state, user) {
+    [LOGIN_SUCCESS](state, user) {
         state.status = { loggedIn: true };
         state.user = user;
     },
-    loginFailure(state) {
+    [LOGIN_FAILURE](state) {
         state.status = {};
         state.user = null;
     },
-    logout(state) {
+    [LOGOUT_USER](state) {
         state.status = {};
         state.user = null;
     }

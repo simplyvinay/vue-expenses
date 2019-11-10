@@ -1,18 +1,21 @@
+import { ADD_ALERT } from '@/store/mutationTypes'
+import { SET_ALERT } from '@/store/actionTypes'
+
 const state = {
     alerts: []
 };
 
 const actions = {
-    setAlert({commit}, alert) {
+    [SET_ALERT]({commit}, alert) {
         alert.show = true;
         alert.color = alert.color;
         alert.message = alert.message;
-        commit('SET_ALERT', alert);
+        commit(ADD_ALERT, alert);
       }
 };
 
 const mutations = {
-    SET_ALERT(state, alert) {
+    [ADD_ALERT](state, alert) {
         state.alerts = state.alerts.concat(alert);
       }
 };
