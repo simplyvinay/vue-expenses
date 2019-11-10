@@ -19,14 +19,20 @@ namespace vue_expenses_api.Features.Expenses
         {
             public Command(
                 string name,
-                string description)
+                string description,
+                decimal budget,
+                string colourHex)
             {
                 Name = name;
                 Description = description;
+                Budget = budget;
+                ColourHex = colourHex;
             }
 
             public string Name { get; }
             public string Description { get; }
+            public decimal Budget { get; }
+            public string ColourHex { get; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -71,8 +77,8 @@ namespace vue_expenses_api.Features.Expenses
                 var expenseCategory = new ExpenseCategory(
                     request.Name,
                     request.Description,
-                    0,
-                    string.Empty,
+                    request.Budget,
+                    request.ColourHex,
                     user);
 
                 await _context.ExpenseCategories.AddAsync(

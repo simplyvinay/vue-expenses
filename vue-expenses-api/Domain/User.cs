@@ -24,6 +24,7 @@ namespace vue_expenses_api.Domain
         public string LastName { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
+        public bool UseDarkMode { get; set; }
 
         [JsonIgnore]
         public byte[] Hash { get; set; }

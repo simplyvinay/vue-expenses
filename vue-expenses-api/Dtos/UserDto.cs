@@ -9,18 +9,18 @@ namespace vue_expenses_api.Dtos
         }
 
         public UserDto(
-            string username,
             string email,
-            string token)
+            string token,
+            string useDarkMode)
         {
-            Username = username;
             Email = email;
             Token = token;
+            UseDarkMode = useDarkMode;
         }
 
-        public string Username { get; set; }
         public string Email { get; set; }
         public string Token { get; set; }
+        public string UseDarkMode { get; set; }
 
         [JsonIgnore]
         public byte[] Hash { get; set; }

@@ -9,7 +9,7 @@ using vue_expenses_api.Infrastructure;
 namespace vue_expenses_api.Migrations
 {
     [DbContext(typeof(ExpensesContext))]
-    [Migration("20191110125854_InitialCreate")]
+    [Migration("20191110162056_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,10 +63,10 @@ namespace vue_expenses_api.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266),
-                            Date = new DateTime(2019, 11, 10, 12, 58, 54, 75, DateTimeKind.Local).AddTicks(4918),
+                            CreatedAt = new DateTime(2019, 11, 10, 16, 20, 56, 428, DateTimeKind.Local).AddTicks(2455),
+                            Date = new DateTime(2019, 11, 10, 16, 20, 56, 438, DateTimeKind.Local).AddTicks(4642),
                             TypeId = 1,
-                            UpdatedAt = new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266),
+                            UpdatedAt = new DateTime(2019, 11, 10, 16, 20, 56, 428, DateTimeKind.Local).AddTicks(2455),
                             UserId = 1,
                             Value = 10m
                         });
@@ -110,9 +110,9 @@ namespace vue_expenses_api.Migrations
                         {
                             Id = 1,
                             Budget = 0m,
-                            CreatedAt = new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266),
+                            CreatedAt = new DateTime(2019, 11, 10, 16, 20, 56, 428, DateTimeKind.Local).AddTicks(2455),
                             Name = "General Expenses",
-                            UpdatedAt = new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266),
+                            UpdatedAt = new DateTime(2019, 11, 10, 16, 20, 56, 428, DateTimeKind.Local).AddTicks(2455),
                             UserId = 1
                         });
                 });
@@ -148,9 +148,9 @@ namespace vue_expenses_api.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266),
+                            CreatedAt = new DateTime(2019, 11, 10, 16, 20, 56, 428, DateTimeKind.Local).AddTicks(2455),
                             Name = "Credit Card",
-                            UpdatedAt = new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266),
+                            UpdatedAt = new DateTime(2019, 11, 10, 16, 20, 56, 428, DateTimeKind.Local).AddTicks(2455),
                             UserId = 1
                         });
                 });
@@ -185,6 +185,9 @@ namespace vue_expenses_api.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("UseDarkMode")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -193,14 +196,15 @@ namespace vue_expenses_api.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266),
-                            Email = "foo@bar.com",
+                            CreatedAt = new DateTime(2019, 11, 10, 16, 20, 56, 428, DateTimeKind.Local).AddTicks(2455),
+                            Email = "test@demo.com",
                             FirstName = "John",
                             FullName = "John Doe",
-                            Hash = new byte[] { 145, 136, 159, 166, 243, 39, 106, 138, 133, 92, 168, 246, 218, 50, 200, 243, 190, 118, 122, 159, 227, 140, 109, 169, 24, 195, 20, 71, 128, 25, 139, 154, 155, 1, 116, 135, 187, 153, 111, 16, 241, 147, 238, 28, 78, 28, 241, 58, 249, 252, 153, 106, 163, 254, 43, 193, 142, 114, 44, 48, 252, 182, 242, 230 },
+                            Hash = new byte[] { 44, 22, 26, 100, 52, 110, 236, 235, 194, 187, 213, 94, 74, 174, 92, 111, 116, 99, 205, 218, 154, 35, 131, 35, 155, 235, 73, 39, 104, 75, 184, 133, 194, 227, 129, 223, 117, 111, 158, 57, 155, 249, 161, 156, 163, 98, 88, 138, 139, 27, 122, 59, 5, 177, 109, 70, 124, 12, 93, 109, 254, 202, 104, 118 },
                             LastName = "Doe",
-                            Salt = new byte[] { 130, 78, 115, 116, 61, 159, 217, 74, 185, 223, 171, 127, 229, 87, 102, 221 },
-                            UpdatedAt = new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266)
+                            Salt = new byte[] { 74, 1, 230, 88, 207, 185, 203, 64, 191, 100, 17, 61, 140, 108, 183, 254 },
+                            UpdatedAt = new DateTime(2019, 11, 10, 16, 20, 56, 428, DateTimeKind.Local).AddTicks(2455),
+                            UseDarkMode = true
                         });
                 });
 

@@ -19,6 +19,7 @@ namespace vue_expenses_api.Migrations
                     LastName = table.Column<string>(nullable: true),
                     FullName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
+                    UseDarkMode = table.Column<bool>(nullable: false),
                     Hash = table.Column<byte[]>(nullable: true),
                     Salt = table.Column<byte[]>(nullable: true)
                 },
@@ -115,23 +116,23 @@ namespace vue_expenses_api.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "CreatedAt", "Email", "FirstName", "FullName", "Hash", "LastName", "Salt", "UpdatedAt" },
-                values: new object[] { 1, new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266), "foo@bar.com", "John", "John Doe", new byte[] { 145, 136, 159, 166, 243, 39, 106, 138, 133, 92, 168, 246, 218, 50, 200, 243, 190, 118, 122, 159, 227, 140, 109, 169, 24, 195, 20, 71, 128, 25, 139, 154, 155, 1, 116, 135, 187, 153, 111, 16, 241, 147, 238, 28, 78, 28, 241, 58, 249, 252, 153, 106, 163, 254, 43, 193, 142, 114, 44, 48, 252, 182, 242, 230 }, "Doe", new byte[] { 130, 78, 115, 116, 61, 159, 217, 74, 185, 223, 171, 127, 229, 87, 102, 221 }, new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266) });
+                columns: new[] { "Id", "CreatedAt", "Email", "FirstName", "FullName", "Hash", "LastName", "Salt", "UpdatedAt", "UseDarkMode" },
+                values: new object[] { 1, new DateTime(2019, 11, 10, 16, 20, 56, 428, DateTimeKind.Local).AddTicks(2455), "test@demo.com", "John", "John Doe", new byte[] { 44, 22, 26, 100, 52, 110, 236, 235, 194, 187, 213, 94, 74, 174, 92, 111, 116, 99, 205, 218, 154, 35, 131, 35, 155, 235, 73, 39, 104, 75, 184, 133, 194, 227, 129, 223, 117, 111, 158, 57, 155, 249, 161, 156, 163, 98, 88, 138, 139, 27, 122, 59, 5, 177, 109, 70, 124, 12, 93, 109, 254, 202, 104, 118 }, "Doe", new byte[] { 74, 1, 230, 88, 207, 185, 203, 64, 191, 100, 17, 61, 140, 108, 183, 254 }, new DateTime(2019, 11, 10, 16, 20, 56, 428, DateTimeKind.Local).AddTicks(2455), true });
 
             migrationBuilder.InsertData(
                 table: "ExpenseCategories",
                 columns: new[] { "Id", "Budget", "ColourHex", "CreatedAt", "Description", "Name", "UpdatedAt", "UserId" },
-                values: new object[] { 1, 0m, null, new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266), null, "General Expenses", new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266), 1 });
+                values: new object[] { 1, 0m, null, new DateTime(2019, 11, 10, 16, 20, 56, 428, DateTimeKind.Local).AddTicks(2455), null, "General Expenses", new DateTime(2019, 11, 10, 16, 20, 56, 428, DateTimeKind.Local).AddTicks(2455), 1 });
 
             migrationBuilder.InsertData(
                 table: "ExpenseTypes",
                 columns: new[] { "Id", "CreatedAt", "Description", "Name", "UpdatedAt", "UserId" },
-                values: new object[] { 1, new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266), null, "Credit Card", new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266), 1 });
+                values: new object[] { 1, new DateTime(2019, 11, 10, 16, 20, 56, 428, DateTimeKind.Local).AddTicks(2455), null, "Credit Card", new DateTime(2019, 11, 10, 16, 20, 56, 428, DateTimeKind.Local).AddTicks(2455), 1 });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 1, 1, null, new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266), new DateTime(2019, 11, 10, 12, 58, 54, 75, DateTimeKind.Local).AddTicks(4918), 1, new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266), 1, 10m });
+                values: new object[] { 1, 1, null, new DateTime(2019, 11, 10, 16, 20, 56, 428, DateTimeKind.Local).AddTicks(2455), new DateTime(2019, 11, 10, 16, 20, 56, 438, DateTimeKind.Local).AddTicks(4642), 1, new DateTime(2019, 11, 10, 16, 20, 56, 428, DateTimeKind.Local).AddTicks(2455), 1, 10m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExpenseCategories_UserId",
