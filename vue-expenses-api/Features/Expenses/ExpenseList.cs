@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dapper;
 using MediatR;
 using vue_expenses_api.Dtos;
+using vue_expenses_api.Infrastructure.Security;
 
 namespace vue_expenses_api.Features.Expenses
 {
@@ -18,11 +19,14 @@ namespace vue_expenses_api.Features.Expenses
         public class QueryHandler : IRequestHandler<Query, List<ExpenseDto>>
         {
             private readonly IDbConnection _dbConnection;
+            private readonly ICurrentUser _currentUser;
 
             public QueryHandler(
-                IDbConnection connection)
+                IDbConnection connection,
+                ICurrentUser currentUser)
             {
                 _dbConnection = connection;
+                _currentUser = currentUser;
             }
 
             //Implement Paging
@@ -41,12 +45,21 @@ namespace vue_expenses_api.Features.Expenses
                             FROM 
                                 Expenses e
                             INNER JOIN
-                                ExpenseCateogries ec ON ec.Id = e.CategoryId
+                                ExpenseCategories ec ON ec.Id = e.CategoryId
                             INNER JOIN
-                                ExpenseTypes et ON et.Id = e.TypeId";
+                                ExpenseTypes et ON et.Id = e.TypeId
+                            INNER JOIN
+                                Users u ON u.Id = e.UserId
+                            WHERE 
+                                u.Email=@userEmailId";
 
                 var expenses = await _dbConnection.QueryAsync<ExpenseDto>(
-                    sql);
+                    sql,
+                    new
+                    {
+                        userEmailId = _currentUser.EmailId
+                    });
+
                 return expenses.ToList();
             }
         }

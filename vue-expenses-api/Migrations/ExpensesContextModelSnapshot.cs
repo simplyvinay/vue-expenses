@@ -40,6 +40,9 @@ namespace vue_expenses_api.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<decimal>("Value")
                         .HasColumnType("TEXT");
 
@@ -49,6 +52,8 @@ namespace vue_expenses_api.Migrations
 
                     b.HasIndex("TypeId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Expenses");
 
                     b.HasData(
@@ -56,10 +61,11 @@ namespace vue_expenses_api.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2019, 10, 28, 8, 34, 52, 476, DateTimeKind.Local).AddTicks(3468),
-                            Date = new DateTime(2019, 10, 28, 8, 34, 52, 488, DateTimeKind.Local).AddTicks(6617),
+                            CreatedAt = new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266),
+                            Date = new DateTime(2019, 11, 10, 12, 58, 54, 75, DateTimeKind.Local).AddTicks(4918),
                             TypeId = 1,
-                            UpdatedAt = new DateTime(2019, 10, 28, 8, 34, 52, 476, DateTimeKind.Local).AddTicks(3468),
+                            UpdatedAt = new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266),
+                            UserId = 1,
                             Value = 10m
                         });
                 });
@@ -69,6 +75,12 @@ namespace vue_expenses_api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Budget")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ColourHex")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
@@ -82,18 +94,24 @@ namespace vue_expenses_api.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
-                    b.ToTable("ExpenseCateogries");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ExpenseCategories");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2019, 10, 28, 8, 34, 52, 476, DateTimeKind.Local).AddTicks(3468),
-                            Description = "",
+                            Budget = 0m,
+                            CreatedAt = new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266),
                             Name = "General Expenses",
-                            UpdatedAt = new DateTime(2019, 10, 28, 8, 34, 52, 476, DateTimeKind.Local).AddTicks(3468)
+                            UpdatedAt = new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266),
+                            UserId = 1
                         });
                 });
 
@@ -115,7 +133,12 @@ namespace vue_expenses_api.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ExpenseTypes");
 
@@ -123,10 +146,10 @@ namespace vue_expenses_api.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2019, 10, 28, 8, 34, 52, 476, DateTimeKind.Local).AddTicks(3468),
-                            Description = "",
+                            CreatedAt = new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266),
                             Name = "Credit Card",
-                            UpdatedAt = new DateTime(2019, 10, 28, 8, 34, 52, 476, DateTimeKind.Local).AddTicks(3468)
+                            UpdatedAt = new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266),
+                            UserId = 1
                         });
                 });
 
@@ -142,16 +165,22 @@ namespace vue_expenses_api.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("TEXT");
+
                     b.Property<byte[]>("Hash")
                         .HasColumnType("BLOB");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("TEXT");
 
                     b.Property<byte[]>("Salt")
                         .HasColumnType("BLOB");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserName")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -162,12 +191,14 @@ namespace vue_expenses_api.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2019, 10, 28, 8, 34, 52, 476, DateTimeKind.Local).AddTicks(3468),
+                            CreatedAt = new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266),
                             Email = "foo@bar.com",
-                            Hash = new byte[] { 108, 63, 236, 114, 165, 202, 232, 51, 48, 236, 80, 221, 117, 53, 66, 19, 89, 246, 165, 30, 189, 233, 107, 90, 46, 214, 106, 163, 204, 19, 56, 102, 22, 217, 10, 21, 68, 30, 134, 3, 212, 189, 169, 153, 10, 105, 217, 32, 122, 16, 33, 133, 115, 82, 162, 56, 253, 252, 235, 29, 165, 157, 241, 29 },
-                            Salt = new byte[] { 194, 245, 187, 253, 99, 116, 82, 69, 162, 6, 205, 41, 106, 159, 111, 138 },
-                            UpdatedAt = new DateTime(2019, 10, 28, 8, 34, 52, 476, DateTimeKind.Local).AddTicks(3468),
-                            UserName = "test"
+                            FirstName = "John",
+                            FullName = "John Doe",
+                            Hash = new byte[] { 145, 136, 159, 166, 243, 39, 106, 138, 133, 92, 168, 246, 218, 50, 200, 243, 190, 118, 122, 159, 227, 140, 109, 169, 24, 195, 20, 71, 128, 25, 139, 154, 155, 1, 116, 135, 187, 153, 111, 16, 241, 147, 238, 28, 78, 28, 241, 58, 249, 252, 153, 106, 163, 254, 43, 193, 142, 114, 44, 48, 252, 182, 242, 230 },
+                            LastName = "Doe",
+                            Salt = new byte[] { 130, 78, 115, 116, 61, 159, 217, 74, 185, 223, 171, 127, 229, 87, 102, 221 },
+                            UpdatedAt = new DateTime(2019, 11, 10, 12, 58, 54, 67, DateTimeKind.Local).AddTicks(2266)
                         });
                 });
 
@@ -180,6 +211,24 @@ namespace vue_expenses_api.Migrations
                     b.HasOne("vue_expenses_api.Domain.ExpenseType", "Type")
                         .WithMany("Expenses")
                         .HasForeignKey("TypeId");
+
+                    b.HasOne("vue_expenses_api.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("vue_expenses_api.Domain.ExpenseCategory", b =>
+                {
+                    b.HasOne("vue_expenses_api.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("vue_expenses_api.Domain.ExpenseType", b =>
+                {
+                    b.HasOne("vue_expenses_api.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

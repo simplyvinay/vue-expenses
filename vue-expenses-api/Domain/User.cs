@@ -6,18 +6,23 @@ namespace vue_expenses_api.Domain
     public class User : Entity
     {
         public User(
-            string userName,
+            string firstName,
+            string lastName,
             string email,
             byte[] hash,
             byte[] salt)
         {
-            UserName = userName;
+            FirstName = firstName;
+            LastName = lastName;
+            FullName = $"{FirstName} {LastName}";
             Email = email;
             Hash = hash;
             Salt = salt;
         }
 
-        public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string FullName { get; set; }
         public string Email { get; set; }
 
         [JsonIgnore]

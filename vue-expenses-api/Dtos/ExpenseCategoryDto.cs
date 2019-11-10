@@ -2,6 +2,10 @@
 {
     public class ExpenseCategoryDto
     {
+        protected ExpenseCategoryDto()
+        {
+        }
+
         public ExpenseCategoryDto(
             int id,
             string name,
