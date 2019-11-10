@@ -49,7 +49,7 @@
                           dense
                         ></v-text-field>
                       </template>
-                      <v-date-picker v-model="date" @change="dateMenu = false"></v-date-picker>
+                      <v-date-picker v-model="date" @change="dateMenu = false" no-title="true"></v-date-picker>
                     </v-menu>
                   </v-col>
                 </v-row>
@@ -101,19 +101,16 @@
               :showLabel="true"
               :showLabelLines="true"
             />
-            <v-container pb-0 pt-0>
-              <v-layout row justify-space-around>
-                <v-card flat max-width="200">
-                  <div class="subtitle-2">Monthly Limit</div>
-                  <span class="subtitle-1">35000</span>
-                </v-card>
-
-                <v-card flat max-width="200">
-                  <div class="subtitle-2">Spent Amount</div>
-                  <span class="subtitle-1">20000</span>
-                </v-card>
-              </v-layout>
-            </v-container>
+            <div class="d-flex justify-space-around subtitle-2">
+              <div>
+                <div>Monthly Limit</div>
+                <div>35000</div>
+              </div>
+              <div>
+                <div>Spent Amount</div>
+                <div>20000</div>
+              </div>
+            </div>
           </v-card>
         </v-flex>
         <v-flex xs12 md12>

@@ -43,7 +43,7 @@
                   label="Colour"
                 >
                   <template v-slot:append>
-                    <v-menu top nudge-bottom="110" nudge-left="20" :close-on-content-click="false">
+                    <v-menu v-model="menu" top nudge-bottom="110" nudge-left="20" :close-on-content-click="false">
                       <template v-slot:activator="{ on }">
                         <div :style="swatchStyle(editedCategory)" v-on="on" />
                       </template>
@@ -56,6 +56,10 @@
                             flat
                           />
                         </v-card-text>
+                        <v-card-actions class="pa-0 pb-1 pr-1">
+                          <v-spacer></v-spacer>
+                          <v-btn outlined small class="blue--text font-weight-bold" @click="menu = false">Select</v-btn>
+                        </v-card-actions>
                       </v-card>
                     </v-menu>
                   </template>
@@ -95,12 +99,13 @@
 export default {
   data: () => ({
     dialog: false,
+    menu: false,
     headers: [
-      { text: "Name", value: "name", },
+      { text: "Name", value: "name" },
       { text: "Description", value: "description" },
       { text: "Budget", value: "budget", width: 100 },
-      { text: "Colour", value: "colour", width: 100  },
-      { text: "Actions", value: "action", sortable: false, width: 50  }
+      { text: "Colour", value: "colour", width: 100 },
+      { text: "Actions", value: "action", sortable: false, width: 50 }
     ],
     categories: [],
     editedIndex: -1,

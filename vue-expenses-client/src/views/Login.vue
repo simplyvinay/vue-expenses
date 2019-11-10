@@ -45,6 +45,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import { required, email } from "vuelidate/lib/validators";
+import { LOGIN, LOGOUT } from '@/store/actionTypes'
 
 export default {
   data() {
@@ -80,10 +81,10 @@ export default {
   },
   created() {
     // reset login status
-    this.logout();
+    this.LOGOUT();
   },
   methods: {
-    ...mapActions("account", ["login", "logout"]),
+    ...mapActions("account", [LOGIN, LOGOUT]),
     handleSubmit() {
       this.$v.form.$touch();
       if (this.$v.form.$error) return;
@@ -91,7 +92,7 @@ export default {
       this.form.submitted = true;
       const { email, password } = this.form;
       if (email && password) {
-        this.login({ email, password });
+        this.LOGIN({ email, password });
       }
     }
   }
