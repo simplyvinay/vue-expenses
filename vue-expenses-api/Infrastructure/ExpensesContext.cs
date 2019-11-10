@@ -82,7 +82,7 @@ namespace vue_expenses_api.Infrastructure
             var user = new User(
                 "John",
                 "Doe",
-                "foo@bar.com",
+                "test@demo.com",
                 new PasswordHasher().Hash(
                     "test",
                     salt),
@@ -90,6 +90,7 @@ namespace vue_expenses_api.Infrastructure
             )
             {
                 Id = 1,
+                UseDarkMode = true,
                 CreatedAt = createdAt,
                 UpdatedAt = createdAt
             };
