@@ -1,7 +1,7 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER } from '@/store/mutationTypes'
 import { LOGIN, LOGOUT, SET_ALERT } from '@/store/actionTypes'
 import router from '@/router/index';
-import Api from '@/services/apiService'
+import Api from '@/services/api'
 
 const state = {
     user: null,
@@ -9,24 +9,24 @@ const state = {
 };
 
 const actions = {
-    async [LOGIN]({ commit, dispatch }, { email, password }) {
-        try {
-            commit(LOGIN_REQUEST, { email });
-            
-            let response = await Api().post('/login', {
-                email,
-                password
+    [LOGIN]({ dispatch, commit }, { email, password }) {
+        debugger;
+        commit(LOGIN_REQUEST, { email });
+
+        Api.post('/login', {
+            email,
+            password
+        })
+            .then(response => {
+                let user = response.data;
+                commit(LOGIN_SUCCESS, user);
+                router.push('/dashboard');
+            })
+            .catch((e) => {
+                var error = e.response ? e.response.data.errors.Error : e;
+                commit(LOGIN_FAILURE, error);
+                dispatch(`alert/${SET_ALERT}`, { message: error, color: 'error' }, { root: true });
             });
-            let user = response.data;
-            
-            commit(LOGIN_SUCCESS, user);
-            router.push('/');
-        } catch (e) {
-            var error = e.response ? e.response.data.errors.Error : e;
-            console.log(error);
-            commit(LOGIN_FAILURE, error);
-            dispatch(`alert/${SET_ALERT}`, { message: error, color: 'error' }, { root: true });
-        }
     },
     [LOGOUT]({ commit }) {
         commit(LOGOUT_USER);
@@ -40,7 +40,7 @@ const mutations = {
     [LOGIN_SUCCESS](state, user) {
         // login successful if there's a jwt token in the response
         if (user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            // store user details and jwt token in local storage
             localStorage.setItem('user', JSON.stringify(user));
         }
         state.status = { loggedIn: true };

@@ -1,5 +1,5 @@
 <template>
-  <v-app :style="{background: $vuetify.theme.themes[isDark].background}">
+  <v-app>
     <v-snackbar
       v-for="alert in alerts.filter(s => s.show)"
       :key="alert.show"
@@ -21,9 +21,6 @@ export default {
   name: "app",
   components: {},
   computed: {
-    isDark() {
-      return this.$vuetify.theme.dark ? "dark" : "light";
-    },
     ...mapState({
       alerts: state => state.alert.alerts
     })

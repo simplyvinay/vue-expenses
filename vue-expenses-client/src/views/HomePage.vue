@@ -16,6 +16,9 @@ export default {
   components: {
     Navbar
   },
+  created: function(){
+    this.$vuetify.theme.dark = JSON.parse(localStorage.getItem('user')).useDarkMode;
+  },
   data: () => ({
     //
   })
