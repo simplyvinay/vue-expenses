@@ -1,7 +1,7 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER } from '@/store/mutationTypes'
-import { LOGIN, LOGOUT, SET_ALERT } from '@/store/actionTypes'
-import router from '@/router/index';
 import Api from '@/services/api'
+import router from '@/router/index';
+import { LOGIN, LOGOUT, SET_ALERT } from '@/store/_actionTypes'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER } from '@/store/_mutationTypes'
 
 const state = {
     user: null,
@@ -23,8 +23,7 @@ const actions = {
             })
             .catch((e) => {
                 var error = e.response ? e.response.data.errors.Error : e;
-                commit(LOGIN_FAILURE, error);
-                dispatch(`alert/${SET_ALERT}`, { message: error, color: 'error' }, { root: true });
+                commit(LOGIN_FAILURE, error);                
             });
     },
     [LOGOUT]({ commit }) {

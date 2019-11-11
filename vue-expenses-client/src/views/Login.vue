@@ -45,7 +45,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import { required, email } from "vuelidate/lib/validators";
-import { LOGIN, LOGOUT } from '@/store/actionTypes'
+import { LOGIN, LOGOUT } from '@/store/_actionTypes'
 
 export default {
   data() {

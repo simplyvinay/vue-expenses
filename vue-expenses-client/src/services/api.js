@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { SET_ALERT } from '@/store/_actionTypes'
+import store from "@/store"
 
 let api = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,
@@ -19,8 +21,11 @@ function authHeader() {
 api.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
+    var error = error.response ? error.response.data.errors.Error : error;
+    store.dispatch(`alert/${SET_ALERT}`, { message: error, color: 'error' }, { root: true });
+
     if (error.response && error.response.status === 401) {
-        console.log('intercepted');
+        
     } 
     return Promise.reject(error);
 });

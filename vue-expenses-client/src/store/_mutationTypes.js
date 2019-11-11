@@ -1,0 +1,21 @@
+//LOGIN
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT_USER = 'LOGOUT_USER';
+
+//ALERT
+export const ADD_ALERT = 'ADD_ALERT';
+
+//TYPES
+export const CREATE_TYPE = 'CREATE_TYPE';
+export const UPDATE_TYPE = 'UPDATE_TYPE';
+export const DELETE_TYPE = 'DELETE_TYPE';
+export const SET_TYPES = 'SET_TYPES';
+
+
+//CATEGORIES
+export const CREATE_CATEGORY = 'CREATE_CATEGORY';
+export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
+export const DELETE_CATEGORY = 'DELETE_CATEGORY';
+export const SET_CATEGORIES = 'SET_CATEGORIES';
