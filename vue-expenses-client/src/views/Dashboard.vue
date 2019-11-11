@@ -1,12 +1,5 @@
 <template>
   <div>
-    <v-switch
-      v-model="mandatory"
-      class="ma-0 pa-0"
-      color="grey"
-      @change="setTheme"
-      label="Dark Theme"
-    ></v-switch>
     <v-container>
       <v-layout row justify-space-between>
         <v-flex xs12 md6>
@@ -218,16 +211,13 @@ import PieChart from "@/components/PieChart";
 
 export default {
   components: { DoughnutChart, BarChart, PieChart },
-  methods: {
-    setTheme(event) {
-      this.theme = event ? "dark" : "";
-      this.$vuetify.theme.dark = event;
-    }
+  mounted(){
+    this.theme = this.$vuetify.theme.dark ? "dark" : "";
   },
   data() {
     return {
       dateMenu: false,
-      theme: ""
+      theme: ''
     };
   }
 };

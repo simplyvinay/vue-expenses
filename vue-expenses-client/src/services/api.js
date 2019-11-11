@@ -1,11 +1,9 @@
 import axios from 'axios';
 
-export default () => {
-    return axios.create({
-        baseURL: process.env.VUE_APP_BASE_URL,
-        headers: authHeader()
-    });
-}
+let api = axios.create({
+    baseURL: process.env.VUE_APP_BASE_URL,
+    headers: authHeader()
+});
 
 function authHeader() {
     // return authorization header with jwt token
@@ -17,3 +15,5 @@ function authHeader() {
         return {};
     }
 }
+
+export default api;

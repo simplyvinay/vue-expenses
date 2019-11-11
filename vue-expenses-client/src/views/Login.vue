@@ -1,6 +1,6 @@
 <template>
-  <v-app >
-    <v-content>
+  <v-app>
+    <v-content :dark="true">
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
@@ -80,6 +80,8 @@ export default {
     }
   },
   created() {
+    //reset theme 
+    this.$vuetify.theme.dark = 0;
     // reset login status
     this.LOGOUT();
   },
