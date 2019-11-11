@@ -10,7 +10,6 @@ const state = {
 
 const actions = {
     [LOGIN]({ dispatch, commit }, { email, password }) {
-        debugger;
         commit(LOGIN_REQUEST, { email });
 
         Api.post('/login', {

@@ -16,4 +16,13 @@ function authHeader() {
     }
 }
 
+api.interceptors.response.use(function (response) {
+    return response;
+}, function (error) {
+    if (error.response && error.response.status === 401) {
+        console.log('intercepted');
+    } 
+    return Promise.reject(error);
+});
+
 export default api;
