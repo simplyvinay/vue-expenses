@@ -62,15 +62,25 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+import {
+  ADD_TYPE,
+  EDIT_TYPE,
+  REMOVE_TYPE,
+  GET_TYPES
+} from "@/store/_actionTypes";
+
 export default {
+  created() {
+    this.$store.dispatch(`type/${GET_TYPES}`);
+  },
   data: () => ({
     dialog: false,
     headers: [
       { text: "Name", value: "name" },
       { text: "Description", value: "description" },
-      { text: "Actions", value: "action", sortable: false, width: 50  }
+      { text: "Actions", value: "action", sortable: false, width: 50 }
     ],
-    types: [],
     editedIndex: -1,
     editedType: {
       name: "",
@@ -83,6 +93,7 @@ export default {
   }),
 
   computed: {
+    ...mapState("type", ["types"]),
     categoryFormTitle() {
       return this.editedIndex === -1 ? "New Expense Type" : "Edit Expense Type";
     }
@@ -93,24 +104,8 @@ export default {
       val || this.close();
     }
   },
-
-  created() {
-    this.initialize();
-  },
-
   methods: {
-    initialize() {
-      this.types = [
-        {
-          name: "Credit Card",
-          description: ""
-        },
-        {
-          name: "Cash",
-          description: ""
-        }
-      ];
-    },
+    ...mapActions("type", [ADD_TYPE, EDIT_TYPE, REMOVE_TYPE]),
 
     editType(item) {
       this.editedIndex = this.types.indexOf(item);
@@ -133,6 +128,7 @@ export default {
     },
 
     saveType() {
+      this.$store.dispatch(`type/${EDIT_TYPE}`, this.editedType);
       if (this.editedIndex > -1) {
         Object.assign(this.types[this.editedIndex], this.editedType);
       } else {

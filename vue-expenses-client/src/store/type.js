@@ -24,6 +24,20 @@ const actions = {
                 commit(CREATE_TYPE, expenseType);
             })
     },
+    [EDIT_TYPE]({ commit }, { expenseType }) {
+        Api.put(`/expensetypes/${expenseType.id}`, expenseType)
+        .then(response => {
+            let expenseType = response.data;
+            commit(UPDATE_TYPE, expenseType);
+        })        
+    },
+    [REMOVE_TYPE]({ commit }, { expenseType }) {
+        Api.delete(`/expensetypes/${expenseType.id}`, expenseType)
+        .then(response => {
+            let expenseType = response.data;
+            commit(DELETE_TYPE, expenseType);
+        })     
+    },
 }
 
 const mutations = {
@@ -33,9 +47,17 @@ const mutations = {
     [CREATE_TYPE](state, expenseType) {
         state.types = state.types.concat(expenseType);
     },
+    [UPDATE_TYPE](state, expenseType) {
+        let expenseTypeUpdated = state.types.find(et => et.id == expenseType.id)
+        expenseTypeUpdated.name = expenseType.name;
+        expenseTypeUpdated.description = expenseType.description;
+    },
+    [DELETE_TYPE](state, {expenseType}) {
+        state.types = state.types.filter(et => et.id != expenseType.id)
+      },
 }
 
-export const types = {
+export const type = {
     namespaced: true,
     state,
     actions,

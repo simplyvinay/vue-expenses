@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -11,28 +10,22 @@ using vue_expenses_api.Infrastructure;
 using vue_expenses_api.Infrastructure.Exceptions;
 using vue_expenses_api.Infrastructure.Security;
 
-namespace vue_expenses_api.Features.Expenses
+namespace vue_expenses_api.Features.ExpenseTypes
 {
-    public class ExpenseCategoryCreate
+    public class ExpenseTypeCreate
     {
-        public class Command : IRequest<ExpenseCategoryDto>
+        public class Command : IRequest<ExpenseTypeDto>
         {
             public Command(
                 string name,
-                string description,
-                decimal budget,
-                string colourHex)
+                string description)
             {
                 Name = name;
                 Description = description;
-                Budget = budget;
-                ColourHex = colourHex;
             }
 
-            public string Name { get; }
-            public string Description { get; }
-            public decimal Budget { get; }
-            public string ColourHex { get; }
+            public string Name { get; set; }
+            public string Description { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -43,7 +36,7 @@ namespace vue_expenses_api.Features.Expenses
             }
         }
 
-        public class Handler : IRequestHandler<Command, ExpenseCategoryDto>
+        public class Handler : IRequestHandler<Command, ExpenseTypeDto>
         {
             private readonly ExpensesContext _context;
             private readonly ICurrentUser _currentUser;
@@ -56,40 +49,39 @@ namespace vue_expenses_api.Features.Expenses
                 _currentUser = currentUser;
             }
 
-            public async Task<ExpenseCategoryDto> Handle(
+            public async Task<ExpenseTypeDto> Handle(
                 Command request,
                 CancellationToken cancellationToken)
             {
-                if (await _context.ExpenseCategories.AnyAsync(
-                    x => x.Name == request.Name,
+                var user = await _context.Users.SingleAsync(x => x.Email == _currentUser.EmailId,
+                    cancellationToken);
+                
+                if (await _context.ExpenseTypes.AnyAsync(
+                    x => x.Name == request.Name && x.User == user,
                     cancellationToken))
                 {
                     throw new HttpException(
                         HttpStatusCode.BadRequest,
                         new
                         {
-                            Error = $"There is already a category with name {request.Name}."
+                            Error = $"There is already a type with name {request.Name}."
                         });
                 }
 
-                var user = _context.Users.Single(x => x.Email == _currentUser.EmailId);
-
-                var expenseCategory = new ExpenseCategory(
+                var expenseType = new ExpenseType(
                     request.Name,
                     request.Description,
-                    request.Budget,
-                    request.ColourHex,
                     user);
 
-                await _context.ExpenseCategories.AddAsync(
-                    expenseCategory,
+                await _context.ExpenseTypes.AddAsync(
+                    expenseType,
                     cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new ExpenseCategoryDto(
-                    expenseCategory.Id,
-                    expenseCategory.Name,
-                    expenseCategory.Description);
+                return new ExpenseTypeDto(
+                    expenseType.Id,
+                    expenseType.Name,
+                    expenseType.Description);
             }
         }
     }
