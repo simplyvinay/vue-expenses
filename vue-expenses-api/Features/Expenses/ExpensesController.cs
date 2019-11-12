@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using vue_expenses_api.Dtos;
-using vue_expenses_api.Infrastructure;
 
 namespace vue_expenses_api.Features.Expenses
 {
@@ -16,8 +15,7 @@ namespace vue_expenses_api.Features.Expenses
         private readonly IMediator _mediator;
 
         public ExpensesController(
-            IMediator mediator,
-            ExpensesContext dbContext)
+            IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -44,7 +42,7 @@ namespace vue_expenses_api.Features.Expenses
 
         [HttpDelete("{id}")]
         public async Task Delete(
-            int? id)
+            int id)
         {
             await _mediator.Send(new ExpenseDelete.Command(id));
         }

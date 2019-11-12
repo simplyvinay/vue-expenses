@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -30,11 +29,11 @@ namespace vue_expenses_api.Features.Expenses
                 Comments = comments;
             }
 
-            public DateTime Date { get; }
-            public int CategoryId { get; }
-            public int TypeId { get; }
-            public decimal Value { get; }
-            public string Comments { get; }
+            public DateTime Date { get; set; }
+            public int CategoryId { get; set; }
+            public int TypeId { get; set; }
+            public decimal Value { get; set; }
+            public string Comments { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -65,7 +64,7 @@ namespace vue_expenses_api.Features.Expenses
                 Command request,
                 CancellationToken cancellationToken)
             {
-                var user = _context.Users.Single(x => x.Email == _currentUser.EmailId);
+                var user = await _context.Users.SingleAsync(x => x.Email == _currentUser.EmailId);
 
                 var expense = new Expense(
                     request.Date,
