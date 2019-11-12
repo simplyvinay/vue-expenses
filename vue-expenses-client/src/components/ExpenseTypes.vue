@@ -16,6 +16,7 @@
 
             <v-card-text>
               <v-container>
+                <input type="hidden" v-model="editedType.id" />
                 <v-text-field
                   class="ma-0 pa-0 form-label"
                   dense
@@ -77,16 +78,18 @@ export default {
   data: () => ({
     dialog: false,
     headers: [
+      { text: "Id", value: "id", align: " d-none" },
       { text: "Name", value: "name" },
       { text: "Description", value: "description" },
       { text: "Actions", value: "action", sortable: false, width: 50 }
     ],
-    editedIndex: -1,
     editedType: {
+      id: 0,
       name: "",
       description: ""
     },
     defaultType: {
+      id: 0,
       name: "",
       description: ""
     }
@@ -95,7 +98,7 @@ export default {
   computed: {
     ...mapState("type", ["types"]),
     categoryFormTitle() {
-      return this.editedIndex === -1 ? "New Expense Type" : "Edit Expense Type";
+      return this.editedType.id === 0 ? "New Expense Type" : "Edit Expense Type";
     }
   },
 
@@ -108,31 +111,26 @@ export default {
     ...mapActions("type", [ADD_TYPE, EDIT_TYPE, REMOVE_TYPE]),
 
     editType(item) {
-      this.editedIndex = this.types.indexOf(item);
       this.editedType = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteType(item) {
-      const index = this.types.indexOf(item);
       confirm("Are you sure you want to delete this item?") &&
-        this.types.splice(index, 1);
+        this.REMOVE_TYPE({ id: item.id });
     },
 
     close() {
       this.dialog = false;
-      setTimeout(() => {
-        this.editedType = Object.assign({}, this.defaultType);
-        this.editedIndex = -1;
-      }, 300);
+      this.editedType = Object.assign({}, this.defaultType);
     },
 
     saveType() {
-      this.$store.dispatch(`type/${EDIT_TYPE}`, this.editedType);
-      if (this.editedIndex > -1) {
-        Object.assign(this.types[this.editedIndex], this.editedType);
+      var expenseType = this.editedType;
+      if (expenseType.id == 0) {
+        this.ADD_TYPE({ expenseType });
       } else {
-        this.types.push(this.editedType);
+        this.EDIT_TYPE({ expenseType });
       }
       this.close();
     }

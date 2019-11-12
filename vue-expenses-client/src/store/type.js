@@ -14,10 +14,10 @@ const actions = {
                 commit(SET_TYPES, expenseTypes);
             })
     },
-    [ADD_TYPE]({ commit }, { name, description }) {
+    [ADD_TYPE]({ commit }, { expenseType }) {
         Api.post('/expensetypes', {
-            name,
-            description
+            name: expenseType.name,
+            description: expenseType.description
         })
             .then(response => {
                 let expenseType = response.data;
@@ -31,11 +31,10 @@ const actions = {
             commit(UPDATE_TYPE, expenseType);
         })        
     },
-    [REMOVE_TYPE]({ commit }, { expenseType }) {
-        Api.delete(`/expensetypes/${expenseType.id}`, expenseType)
+    [REMOVE_TYPE]({ commit }, { id }) {
+        Api.delete(`/expensetypes/${ id }`)
         .then(response => {
-            let expenseType = response.data;
-            commit(DELETE_TYPE, expenseType);
+            commit(DELETE_TYPE, id);
         })     
     },
 }
@@ -52,8 +51,8 @@ const mutations = {
         expenseTypeUpdated.name = expenseType.name;
         expenseTypeUpdated.description = expenseType.description;
     },
-    [DELETE_TYPE](state, {expenseType}) {
-        state.types = state.types.filter(et => et.id != expenseType.id)
+    [DELETE_TYPE](state, id) {
+        state.types = state.types.filter(et => et.id != id)
       },
 }
 
