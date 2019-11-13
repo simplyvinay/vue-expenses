@@ -32,7 +32,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn outlined class="primary--text" @click="handleSubmit" :loading="this.status.loggingIn">Login</v-btn>
+                <v-btn outlined class="primary--text" @click="handleSubmit" :loading="loading">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -64,7 +64,7 @@ export default {
     }
   },
   computed: {
-      ...mapState("account", ["status"]),
+      ...mapState("loader", ["loading"]),
     emailErrors() {
       const errors = [];
       if (!this.$v.form.email.$dirty) return errors;

@@ -1,17 +1,14 @@
 import Api from '@/services/api'
 import router from '@/router/index';
-import { LOGIN, LOGOUT, SET_ALERT } from '@/store/_actionTypes'
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER } from '@/store/_mutationTypes'
+import { LOGIN, LOGOUT } from '@/store/_actionTypes'
+import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER } from '@/store/_mutationTypes'
 
 const state = {
-    user: null,
-    status: {}
+    user: null
 };
 
 const actions = {
-    [LOGIN]({ dispatch, commit }, { email, password }) {
-        commit(LOGIN_REQUEST, { email });
-
+    [LOGIN]({ commit }, { email, password }) {
         Api.post('/login', {
             email,
             password
@@ -32,26 +29,20 @@ const actions = {
 };
 
 const mutations = {
-    [LOGIN_REQUEST](state) {
-        state.status = { loggingIn: true };
-    },
     [LOGIN_SUCCESS](state, user) {
         // login successful if there's a jwt token in the response
         if (user.token) {
             // store user details and jwt token in local storage
             localStorage.setItem('user', JSON.stringify(user));
         }
-        state.status = { loggedIn: true };
         state.user = user;
     },
     [LOGIN_FAILURE](state) {
-        state.status = {};
         state.user = null;
     },
     [LOGOUT_USER](state) {
         // remove user from local storage 
         localStorage.removeItem('user');
-        state.status = {};
         state.user = null;
     }
 };

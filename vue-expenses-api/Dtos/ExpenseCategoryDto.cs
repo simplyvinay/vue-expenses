@@ -20,10 +20,10 @@
             ColourHex = colourHex;
         }
 
-        public int Id { get; }
-        public string Name { get; }
-        public string Description { get; }
-        public decimal Budget { get; }
-        public string ColourHex { get; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Budget { get; set; }
+        public string ColourHex { get; set; }
     }
 }

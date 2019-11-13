@@ -35,7 +35,7 @@ namespace vue_expenses_api.Features.ExpenseTypes
                 CancellationToken cancellationToken)
             {
                 var sql = @"SELECT 
-                                *
+                                et.*
                             FROM 
                                 ExpenseTypes et
                             INNER JOIN

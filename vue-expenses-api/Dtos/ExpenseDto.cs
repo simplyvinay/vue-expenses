@@ -20,12 +20,12 @@
             Comments = comments;
         }
 
-        public int Id { get; }
+        public int Id { get; set; }
         public string Category { get; set; }
-        public int CategoryId { get; }
+        public int CategoryId { get; set; }
         public string Type { get; set; }
-        public int TypeId { get; }
-        public decimal Value { get; }
-        public string Comments { get; }
+        public int TypeId { get; set; }
+        public decimal Value { get; set; }
+        public string Comments { get; set; }
     }
 }
