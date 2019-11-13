@@ -1,5 +1,12 @@
 <template>
-  <v-data-table :headers="headers" :items="types" sort-by="calories" :items-per-page="5">
+  <v-data-table
+    :headers="headers"
+    :items="expensetypes"
+    sort-by="calories"
+    :items-per-page="5"
+    :loading="loading"
+    loading-text="Loading... Please wait"
+  >
     <template v-slot:top>
       <div class="d-flex align-center pa-1 pb-2">
         <span class="blue--text font-weight-medium">Types</span>
@@ -65,16 +72,12 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import {
-  ADD_TYPE,
-  EDIT_TYPE,
-  REMOVE_TYPE,
-  GET_TYPES
+  ADD_EXPENSE_TYPE,
+  EDIT_EXPENSE_TYPE,
+  REMOVE_EXPENSE_TYPE
 } from "@/store/_actionTypes";
 
 export default {
-  created() {
-    this.$store.dispatch(`type/${GET_TYPES}`);
-  },
   data: () => ({
     dialog: false,
     headers: [
@@ -96,9 +99,13 @@ export default {
   }),
 
   computed: {
-    ...mapState("type", ["types"]),
+    ...mapState("expensetype", ["expensetypes"]),
+    ...mapState("loader", ["loading"]),
+
     categoryFormTitle() {
-      return this.editedType.id === 0 ? "New Expense Type" : "Edit Expense Type";
+      return this.editedType.id === 0
+        ? "New Expense Type"
+        : "Edit Expense Type";
     }
   },
 
@@ -108,7 +115,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions("type", [ADD_TYPE, EDIT_TYPE, REMOVE_TYPE]),
+    ...mapActions("expensetype", [
+      ADD_EXPENSE_TYPE,
+      EDIT_EXPENSE_TYPE,
+      REMOVE_EXPENSE_TYPE
+    ]),
 
     editType(item) {
       this.editedType = Object.assign({}, item);
@@ -117,7 +128,7 @@ export default {
 
     deleteType(item) {
       confirm("Are you sure you want to delete this item?") &&
-        this.REMOVE_TYPE({ id: item.id });
+        this.REMOVE_EXPENSE_TYPE({ id: item.id });
     },
 
     close() {
@@ -128,9 +139,9 @@ export default {
     saveType() {
       var expenseType = this.editedType;
       if (expenseType.id == 0) {
-        this.ADD_TYPE({ expenseType });
+        this.ADD_EXPENSE_TYPE({ expenseType });
       } else {
-        this.EDIT_TYPE({ expenseType });
+        this.EDIT_EXPENSE_TYPE({ expenseType });
       }
       this.close();
     }

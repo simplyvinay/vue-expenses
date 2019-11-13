@@ -11,10 +11,13 @@
 
 <script>
 import Navbar from "@/components/Navbar";
-
+import { GET_EXPENSE_TYPES } from "@/store/_actionTypes";
 export default {
   components: {
     Navbar
+  },
+  mounted: function() {
+    this.$store.dispatch(`expensetype/${GET_EXPENSE_TYPES}`);
   },
   created: function(){
     this.$vuetify.theme.dark = JSON.parse(localStorage.getItem('user')).useDarkMode;
