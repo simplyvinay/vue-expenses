@@ -5,7 +5,7 @@
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
             <v-card tile>
-              <v-toolbar flat color="primary" dark >
+              <v-toolbar flat color="primary" dark>
                 <v-toolbar-title>Login</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
@@ -45,7 +45,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import { required, email } from "vuelidate/lib/validators";
-import { LOGIN, LOGOUT } from '@/store/_actionTypes'
+import { LOGIN, LOGOUT } from "@/store/_actionTypes";
 
 export default {
   data() {
@@ -64,7 +64,9 @@ export default {
     }
   },
   computed: {
-      ...mapState("loader", ["loading"]),
+    ...mapState({
+      loading: state => state.loader.loading
+    }),
     emailErrors() {
       const errors = [];
       if (!this.$v.form.email.$dirty) return errors;
@@ -80,7 +82,7 @@ export default {
     }
   },
   created() {
-    //reset theme 
+    //reset theme
     this.$vuetify.theme.dark = 0;
     // reset login status
     this.LOGOUT();

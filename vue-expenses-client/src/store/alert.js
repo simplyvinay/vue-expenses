@@ -2,7 +2,7 @@ import { SET_ALERT } from '@/store/_actionTypes'
 import { ADD_ALERT } from '@/store/_mutationTypes'
 
 const state = {
-    alerts: []
+    alert: {}
 };
 
 const actions = {
@@ -16,7 +16,7 @@ const actions = {
 
 const mutations = {
     [ADD_ALERT](state, alert) {
-        state.alerts = state.alerts.concat(alert);
+        state.alert = alert;
       }
 };
 
