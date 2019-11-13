@@ -41,7 +41,8 @@ namespace vue_expenses_api.Features.ExpenseCategories
             public CommandValidator()
             {
                 RuleFor(x => x.Id).NotNull().NotEmpty();
-                RuleFor(x => x.Name).NotNull().NotEmpty();
+                RuleFor(x => x.Name).NotNull().NotEmpty().MaximumLength(50);
+                RuleFor(x => x.Description).MaximumLength(100);
                 RuleFor(x => x.Budget).NotNull().NotEmpty().GreaterThan(0);
                 RuleFor(x => x.ColourHex).NotNull().NotEmpty();
             }

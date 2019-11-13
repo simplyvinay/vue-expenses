@@ -139,11 +139,10 @@ export default {
     saveType() {
       var expenseType = this.editedType;
       if (expenseType.id == 0) {
-        this.ADD_EXPENSE_TYPE({ expenseType });
+        this.ADD_EXPENSE_TYPE({ expenseType, onSuccess: this.close });
       } else {
-        this.EDIT_EXPENSE_TYPE({ expenseType });
+        this.EDIT_EXPENSE_TYPE({ expenseType, onSuccess: this.close });
       }
-      this.close();
     }
   }
 };
