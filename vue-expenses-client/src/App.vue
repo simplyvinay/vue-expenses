@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <v-snackbar
-      v-for="alert in alerts.filter(s => s.show)"
-      :key="alert.message"
+      v-for="(alert, index) in alerts.filter(s => s.show)"
+      :key="index"
       v-model="alert.show"
       :color="alert.color"
       top
