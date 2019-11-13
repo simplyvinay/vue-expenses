@@ -157,8 +157,10 @@ export default {
   }),
 
   computed: {
-    ...mapState("expensecategory", ["expensecategories"]),
-    ...mapState("loader", ["loading"]),
+     ...mapState({
+      expensecategories: state => state.expensecategory.expensecategories,
+      loading: state => state.loader.loading,
+    }),
      categoryFormTitle() {
       return this.editedCategory.id === 0
         ? "New Category"

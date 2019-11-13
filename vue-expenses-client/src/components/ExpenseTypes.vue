@@ -99,8 +99,11 @@ export default {
   }),
 
   computed: {
-    ...mapState("expensetype", ["expensetypes"]),
-    ...mapState("loader", ["loading"]),
+
+    ...mapState({
+      expensetypes: state => state.expensetype.expensetypes,
+      loading: state => state.loader.loading,
+    }),
 
     categoryFormTitle() {
       return this.editedType.id === 0

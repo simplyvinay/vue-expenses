@@ -1,8 +1,6 @@
 <template>
   <v-app>
     <v-snackbar
-      v-for="(alert, index) in alerts.filter(s => s.show)"
-      :key="index"
       v-model="alert.show"
       :color="alert.color"
       top
@@ -22,7 +20,7 @@ export default {
   components: {},
   computed: {
     ...mapState({
-      alerts: state => state.alert.alerts
+      alert: state => state.alert.alert
     })
   },
   data() {
