@@ -27,15 +27,23 @@ api.interceptors.response.use(function (response) {
     store.dispatch(`loader/${SET_LOADING}`, { loading: false }, { root: true });
     return response;
 }, function (error) {
-    var error = error.response && error.response.data && error.response.data.errors
-        ? error.response.data.errors.Error
-        : error;
-    store.dispatch(`alert/${SET_ALERT}`, { message: error, color: 'error' }, { root: true });
-
-    if (error.response && error.response.status === 401) {
-
-    }
     store.dispatch(`loader/${SET_LOADING}`, { loading: false }, { root: true });
+    var errormessage = error.response && error.response.data.errors.Error
+        ? error.response.data.errors.Error
+        : error.message;
+    
+    if (error.response && error.response.status === 401) {
+    }
+
+    if (error.response && error.response.status === 422) {
+        errormessage = '';
+        error.response.data.errors.forEach(function (value) {
+            errormessage += value.toString() + ' ';
+          });
+    }
+
+    store.dispatch(`alert/${SET_ALERT}`, { message: errormessage, color: 'error' }, { root: true });
+
     return Promise.reject(error);
 });
 

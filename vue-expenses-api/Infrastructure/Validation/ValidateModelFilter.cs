@@ -14,16 +14,10 @@ namespace vue_expenses_api.Infrastructure.Validation
             if (!filterContext.ModelState.IsValid)
             {
                 var result = new ContentResult();
-                var errors = new Dictionary<string, string[]>();
+                var errors = filterContext.ModelState
+                    .Select(valuePair => valuePair.Value.Errors.Select(x => x.ErrorMessage).ToArray()).ToList();
 
-                foreach (var valuePair in filterContext.ModelState)
-                {
-                    errors.Add(
-                        valuePair.Key,
-                        valuePair.Value.Errors.Select(x => x.ErrorMessage).ToArray());
-                }
-
-                string content = JsonConvert.SerializeObject(new {errors});
+                var content = JsonConvert.SerializeObject(new {errors});
                 result.Content = content;
                 result.ContentType = "application/json";
 

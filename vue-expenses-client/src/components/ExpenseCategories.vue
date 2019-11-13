@@ -101,6 +101,7 @@ export default {
     dialog: false,
     menu: false,
     headers: [
+      { text: "Id", value: "id", align: " d-none" },
       { text: "Name", value: "name" },
       { text: "Description", value: "description" },
       { text: "Budget", value: "budget", width: 100 },
