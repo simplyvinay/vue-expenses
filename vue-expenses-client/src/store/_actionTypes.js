@@ -15,6 +15,12 @@ export const EDIT_CATEGORY = 'EDIT_CATEGORY';
 export const REMOVE_CATEGORY = 'REMOVE_CATEGORY';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 
+//EXPENSES
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
+export const GET_EXPENSES = 'GET_EXPENSES';
+
 //ALERT
 export const SET_ALERT = 'SET_ALERT';
 

@@ -2,7 +2,7 @@
   <v-data-table
     :headers="headers"
     :items="expensetypes"
-    sort-by="calories"
+    sort-by="name"
     :items-per-page="5"
     :loading="loading"
     loading-text="Loading... Please wait"
@@ -43,7 +43,7 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn outlined small class="blue--text font-weight-bold" @click="saveType">Save</v-btn>
+              <v-btn outlined small class="blue--text font-weight-bold" @click="saveType" :loading="loading">Save</v-btn>
               <v-btn outlined small class="blue--text font-weight-bold" @click="close">Cancel</v-btn>
             </v-card-actions>
           </v-card>

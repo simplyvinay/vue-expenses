@@ -1,5 +1,12 @@
 <template>
-  <v-data-table :headers="headers" :items="categories" sort-by="calories" :items-per-page="5">
+  <v-data-table
+    :headers="headers"
+    :items="expensecategories"
+    sort-by="name"
+    :items-per-page="5"
+    :loading="loading"
+    loading-text="Loading... Please wait"
+  >
     <template v-slot:top>
       <div class="d-flex align-center pa-1 pb-2">
         <span class="blue--text font-weight-medium">Categories</span>
@@ -16,6 +23,7 @@
 
             <v-card-text>
               <v-container>
+                <input type="hidden" v-model="editedCategory.id" />
                 <v-text-field
                   class="ma-0 pa-0 form-label"
                   dense
@@ -39,11 +47,17 @@
                 <v-text-field
                   class="ma-0 pa-0 form-label"
                   dense
-                  v-model="editedCategory.colour"
+                  v-model="editedCategory.colourHex"
                   label="Colour"
                 >
                   <template v-slot:append>
-                    <v-menu v-model="menu" top nudge-bottom="110" nudge-left="20" :close-on-content-click="false">
+                    <v-menu
+                      v-model="menu"
+                      top
+                      nudge-bottom="110"
+                      nudge-left="20"
+                      :close-on-content-click="false"
+                    >
                       <template v-slot:activator="{ on }">
                         <div :style="swatchStyle(editedCategory)" v-on="on" />
                       </template>
@@ -52,13 +66,18 @@
                           <v-color-picker
                             mode="hexa"
                             hide-mode-switch
-                            v-model="editedCategory.colour"
+                            v-model="editedCategory.colourHex"
                             flat
                           />
                         </v-card-text>
                         <v-card-actions class="pa-0 pb-1 pr-1">
                           <v-spacer></v-spacer>
-                          <v-btn outlined small class="blue--text font-weight-bold" @click="menu = false">Select</v-btn>
+                          <v-btn
+                            outlined
+                            small
+                            class="blue--text font-weight-bold"
+                            @click="menu = false"
+                          >Select</v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-menu>
@@ -69,16 +88,22 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn outlined small class="blue--text font-weight-bold" @click="saveCategory">Save</v-btn>
+              <v-btn
+                outlined
+                small
+                class="blue--text font-weight-bold"
+                @click="saveCategory"
+                :loading="loading"
+              >Save</v-btn>
               <v-btn outlined small class="blue--text font-weight-bold" @click="close">Cancel</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
       </div>
     </template>
-    <template v-slot:item.colour="{ item }">
+    <template v-slot:item.colourHex="{ item }">
       <v-chip
-        :color="item.colour"
+        :color="item.colourHex"
         style="padding: 0px; height: 20px; width: 20px"
         flat
         small
@@ -96,6 +121,13 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+import {
+  ADD_CATEGORY,
+  EDIT_CATEGORY,
+  REMOVE_CATEGORY
+} from "@/store/_actionTypes";
+
 export default {
   data: () => ({
     dialog: false,
@@ -105,28 +137,32 @@ export default {
       { text: "Name", value: "name" },
       { text: "Description", value: "description" },
       { text: "Budget", value: "budget", width: 100 },
-      { text: "Colour", value: "colour", width: 100 },
+      { text: "Colour", value: "colourHex", width: 100 },
       { text: "Actions", value: "action", sortable: false, width: 50 }
     ],
-    categories: [],
-    editedIndex: -1,
     editedCategory: {
+      id: 0,
       name: "",
       description: "",
       budget: 0,
-      colour: "#1976D2FF"
+      colourHex: "#1976D2FF"
     },
     defaultCategory: {
+      id: 0,
       name: "",
       description: "",
       budget: 0,
-      colour: "#1976D2FF"
+      colourHex: "#1976D2FF"
     }
   }),
 
   computed: {
-    categoryFormTitle() {
-      return this.editedIndex === -1 ? "New Category" : "Edit Category";
+    ...mapState("expensecategory", ["expensecategories"]),
+    ...mapState("loader", ["loading"]),
+     categoryFormTitle() {
+      return this.editedCategory.id === 0
+        ? "New Category"
+        : "Edit Category";
     }
   },
 
@@ -135,67 +171,47 @@ export default {
       val || this.close();
     }
   },
-
-  created() {
-    this.initialize();
-  },
-
   methods: {
+
+    ...mapActions("expensecategory", [
+      ADD_CATEGORY,
+      EDIT_CATEGORY,
+      REMOVE_CATEGORY
+    ]),
+
     swatchStyle(item) {
-      const { colour } = item;
+      const { colourHex } = item;
       return {
-        backgroundColor: colour,
+        backgroundColor: colourHex,
         cursor: "pointer",
         height: "20px",
         width: "20px",
         borderRadius: "50%"
       };
     },
-    initialize() {
-      this.categories = [
-        {
-          name: "General Expenses",
-          description:
-            "Velit quam sint distinctio. Provident sed vel neque qui. Asperiores dolorum voluptatum earum dolore.",
-          budget: 2000,
-          colour: "#1976D2FF"
-        },
-        {
-          name: "Shopping",
-          description: "",
-          budget: 1500,
-          colour: "#1976D2FF"
-        }
-      ];
-    },
 
     editCategory(item) {
-      this.editedIndex = this.categories.indexOf(item);
       this.editedCategory = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteCategory(item) {
-      const index = this.categories.indexOf(item);
       confirm("Are you sure you want to delete this item?") &&
-        this.categories.splice(index, 1);
+        this.REMOVE_CATEGORY({ id: item.id });
     },
 
     close() {
       this.dialog = false;
-      setTimeout(() => {
-        this.editedCategory = Object.assign({}, this.defaultCategory);
-        this.editedIndex = -1;
-      }, 300);
+      this.editedCategory = Object.assign({}, this.defaultCategory);
     },
 
     saveCategory() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.categories[this.editedIndex], this.editedCategory);
+      var expenseCategory = this.editedCategory;
+      if (expenseCategory.id == 0) {
+        this.ADD_CATEGORY({ expenseCategory, onSuccess: this.close });
       } else {
-        this.categories.push(this.editedCategory);
+        this.EDIT_CATEGORY({ expenseCategory, onSuccess: this.close });
       }
-      this.close();
     }
   }
 };

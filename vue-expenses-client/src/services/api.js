@@ -19,16 +19,16 @@ function authHeader() {
 }
 
 api.interceptors.request.use(function (request) {
-    store.dispatch(`loader/${SET_LOADING}`, { loading: true }, { root: true });
+    updateLoader(true);    
     return request;
 });
 
 api.interceptors.response.use(function (response) {
-    store.dispatch(`loader/${SET_LOADING}`, { loading: false }, { root: true });
+    updateLoader(false);
     return response;
 }, function (error) {
-    store.dispatch(`loader/${SET_LOADING}`, { loading: false }, { root: true });
-    var errormessage = error.response && error.response.data.errors.Error
+    updateLoader(false);
+    var errormessage = error.response && error.response.data.errors && error.response.data.errors.Error
         ? error.response.data.errors.Error
         : error.message;
     
@@ -46,5 +46,9 @@ api.interceptors.response.use(function (response) {
 
     return Promise.reject(error);
 });
+
+function updateLoader(loading){
+    store.dispatch(`loader/${SET_LOADING}`, { loading: loading }, { root: true });
+}
 
 export default api;
