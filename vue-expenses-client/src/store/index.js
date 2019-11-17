@@ -5,7 +5,7 @@ import { loader } from '@/store/loader';
 import { account } from '@/store/account';
 import { expensetypes } from '@/store/expensetypes';
 import { expensecategories } from '@/store/expensecategories';
-
+import { statistics } from '@/store/statistics';
 
 Vue.use(Vuex);
 
@@ -15,7 +15,8 @@ const store = new Vuex.Store({
         loader,
         account,
         expensetypes,
-        expensecategories
+        expensecategories,
+        statistics
     }
 });
 
