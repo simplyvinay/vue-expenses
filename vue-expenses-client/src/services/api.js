@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from "@/store"
-import { SET_ALERT, SET_LOADING } from '@/store/_actionTypes'
+import { ADD_ALERT, TOGGLE_LOADING } from '@/store/_actionTypes'
 
 let api = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,
@@ -42,13 +42,13 @@ api.interceptors.response.use(function (response) {
           });
     }
 
-    store.dispatch(`alert/${SET_ALERT}`, { message: errormessage, color: 'error' }, { root: true });
+    store.dispatch(`alert/${ADD_ALERT}`, { message: errormessage, color: 'error' }, { root: true });
 
     return Promise.reject(error);
 });
 
 function updateLoader(loading){
-    store.dispatch(`loader/${SET_LOADING}`, { loading: loading }, { root: true });
+    store.dispatch(`loader/${TOGGLE_LOADING}`, { loading: loading }, { root: true });
 }
 
 export default api;

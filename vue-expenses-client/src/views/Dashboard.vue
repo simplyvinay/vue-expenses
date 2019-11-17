@@ -183,7 +183,7 @@
             <v-layout row wrap>
               <v-flex xs12 md12>
                 <v-card class="pa-2 mr-2" tile>
-                  <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Breakdown</div>
+                  <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Breakdown (Current Year)</div>
                   <v-divider></v-divider>
                   <v-container>
                     <v-layout row wrap>
@@ -223,7 +223,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .category-budgets {
   display: flex;
   justify-content: space-evenly;

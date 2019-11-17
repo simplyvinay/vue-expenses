@@ -1,5 +1,4 @@
-
-import { SET_LOADING } from '@/store/_actionTypes'
+import { TOGGLE_LOADING } from '@/store/_actionTypes'
 import { UPDATE_LOADING } from '@/store/_mutationTypes'
 
 const state = {
@@ -7,7 +6,7 @@ const state = {
 };
 
 const actions = {
-    [SET_LOADING]({ commit }, { loading }) {
+    [TOGGLE_LOADING]({ commit }, { loading }) {
         commit(UPDATE_LOADING, loading);
     }
 };

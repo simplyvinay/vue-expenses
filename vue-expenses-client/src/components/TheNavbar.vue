@@ -61,11 +61,17 @@
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
+    <ProgressBar/>
   </div>
 </template>
 
 <script>
+import ProgressBar from "@/components/TheProgressBar";
+
 export default {
+  components:{
+    ProgressBar
+  },
   computed: {
     userNameInitials() {
       var initials = this.userName.match(/\b\w/g) || [];

@@ -4,7 +4,6 @@
     :items="expensecategories"
     sort-by="name"
     :items-per-page="5"
-    :loading="loading"
     loading-text="Loading... Please wait"
   >
     <template v-slot:top>
@@ -123,7 +122,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import {
-  ADD_CATEGORY,
+  CREATE_CATEGORY,
   EDIT_CATEGORY,
   REMOVE_CATEGORY
 } from "@/store/_actionTypes";
@@ -158,8 +157,7 @@ export default {
 
   computed: {
      ...mapState({
-      expensecategories: state => state.expensecategory.expensecategories,
-      loading: state => state.loader.loading,
+      expensecategories: state => state.expensecategories.expensecategories
     }),
      categoryFormTitle() {
       return this.editedCategory.id === 0
@@ -175,8 +173,8 @@ export default {
   },
   methods: {
 
-    ...mapActions("expensecategory", [
-      ADD_CATEGORY,
+    ...mapActions("expensecategories", [
+      CREATE_CATEGORY,
       EDIT_CATEGORY,
       REMOVE_CATEGORY
     ]),
@@ -210,7 +208,7 @@ export default {
     saveCategory() {
       var expenseCategory = this.editedCategory;
       if (expenseCategory.id == 0) {
-        this.ADD_CATEGORY({ expenseCategory, onSuccess: this.close });
+        this.CREATE_CATEGORY({ expenseCategory, onSuccess: this.close });
       } else {
         this.EDIT_CATEGORY({ expenseCategory, onSuccess: this.close });
       }
