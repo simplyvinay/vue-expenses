@@ -57,7 +57,8 @@ namespace vue_expenses_api.Features.Statistics
 	                            ec.Name AS Name,
 	                            ec.Budget AS Budget,
 	                            ec.ColourHex AS Colour,
-	                            COALESCE(SUM(e.Value), 0) AS Spent	
+	                            COALESCE(SUM(e.Value), 0) AS Spent,
+                                STRFTIME('%m', e.Date) as Month
                             FROM 
 	                            ExpenseCategories ec
                             INNER JOIN	
@@ -68,7 +69,10 @@ namespace vue_expenses_api.Features.Statistics
                                 u.Email = @userEmailId
 	                            {yearMonthCriteria}
                             GROUP BY 
-	                            ec.Name";
+	                            ec.Name,
+	                            STRFTIME('%m', e.Date)
+                            ORDER BY 
+	                            Month";
 
                 var expenses = await _dbConnection.QueryAsync<CategoryStatisticsDto>(
                     sql,

@@ -35,12 +35,23 @@ export default {
     showTooltip: {
       type: Boolean,
       default: true
-    }
-  },
-  methods: {
-    getRandomColor() {
-      var color = "hsl(" + Math.random() * 360 + ", 60%, 55%)";
-      return color;
+    },
+    seriesData: {
+      type: Object,
+      default: function() {
+        return [
+          { value: 310, name: "Spent" },
+          { value: 234, name: "Remaining" }
+        ];
+      }
+    },
+    seriesAColour: {
+      type: String,
+      default: "#2779bd"
+    },
+    seriesBColour: {
+      type: String,
+      default: "#BDBDBD"
     }
   },
   data() {
@@ -48,7 +59,7 @@ export default {
       options: {
         backgroundColor: this.$vuetify.theme.dark ? "#424242" : "",
         textStyle: {
-          fontFamily: 'Nunito'
+          fontFamily: "Nunito"
         },
         series: [
           {
@@ -56,10 +67,7 @@ export default {
             type: "pie",
             radius: ["45%", "65%"],
             center: ["50%", "60%"],
-            data: [
-              { value: 310, name: "Spent" },
-              { value: 234, name: "Remaining" }
-            ],
+            data: this.seriesData,
             itemStyle: {
               emphasis: {
                 show: true,
@@ -90,7 +98,7 @@ export default {
             }
           }
         ],
-        color: [this.getRandomColor(), "#BDBDBD"],
+        color: [this.seriesAColour, this.seriesBColour],
         title: {
           text: this.titleText,
           //subtext: "Per Month",
