@@ -8,7 +8,7 @@
 
         public ExpenseByCategoryStatisticsDto(
             string categoryName,
-            decimal categoryColour,
+            string categoryColour,
             int month,
             decimal spent)
         {
@@ -19,7 +19,7 @@
         }
 
         public string CategoryName { get; set; }
-        public decimal CategoryColour { get; set; }
+        public string CategoryColour { get; set; }
         public int Month { get; set; }
         public decimal Spent { get; set; }
     }

@@ -96,17 +96,49 @@ namespace vue_expenses_api.Infrastructure
             };
             modelBuilder.Entity<User>().HasData(user);
 
+
             modelBuilder.Entity<ExpenseCategory>().HasData(
                 new
                 {
                     Id = 1,
                     Name = "General Expenses",
-                    Budget = 0m,
-                    Colour = "",
+                    Budget = 2000m,
+                    ColourHex = "#CE93D8",
+                    CreatedAt = createdAt,
+                    UpdatedAt = createdAt,
+                    UserId = user.Id
+                },
+                new
+                {
+                    Id = 2,
+                    Name = "Shopping",
+                    Budget = 3000m,
+                    ColourHex = "#64B5F6",
+                    CreatedAt = createdAt,
+                    UpdatedAt = createdAt,
+                    UserId = user.Id
+                },
+                new
+                {
+                    Id = 3,
+                    Name = "Utilities",
+                    Budget = 2500m,
+                    ColourHex = "#26A69A",
+                    CreatedAt = createdAt,
+                    UpdatedAt = createdAt,
+                    UserId = user.Id
+                },
+                new
+                {
+                    Id = 4,
+                    Name = "Travel",
+                    Budget = 1000m,
+                    ColourHex = "#FB8C00",
                     CreatedAt = createdAt,
                     UpdatedAt = createdAt,
                     UserId = user.Id
                 }
+
             );
             modelBuilder.Entity<ExpenseType>().HasData(
                 new
@@ -116,21 +148,86 @@ namespace vue_expenses_api.Infrastructure
                     CreatedAt = createdAt,
                     UpdatedAt = createdAt,
                     UserId = user.Id
-                }
-            );
-            modelBuilder.Entity<Expense>().HasData(
+                },
                 new
                 {
-                    Id = 1,
-                    Date = DateTime.Now,
-                    CategoryId = 1,
-                    TypeId = 1,
-                    Value = 10m,
+                    Id = 2,
+                    Name = "Debit Card",
+                    CreatedAt = createdAt,
+                    UpdatedAt = createdAt,
+                    UserId = user.Id
+                },
+                new
+                {
+                    Id = 3,
+                    Name = "Cheque",
+                    CreatedAt = createdAt,
+                    UpdatedAt = createdAt,
+                    UserId = user.Id
+                },
+                
+                new
+                {
+                    Id = 4,
+                    Name = "Cash",
                     CreatedAt = createdAt,
                     UpdatedAt = createdAt,
                     UserId = user.Id
                 }
             );
+
+            var r = new Random();
+            var expenseId = 0;
+            //create expenses for a few years
+            for (var i = 1; i <= 12; i++)
+            {
+                int[] indexes = {1, 2, 3, 4};
+                var dates = Enumerable.Range(
+                    1,
+                    28).ToList();
+
+                modelBuilder.Entity<Expense>().HasData(
+                    new
+                    {
+                        Id = ++expenseId,
+                        Date = new DateTime(
+                            2019,
+                            i,
+                            dates[r.Next(1, 28)]),
+                        CategoryId = indexes[r.Next(1, 4)],
+                        TypeId = indexes[r.Next(1, 4)],
+                        Value = (decimal)(r.NextDouble() * 1500),
+                        CreatedAt = new DateTime(
+                            2019,
+                            i,
+                            dates[r.Next(1, 28)]),
+                        UpdatedAt = new DateTime(
+                            2019,
+                            i,
+                            dates[r.Next(1, 28)]),
+                        UserId = user.Id
+                    },
+                    new
+                    {
+                        Id = ++expenseId,
+                        Date = new DateTime(
+                            2019,
+                            i,
+                            dates[r.Next(1, 28)]),
+                        CategoryId = indexes[r.Next(1, 4)],
+                        TypeId = indexes[r.Next(1, 4)],
+                        Value = (decimal)(r.NextDouble() * 1500),
+                        CreatedAt = new DateTime(
+                            2019,
+                            i,
+                            dates[r.Next(1, 28)]),
+                        UpdatedAt = new DateTime(
+                            2019,
+                            i,
+                            dates[r.Next(1, 28)]),
+                        UserId = user.Id
+                    });
+            }
 
             #endregion
         }
