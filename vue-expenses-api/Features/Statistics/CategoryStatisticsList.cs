@@ -49,7 +49,8 @@ namespace vue_expenses_api.Features.Statistics
                 var yearMonthCriteria = request.CategoryBreakdownBy == EnumCategoryBreakdownBy.Month
                     ? @" AND STRFTIME('%m', e.Date) = STRFTIME('%m', DATE('now'))
 	                     AND STRFTIME('%Y', e.Date) = STRFTIME('%Y', DATE('now'))"
-                    : " AND STRFTIME('%Y', e.Date) = STRFTIME('%Y', DATE('now'))";
+                    : @" AND STRFTIME('%Y', e.Date) = STRFTIME('%Y', DATE('now'))
+                         AND STRFTIME('%m', e.Date) <= STRFTIME('%m', DATE('now'))";
 
                 var sql = $@"SELECT 
 	                            ec.Id,
@@ -64,8 +65,10 @@ namespace vue_expenses_api.Features.Statistics
                             INNER JOIN
                                 Users u ON u.Id = ec.UserId
                             WHERE 
-                                u.Email=@userEmailId
-	                            {yearMonthCriteria}";
+                                u.Email = @userEmailId
+	                            {yearMonthCriteria}
+                            GROUP BY 
+	                            ec.Name";
 
                 var expenses = await _dbConnection.QueryAsync<CategoryStatisticsDto>(
                     sql,
