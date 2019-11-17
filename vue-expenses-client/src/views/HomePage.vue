@@ -5,13 +5,18 @@
       <v-content class="pt-1 pl-1">
         <router-view></router-view>
       </v-content>
-    </v-container>    
+    </v-container>
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/TheNavbar";
-import { LOAD_EXPENSE_TYPES, LOAD_CATEGORIES } from "@/store/_actionTypes";
+import {
+  LOAD_EXPENSE_TYPES,
+  LOAD_CATEGORIES,
+  LOAD_CATEGORIES_BREAKDOWN,
+  LOAD_EXPENSES_BREAKDOWN
+} from "@/store/_actionTypes";
 export default {
   components: {
     Navbar
@@ -19,9 +24,13 @@ export default {
   mounted: function() {
     this.$store.dispatch(`expensetypes/${LOAD_EXPENSE_TYPES}`);
     this.$store.dispatch(`expensecategories/${LOAD_CATEGORIES}`);
+    this.$store.dispatch(`statistics/${LOAD_CATEGORIES_BREAKDOWN}`);
+    this.$store.dispatch(`statistics/${LOAD_EXPENSES_BREAKDOWN}`);
   },
-  created: function(){
-    this.$vuetify.theme.dark = JSON.parse(localStorage.getItem('user')).useDarkMode;
+  created: function() {
+    this.$vuetify.theme.dark = JSON.parse(
+      localStorage.getItem("user")
+    ).useDarkMode;
   },
   data: () => ({
     //
