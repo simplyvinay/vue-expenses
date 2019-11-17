@@ -10,15 +10,15 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar";
-import { GET_EXPENSE_TYPES, GET_CATEGORIES } from "@/store/_actionTypes";
+import Navbar from "@/components/TheNavbar";
+import { LOAD_EXPENSE_TYPES, LOAD_CATEGORIES } from "@/store/_actionTypes";
 export default {
   components: {
     Navbar
   },
   mounted: function() {
-    this.$store.dispatch(`expensetype/${GET_EXPENSE_TYPES}`);
-    this.$store.dispatch(`expensecategory/${GET_CATEGORIES}`);
+    this.$store.dispatch(`expensetypes/${LOAD_EXPENSE_TYPES}`);
+    this.$store.dispatch(`expensecategories/${LOAD_CATEGORIES}`);
   },
   created: function(){
     this.$vuetify.theme.dark = JSON.parse(localStorage.getItem('user')).useDarkMode;

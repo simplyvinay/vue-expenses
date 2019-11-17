@@ -4,7 +4,6 @@
     :items="expensetypes"
     sort-by="name"
     :items-per-page="5"
-    :loading="loading"
     loading-text="Loading... Please wait"
   >
     <template v-slot:top>
@@ -72,7 +71,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import {
-  ADD_EXPENSE_TYPE,
+  CREATE_EXPENSE_TYPE,
   EDIT_EXPENSE_TYPE,
   REMOVE_EXPENSE_TYPE
 } from "@/store/_actionTypes";
@@ -101,8 +100,7 @@ export default {
   computed: {
 
     ...mapState({
-      expensetypes: state => state.expensetype.expensetypes,
-      loading: state => state.loader.loading,
+      expensetypes: state => state.expensetypes.expensetypes
     }),
 
     categoryFormTitle() {
@@ -118,8 +116,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions("expensetype", [
-      ADD_EXPENSE_TYPE,
+    ...mapActions("expensetypes", [
+      CREATE_EXPENSE_TYPE,
       EDIT_EXPENSE_TYPE,
       REMOVE_EXPENSE_TYPE
     ]),
@@ -142,7 +140,7 @@ export default {
     saveType() {
       var expenseType = this.editedType;
       if (expenseType.id == 0) {
-        this.ADD_EXPENSE_TYPE({ expenseType, onSuccess: this.close });
+        this.CREATE_EXPENSE_TYPE({ expenseType, onSuccess: this.close });
       } else {
         this.EDIT_EXPENSE_TYPE({ expenseType, onSuccess: this.close });
       }
