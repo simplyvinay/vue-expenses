@@ -93,6 +93,7 @@
               :theme="theme"
               :showLabel="true"
               :showLabelLines="true"
+              :seriesData="monthlybudget"
             />
             <div class="d-flex justify-space-around subtitle-2">
               <div>
@@ -183,7 +184,9 @@
             <v-layout row wrap>
               <v-flex xs12 md12>
                 <v-card class="pa-2 mr-2" tile>
-                  <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Breakdown (Current Year)</div>
+                  <div
+                    class="blue--text px-2 py-1 text-capitalize font-weight-medium"
+                  >Breakdown (Current Year)</div>
                   <v-divider></v-divider>
                   <v-container>
                     <v-layout row wrap>
@@ -208,11 +211,16 @@
 import DoughnutChart from "@/components/DoughnutChart";
 import BarChart from "@/components/BarChart";
 import PieChart from "@/components/PieChart";
+import { mapGetters } from 'vuex'
 
 export default {
   components: { DoughnutChart, BarChart, PieChart },
   mounted(){
     this.theme = this.$vuetify.theme.dark ? "dark" : "";
+  },
+  computed: {
+    // mix the getters into computed with object spread operator
+    ...mapGetters("statistics", ['monthlybudget'])
   },
   data() {
     return {
