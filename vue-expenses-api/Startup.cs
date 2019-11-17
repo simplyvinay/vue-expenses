@@ -65,21 +65,19 @@ namespace vue_expenses_api
                             Scheme = "bearer"
                         });
 
-                    x.AddSecurityRequirement(
-                        new OpenApiSecurityRequirement
+                    var requirement = new OpenApiSecurityRequirement();
+                    requirement.Add(
+                        new OpenApiSecurityScheme
                         {
+                            Reference = new OpenApiReference
                             {
-                                new OpenApiSecurityScheme
-                                {
-                                    Reference = new OpenApiReference
-                                    {
-                                        Id = "Bearer", //The name of the previously defined security scheme.
-                                        Type = ReferenceType.SecurityScheme
-                                    }
-                                },
-                                new List<string>()
+                                Id = "Bearer", //The name of the previously defined security scheme.
+                                Type = ReferenceType.SecurityScheme
                             }
-                        });
+                        },
+                        new List<string>());
+                    x.AddSecurityRequirement(
+                        requirement);
                     x.SwaggerDoc(
                         "v1",
                         new OpenApiInfo {Title = "Expenses API", Version = "v1"});
