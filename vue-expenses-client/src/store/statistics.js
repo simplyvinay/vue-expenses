@@ -43,20 +43,20 @@ const getters = {
         var totalSpent = sumBy(currentMonthBudget, (cm) => { return cm.spent });
 
         return [
-            { value: totalSpent, name: "Spent" },
-            { value: totalBudget - totalSpent, name: "Remaining" }
+            { value: totalSpent.toFixed(2), name: "Spent" },
+            { value: (totalBudget - totalSpent).toFixed(2), name: "Remaining" }
         ]
     },
     monthlyBudgetsByCategory: state => {
         var currentmonth = new Date().getMonth() + 1;
-        var currentMonthBudget = state.categorybreakdown.filter((o) => { return o.month == currentmonth; });
-        var budgets = groupBy(currentMonthBudget, function (e) { return e.name + '|' + e.colour })
-        return map(budgets, (budget, key) => ({
+        var currentMonthBudgets = state.categorybreakdown.filter((o) => { return o.month == currentmonth; });
+        var groupedBugetsByCategory = groupBy(currentMonthBudgets, (e) => { return e.name + '|' + e.colour })
+        return map(groupedBugetsByCategory, (budget, key) => ({
             name: key.split('|')[0],
             colour: key.split('|')[1],
-            monthlyBudget: [
-                { value: sumBy(budget, "spent"), name: "Spent" },
-                { value: sumBy(budget, "budget") - sumBy(budget, "spent"), name: "Remaining" }
+            monthlybudget: [
+                { value: sumBy(budget, "spent").toFixed(2), name: "Spent" },
+                { value: (sumBy(budget, "budget") - sumBy(budget, "spent")).toFixed(2), name: "Remaining" }
             ]
         }));
     }

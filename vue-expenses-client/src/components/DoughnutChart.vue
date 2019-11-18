@@ -37,7 +37,7 @@ export default {
       default: true
     },
     seriesData: {
-      type: Object,
+      type: Array,
       default: function() {
         return [
           { value: 310, name: "Spent" },
@@ -88,7 +88,7 @@ export default {
                   fontSize: "12",
                   fontWeight: "bold"
                 },
-                formatter: "{b}\n({d}%)"
+                formatter: "{b}\n{c}\n({d}%)"
               }
             },
             labelLine: {
@@ -101,7 +101,6 @@ export default {
         color: [this.seriesAColour, this.seriesBColour],
         title: {
           text: this.titleText,
-          //subtext: "Per Month",
           x: "center",
           top: "10",
           show: this.showTitle,
@@ -118,7 +117,7 @@ export default {
         tooltip: {
           show: this.showTooltip,
           trigger: "item",
-          formatter: "{a} <br/>{b} : {c} <br/>({d}%)",
+          formatter: "{b} : {c} <br/>({d}%)",
           textStyle: {
             fontSize: 12,
             fontWeight: "normal"

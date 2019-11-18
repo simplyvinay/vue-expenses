@@ -115,64 +115,16 @@
               >Budgets By Categories</div>
               <v-divider></v-divider>
               <div class="category-budgets">
-                <div class="category-budgets-budget">
+                <div v-for="budget in monthlyBudgetsByCategory" :key="budget.name" class="category-budgets-budget">
                   <DoughnutChart
-                    titleText="General Expenses"
+                    :titleText="budget.name"
                     showTitle="true"
                     height="90"
                     titleFontSize="14"
                     :theme="theme"
                     :showTooltip="false"
-                  />
-                </div>
-                <div class="category-budgets-budget">
-                  <DoughnutChart
-                    titleText="Shopping"
-                    showTitle="true"
-                    height="90"
-                    titleFontSize="14"
-                    :theme="theme"
-                    :showTooltip="false"
-                  />
-                </div>
-                <div class="category-budgets-budget">
-                  <DoughnutChart
-                    titleText="Utilities"
-                    showTitle="true"
-                    height="90"
-                    titleFontSize="14"
-                    :theme="theme"
-                    :showTooltip="false"
-                  />
-                </div>
-                <div class="category-budgets-budget">
-                  <DoughnutChart
-                    titleText="Groceries"
-                    showTitle="true"
-                    height="90"
-                    titleFontSize="14"
-                    :theme="theme"
-                    :showTooltip="false"
-                  />
-                </div>
-                <div class="category-budgets-budget">
-                  <DoughnutChart
-                    titleText="Travel"
-                    showTitle="true"
-                    height="90"
-                    titleFontSize="14"
-                    :theme="theme"
-                    :showTooltip="false"
-                  />
-                </div>
-                <div class="category-budgets-budget">
-                  <DoughnutChart
-                    titleText="Misc"
-                    showTitle="true"
-                    height="90"
-                    titleFontSize="14"
-                    :theme="theme"
-                    :showTooltip="false"
+                    :seriesData="budget.monthlybudget"
+                    :seriesAColour="budget.colour"                    
                   />
                 </div>
               </div>
@@ -219,13 +171,12 @@ export default {
     this.theme = this.$vuetify.theme.dark ? "dark" : "";
   },
   computed: {
-    // mix the getters into computed with object spread operator
-    ...mapGetters("statistics", ['monthlybudget'])
+    ...mapGetters("statistics", ['monthlybudget', 'monthlyBudgetsByCategory'])
   },
   data() {
     return {
       dateMenu: false,
-      theme: ''
+      theme: '',
     };
   }
 };
