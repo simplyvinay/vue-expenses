@@ -1,5 +1,5 @@
 <template>
-  <chart :options="options" style="width: 100%" :theme="theme" />
+  <chart :options="options" :style="style" :theme="theme" />
 </template>
 
 <script>
@@ -84,6 +84,9 @@ export default {
             fontWeight: "normal"
           }
         }
+      },
+      style: {
+        width: "100%"
       }
     };
   }
