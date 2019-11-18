@@ -4,61 +4,48 @@
 
 <script>
 export default {
-   props: {
+  props: {
     theme: {
-      type: String     
+      type: String
+    },
+    seriesData: {
+      type: Object,
+      default: function() {
+        return {
+          xAxisData: [],
+          data: []
+        };
+      }
     }
   },
   data() {
+    debugger;
     return {
       options: {
         backgroundColor: this.$vuetify.theme.dark ? "#424242" : "",
         textStyle: {
-          fontFamily: 'Nunito'
+          fontFamily: "Nunito"
         },
         grid: {
           show: false,
           top: 80,
-          bottom: 80,
+          bottom: 80
         },
         xAxis: {
-          data: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-          ],
-          axisLabel: {
-            textStyle: {
-              //color: "#616161"
-            }
-          }
+          data: this.seriesData.xAxisData
         },
         yAxis: [
           {
             type: "value",
             splitLine: {
               show: false
-            },
-            axisLabel: {
-              textStyle: {
-                //color: "#616161"
-              }
             }
           }
         ],
         series: [
           {
             type: "bar",
-            data: [630, 750, 240, 800, 630, 750, 240, 920, 63, 750, 240, 780],
+            data: this.seriesData.data,
             barWidth: "50%",
             center: ["50%", "50%"],
             label: {
@@ -86,7 +73,6 @@ export default {
           x: "center",
           top: "20",
           textStyle: {
-            //color: "#616161",
             fontSize: 14,
             fontWeight: "normal"
           }

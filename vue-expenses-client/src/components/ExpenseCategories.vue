@@ -172,7 +172,6 @@ export default {
     }
   },
   methods: {
-
     ...mapActions("expensecategories", [
       CREATE_CATEGORY,
       EDIT_CATEGORY,
