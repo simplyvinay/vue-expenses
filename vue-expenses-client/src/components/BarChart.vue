@@ -19,7 +19,6 @@ export default {
     }
   },
   data() {
-    debugger;
     return {
       options: {
         backgroundColor: this.$vuetify.theme.dark ? "#424242" : "",

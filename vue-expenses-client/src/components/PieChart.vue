@@ -6,7 +6,13 @@
 export default {
   props: {
     theme: {
-      type: String     
+      type: String
+    },
+    seriesData: {
+      type: Array,
+      default: function() {
+        return [{ value: 310, name: "General", itemStyle: { color: "red" } }];
+      }
     }
   },
   data() {
@@ -14,7 +20,7 @@ export default {
       options: {
         backgroundColor: this.$vuetify.theme.dark ? "#424242" : "",
         textStyle: {
-          fontFamily: 'Nunito'
+          fontFamily: "Nunito"
         },
         series: [
           {
@@ -23,13 +29,7 @@ export default {
             radius: "60%",
             center: ["50%", "50%"],
             roseType: "radius",
-            data: [
-              { value: 335, name: "General\nExpenses" },
-              { value: 310, name: "Shopping" },
-              { value: 234, name: "Utilities" },
-              { value: 210, name: "Groceries" },
-              { value: 400, name: "Travel" },
-            ],
+            data: this.seriesData,
             itemStyle: {
               emphasis: {
                 show: true,
@@ -55,13 +55,11 @@ export default {
         ],
         title: {
           text: "Expenses By Category",
-          //subtext: "All Time",
           x: "center",
           top: "20",
           textStyle: {
-            //color: "#616161",
             fontSize: 14,
-            fontWeight: 'normal'
+            fontWeight: "normal"
           }
         },
         legend: {
