@@ -40,18 +40,10 @@ export default {
       type: Array,
       default: function() {
         return [
-          { value: 310, name: "Spent" },
-          { value: 234, name: "Remaining" }
+          { value: 310, name: "Spent", itemStyle: { color: "#2779bd" } },
+          { value: 234, name: "Remaining", itemStyle: { color: "#BDBDBD" } }
         ];
       }
-    },
-    seriesAColour: {
-      type: String,
-      default: "#2779bd"
-    },
-    seriesBColour: {
-      type: String,
-      default: "#BDBDBD"
     }
   },
   data() {
@@ -98,7 +90,6 @@ export default {
             }
           }
         ],
-        color: [this.seriesAColour, this.seriesBColour],
         title: {
           text: this.titleText,
           x: "center",

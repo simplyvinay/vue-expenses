@@ -43,8 +43,8 @@ const getters = {
         var totalSpent = sumBy(currentMonthBudget, (cm) => { return cm.spent });
 
         return [
-            { value: totalSpent.toFixed(2), name: "Spent" },
-            { value: (totalBudget - totalSpent).toFixed(2), name: "Remaining" }
+            { value: totalSpent.toFixed(2), name: "Spent", itemStyle: { color: "#2779bd" } },
+            { value: (totalBudget - totalSpent).toFixed(2), name: "Remaining", itemStyle: { color: "#BDBDBD" } }
         ]
     },
     monthlyBudgetsByCategory: state => {
@@ -55,8 +55,8 @@ const getters = {
             name: key.split('|')[0],
             colour: key.split('|')[1],
             monthlybudget: [
-                { value: sumBy(budget, "spent").toFixed(2), name: "Spent" },
-                { value: (sumBy(budget, "budget") - sumBy(budget, "spent")).toFixed(2), name: "Remaining" }
+                { value: sumBy(budget, "spent").toFixed(2), name: "Spent", itemStyle: { color: key.split('|')[1] } },
+                { value: (sumBy(budget, "budget") - sumBy(budget, "spent")).toFixed(2), name: "Remaining", itemStyle: { color: "#BDBDBD" } }
             ]
         }));
     },
@@ -85,6 +85,19 @@ const getters = {
             yearlyExpenses.data = yearlyExpenses.data.concat(sumBy(value, "spent").toFixed(0));
         });
         return yearlyExpenses;
+    },
+    categoryExpenses: state => {
+        var categoryExpenses = [];
+        var groupedByCategory = groupBy(state.expensesbreakdown, (e) => { return e.categoryName + '|' + e.categoryColour });
+
+        forEach(groupedByCategory, (value, key) => {
+            categoryExpenses = categoryExpenses.concat({
+                value: sumBy(value, "spent").toFixed(2),
+                name: key.split('|')[0],
+                itemStyle: { color: key.split('|')[1] }
+            })
+        });
+        return categoryExpenses;
     }
 }
 

@@ -127,8 +127,7 @@
                     titleFontSize="14"
                     :theme="theme"
                     :showTooltip="false"
-                    :seriesData="budget.monthlybudget"
-                    :seriesAColour="budget.colour"
+                    :seriesData="budget.monthlybudget"                    
                   />
                 </div>
               </div>
@@ -150,7 +149,7 @@
                         <BarChart :theme="theme" :seriesData="yearlyExpenses" />
                       </v-flex>
                       <v-flex xs12 md6>
-                        <PieChart :theme="theme" />
+                        <PieChart :theme="theme" :seriesData="categoryExpenses" />
                       </v-flex>
                     </v-layout>
                   </v-container>
@@ -178,7 +177,8 @@ export default {
     ...mapGetters("statistics", [
       "monthlybudget",
       "monthlyBudgetsByCategory",
-      "yearlyExpenses"
+      "yearlyExpenses",
+      "categoryExpenses"
     ])
   },
   data() {
