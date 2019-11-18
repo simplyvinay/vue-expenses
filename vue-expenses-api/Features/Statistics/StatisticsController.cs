@@ -21,19 +21,11 @@ namespace vue_expenses_api.Features.Statistics
         }
 
         [HttpGet]
-        [Route("getcurrentmonthcategoriesbreakdown")]
-        public async Task<List<CategoryStatisticsDto>> GetCurrentMonthCategoriesBreakdown()
-        {
-            return await _mediator.Send(
-                new CategoryStatisticsList.Query(CategoryStatisticsList.EnumCategoryBreakdownBy.Month));
-        }
-
-        [HttpGet]
         [Route("getcurrentyearcategoriesbreakdown")]
         public async Task<List<CategoryStatisticsDto>> GetCurrentYearCategoriesBreakdown()
         {
             return await _mediator.Send(
-                new CategoryStatisticsList.Query(CategoryStatisticsList.EnumCategoryBreakdownBy.Year));
+                new CategoryStatisticsList.Query());
         }
 
         [HttpGet]

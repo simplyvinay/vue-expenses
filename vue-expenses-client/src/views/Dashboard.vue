@@ -115,7 +115,11 @@
               >Budgets By Categories</div>
               <v-divider></v-divider>
               <div class="category-budgets">
-                <div v-for="budget in monthlyBudgetsByCategory" :key="budget.name" class="category-budgets-budget">
+                <div
+                  v-for="budget in monthlyBudgetsByCategory"
+                  :key="budget.name"
+                  class="category-budgets-budget"
+                >
                   <DoughnutChart
                     :titleText="budget.name"
                     showTitle="true"
@@ -124,7 +128,7 @@
                     :theme="theme"
                     :showTooltip="false"
                     :seriesData="budget.monthlybudget"
-                    :seriesAColour="budget.colour"                    
+                    :seriesAColour="budget.colour"
                   />
                 </div>
               </div>
@@ -143,7 +147,7 @@
                   <v-container>
                     <v-layout row wrap>
                       <v-flex xs12 md6>
-                        <BarChart :theme="theme" />
+                        <BarChart :theme="theme" :seriesData="yearlyExpenses" />
                       </v-flex>
                       <v-flex xs12 md6>
                         <PieChart :theme="theme" />
@@ -163,20 +167,24 @@
 import DoughnutChart from "@/components/DoughnutChart";
 import BarChart from "@/components/BarChart";
 import PieChart from "@/components/PieChart";
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
   components: { DoughnutChart, BarChart, PieChart },
-  mounted(){
+  mounted() {
     this.theme = this.$vuetify.theme.dark ? "dark" : "";
   },
   computed: {
-    ...mapGetters("statistics", ['monthlybudget', 'monthlyBudgetsByCategory'])
+    ...mapGetters("statistics", [
+      "monthlybudget",
+      "monthlyBudgetsByCategory",
+      "yearlyExpenses"
+    ])
   },
   data() {
     return {
       dateMenu: false,
-      theme: '',
+      theme: ""
     };
   }
 };

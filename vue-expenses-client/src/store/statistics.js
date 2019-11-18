@@ -4,7 +4,7 @@ import { SET_CATEGORIES_BREAKDOWN, SET_EXPENSES_BREAKDOWN } from '@/store/_mutat
 import map from 'lodash/map'
 import sumBy from 'lodash/sumBy'
 import groupBy from 'lodash/groupBy'
-
+import forEach from 'lodash/forEach'
 
 const state = {
     categorybreakdown: [],
@@ -50,7 +50,7 @@ const getters = {
     monthlyBudgetsByCategory: state => {
         var currentmonth = new Date().getMonth() + 1;
         var currentMonthBudgets = state.categorybreakdown.filter((o) => { return o.month == currentmonth; });
-        var groupedBugetsByCategory = groupBy(currentMonthBudgets, (e) => { return e.name + '|' + e.colour })
+        var groupedBugetsByCategory = groupBy(currentMonthBudgets, (e) => { return e.name + '|' + e.colour });
         return map(groupedBugetsByCategory, (budget, key) => ({
             name: key.split('|')[0],
             colour: key.split('|')[1],
@@ -59,6 +59,32 @@ const getters = {
                 { value: (sumBy(budget, "budget") - sumBy(budget, "spent")).toFixed(2), name: "Remaining" }
             ]
         }));
+    },
+    yearlyExpenses: state => {
+        var months = ["Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"];
+
+        var groupedByMonths = groupBy(state.expensesbreakdown, (e) => { return e.month });
+        var yearlyExpenses = {
+            xAxisData: [],
+            data: []
+        };
+
+        forEach(groupedByMonths, (value, key) => {
+            yearlyExpenses.xAxisData = yearlyExpenses.xAxisData.concat(months[Number(key) - 1]);
+            yearlyExpenses.data = yearlyExpenses.data.concat(sumBy(value, "spent").toFixed(0));
+        });
+        return yearlyExpenses;
     }
 }
 

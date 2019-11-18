@@ -12,21 +12,8 @@ namespace vue_expenses_api.Features.Statistics
 {
     public class CategoryStatisticsList
     {
-        public enum EnumCategoryBreakdownBy
-        {
-            Month,
-            Year
-        }
-
         public class Query : IRequest<List<CategoryStatisticsDto>>
         {
-            public Query(
-                EnumCategoryBreakdownBy categoryBreakdownBy)
-            {
-                CategoryBreakdownBy = categoryBreakdownBy;
-            }
-
-            public EnumCategoryBreakdownBy CategoryBreakdownBy { get; set; }
         }
 
         public class QueryHandler : IRequestHandler<Query, List<CategoryStatisticsDto>>
@@ -46,12 +33,6 @@ namespace vue_expenses_api.Features.Statistics
                 Query request,
                 CancellationToken cancellationToken)
             {
-                var yearMonthCriteria = request.CategoryBreakdownBy == EnumCategoryBreakdownBy.Month
-                    ? @" AND STRFTIME('%m', e.Date) = STRFTIME('%m', DATE('now'))
-	                     AND STRFTIME('%Y', e.Date) = STRFTIME('%Y', DATE('now'))"
-                    : @" AND STRFTIME('%Y', e.Date) = STRFTIME('%Y', DATE('now'))
-                         AND STRFTIME('%m', e.Date) <= STRFTIME('%m', DATE('now'))";
-
                 var sql = $@"SELECT 
 	                            ec.Id,
 	                            ec.Name AS Name,
@@ -66,8 +47,9 @@ namespace vue_expenses_api.Features.Statistics
                             INNER JOIN
                                 Users u ON u.Id = ec.UserId
                             WHERE 
-                                u.Email = @userEmailId
-	                            {yearMonthCriteria}
+                                u.Email = @userEmailId AND 
+                                STRFTIME('%Y', e.Date) = STRFTIME('%Y', DATE('now')) AND 
+                                STRFTIME('%m', e.Date) <= STRFTIME('%m', DATE('now'))
                             GROUP BY 
 	                            ec.Name,
 	                            STRFTIME('%m', e.Date)
