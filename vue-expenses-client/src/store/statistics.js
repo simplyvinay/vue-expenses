@@ -81,8 +81,8 @@ const getters = {
         };
 
         forEach(groupedByMonths, (value, key) => {
-            yearlyExpenses.xAxisData = yearlyExpenses.xAxisData.concat(months[Number(key) - 1]);
-            yearlyExpenses.data = yearlyExpenses.data.concat(sumBy(value, "spent").toFixed(0));
+            yearlyExpenses.xAxisData.push(months[Number(key) - 1]);
+            yearlyExpenses.data.push(sumBy(value, "spent").toFixed(0));
         });
         return yearlyExpenses;
     },
@@ -91,7 +91,7 @@ const getters = {
         var groupedByCategory = groupBy(state.expensesbreakdown, (e) => { return e.categoryName + '|' + e.categoryColour });
 
         forEach(groupedByCategory, (value, key) => {
-            categoryExpenses = categoryExpenses.concat({
+            categoryExpenses.push({
                 value: sumBy(value, "spent").toFixed(2),
                 name: key.split('|')[0],
                 itemStyle: { color: key.split('|')[1] }
