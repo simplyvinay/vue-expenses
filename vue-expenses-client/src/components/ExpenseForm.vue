@@ -62,7 +62,7 @@
         </v-col>
       </v-row>
       <v-textarea
-        v-model="form.expenseDescription"
+        v-model="form.expenseComments"
         label="Description"
         :auto-grow="true"
         required
@@ -90,7 +90,7 @@ export default {
         expenseDate: "",
         expenseType: "",
         expenseAmount: "",
-        expenseDescription: ""
+        expenseComments: ""
       }
     };
   },

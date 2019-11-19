@@ -37,7 +37,7 @@ const actions = {
     },
     [REMOVE_EXPENSE_TYPE]({ commit, dispatch }, { id }) {
         Api.delete(`/expensetypes/${id}`)
-            .then(response => {
+            .then(() => {
                 commit(DELETE_EXPENSE_TYPE, id);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense type deleted successfully', color: 'success' }, { root: true });
             })
