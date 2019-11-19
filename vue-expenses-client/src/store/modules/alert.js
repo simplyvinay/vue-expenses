@@ -1,5 +1,5 @@
-import { ADD_ALERT } from '@/store/_actionTypes'
-import { CREATE_ALERT } from '@/store/_mutationTypes'
+import { ADD_ALERT } from '@/store/_actiontypes'
+import { CREATE_ALERT } from '@/store/_mutationtypes'
 
 const state = {
     alert: {}

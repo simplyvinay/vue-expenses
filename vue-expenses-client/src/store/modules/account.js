@@ -1,7 +1,7 @@
 import Api from '@/services/api'
 import router from '@/router/index';
-import { LOGIN, LOGOUT } from '@/store/_actionTypes'
-import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER } from '@/store/_mutationTypes'
+import { LOGIN, LOGOUT } from '@/store/_actiontypes'
+import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER } from '@/store/_mutationtypes'
 
 const state = {
     user: null

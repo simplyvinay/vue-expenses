@@ -13,9 +13,7 @@
                   <v-text-field
                     v-model="form.email"
                     label="E-mail"
-                    required
                     :error-messages="emailErrors"
-                    @input="$v.form.email.$touch()"
                     @blur="$v.form.email.$touch()"
                     prepend-icon="email"
                   ></v-text-field>
@@ -23,7 +21,6 @@
                     v-model="form.password"
                     label="Password"
                     :error-messages="passwordErrors"
-                    @input="$v.form.password.$touch()"
                     @blur="$v.form.password.$touch()"
                     prepend-icon="lock"
                     type="password"
@@ -45,15 +42,14 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import { required, email } from "vuelidate/lib/validators";
-import { LOGIN, LOGOUT } from "@/store/_actionTypes";
+import { LOGIN, LOGOUT } from "@/store/_actiontypes";
 
 export default {
   data() {
     return {
       form: {
         email: "test@demo.com",
-        password: "",
-        submitted: false
+        password: ""
       }
     };
   },
@@ -93,7 +89,6 @@ export default {
       this.$v.form.$touch();
       if (this.$v.form.$error) return;
 
-      this.form.submitted = true;
       const { email, password } = this.form;
       if (email && password) {
         this.LOGIN({ email, password });

@@ -16,18 +16,18 @@ import {
   LOAD_CATEGORIES,
   LOAD_CATEGORIES_BREAKDOWN,
   LOAD_EXPENSES_BREAKDOWN
-} from "@/store/_actionTypes";
+} from "@/store/_actiontypes";
 export default {
   components: {
     Navbar
   },
-  mounted: function() {
+  mounted() {
     this.$store.dispatch(`expensetypes/${LOAD_EXPENSE_TYPES}`);
     this.$store.dispatch(`expensecategories/${LOAD_CATEGORIES}`);
     this.$store.dispatch(`statistics/${LOAD_CATEGORIES_BREAKDOWN}`);
     this.$store.dispatch(`statistics/${LOAD_EXPENSES_BREAKDOWN}`);
   },
-  created: function() {
+  created() {
     this.$vuetify.theme.dark = JSON.parse(
       localStorage.getItem("user")
     ).useDarkMode;

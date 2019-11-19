@@ -11,11 +11,9 @@
                   class="blue--text px-2 py-1 text-capitalize font-weight-medium"
                 >General Settings</div>
                 <v-divider></v-divider>
-                <v-form v-model="valid" class="xs12">
+                <v-form class="xs12">
                   <v-container>
                     <v-text-field
-                      v-model="currency"
-                      :rules="currencyRules"
                       label="Currency"
                       required
                       clearable
@@ -23,8 +21,6 @@
                       dense
                     ></v-text-field>
                     <v-text-field
-                      v-model="monthlyBudget"
-                      :rules="budgetRules"
                       label="Monthly Budget"
                       required
                       clearable
@@ -32,7 +28,6 @@
                       dense
                     ></v-text-field>
                     <v-switch
-                      v-model="mandatory"
                       class="ma-0 pa-0 form-label"
                       color="grey"
                       label="Dark Theme"

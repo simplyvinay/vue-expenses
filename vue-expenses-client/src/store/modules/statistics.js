@@ -1,6 +1,6 @@
 import Api from '@/services/api'
-import { LOAD_CATEGORIES_BREAKDOWN, LOAD_EXPENSES_BREAKDOWN } from '@/store/_actionTypes'
-import { SET_CATEGORIES_BREAKDOWN, SET_EXPENSES_BREAKDOWN } from '@/store/_mutationTypes'
+import { LOAD_CATEGORIES_BREAKDOWN, LOAD_EXPENSES_BREAKDOWN } from '@/store/_actiontypes'
+import { SET_CATEGORIES_BREAKDOWN, SET_EXPENSES_BREAKDOWN } from '@/store/_mutationtypes'
 import map from 'lodash/map'
 import sumBy from 'lodash/sumBy'
 import groupBy from 'lodash/groupBy'

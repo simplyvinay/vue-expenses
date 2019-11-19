@@ -42,7 +42,13 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn outlined small class="blue--text font-weight-bold" @click="saveType" :loading="loading">Save</v-btn>
+              <v-btn
+                outlined
+                small
+                class="blue--text font-weight-bold"
+                @click="saveType"
+                :loading="loading"
+              >Save</v-btn>
               <v-btn outlined small class="blue--text font-weight-bold" @click="close">Cancel</v-btn>
             </v-card-actions>
           </v-card>
@@ -74,10 +80,11 @@ import {
   CREATE_EXPENSE_TYPE,
   EDIT_EXPENSE_TYPE,
   REMOVE_EXPENSE_TYPE
-} from "@/store/_actionTypes";
+} from "@/store/_actiontypes";
 
 export default {
   data: () => ({
+    loading: false,
     dialog: false,
     headers: [
       { text: "Id", value: "id", align: " d-none" },
@@ -98,7 +105,6 @@ export default {
   }),
 
   computed: {
-
     ...mapState({
       expensetypes: state => state.expensetypes.expensetypes
     }),
@@ -139,10 +145,23 @@ export default {
 
     saveType() {
       var expenseType = this.editedType;
+      this.loading = true;
       if (expenseType.id == 0) {
-        this.CREATE_EXPENSE_TYPE({ expenseType, onSuccess: this.close });
+        this.CREATE_EXPENSE_TYPE({
+          expenseType,
+          onSuccess: () => {
+            this.close;
+            this.loading = false;
+          }
+        });
       } else {
-        this.EDIT_EXPENSE_TYPE({ expenseType, onSuccess: this.close });
+        this.EDIT_EXPENSE_TYPE({
+          expenseType,
+          onSuccess: () => {
+            this.close;
+            this.loading = false;
+          }
+        });
       }
     }
   }

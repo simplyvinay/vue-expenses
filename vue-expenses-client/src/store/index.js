@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { alert } from '@/store/alert';
-import { loader } from '@/store/loader';
-import { account } from '@/store/account';
-import { expensetypes } from '@/store/expensetypes';
-import { expensecategories } from '@/store/expensecategories';
-import { statistics } from '@/store/statistics';
+import { alert } from '@/store/modules/alert';
+import { loader } from '@/store/modules/loader';
+import { account } from '@/store/modules/account';
+import { expensetypes } from '@/store/modules/expensetypes';
+import { expensecategories } from '@/store/modules/expensecategories';
+import { statistics } from '@/store/modules/statistics';
 
 Vue.use(Vuex);
 

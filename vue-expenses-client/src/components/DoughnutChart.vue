@@ -38,7 +38,7 @@ export default {
     },
     seriesData: {
       type: Array,
-      default: function() {
+      default() {
         return [
           { value: 310, name: "Spent", itemStyle: { color: "#2779bd" } },
           { value: 234, name: "Remaining", itemStyle: { color: "#BDBDBD" } }
