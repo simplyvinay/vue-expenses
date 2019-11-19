@@ -125,10 +125,11 @@ import {
   CREATE_CATEGORY,
   EDIT_CATEGORY,
   REMOVE_CATEGORY
-} from "@/store/_actionTypes";
+} from "@/store/_actiontypes";
 
 export default {
   data: () => ({
+    loading: false,
     dialog: false,
     menu: false,
     headers: [
@@ -205,11 +206,12 @@ export default {
     },
 
     saveCategory() {
+      this.loading  =true;
       var expenseCategory = this.editedCategory;
       if (expenseCategory.id == 0) {
-        this.CREATE_CATEGORY({ expenseCategory, onSuccess: this.close });
+        this.CREATE_CATEGORY({ expenseCategory, onSuccess: () => { this.close; this.loading = false; }});
       } else {
-        this.EDIT_CATEGORY({ expenseCategory, onSuccess: this.close });
+        this.EDIT_CATEGORY({ expenseCategory, onSuccess: () => { this.close; this.loading = false; }});
       }
     }
   }

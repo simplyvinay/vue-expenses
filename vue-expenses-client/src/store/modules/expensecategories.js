@@ -1,6 +1,6 @@
 import Api from '@/services/api'
-import { LOAD_CATEGORIES, CREATE_CATEGORY, EDIT_CATEGORY, REMOVE_CATEGORY, ADD_ALERT } from '@/store/_actionTypes'
-import { SET_CATEGORIES, ADD_CATEGORY, UPDATE_CATEGORY, DELETE_CATEGORY } from '@/store/_mutationTypes'
+import { LOAD_CATEGORIES, CREATE_CATEGORY, EDIT_CATEGORY, REMOVE_CATEGORY, ADD_ALERT } from '@/store/_actiontypes'
+import { SET_CATEGORIES, ADD_CATEGORY, UPDATE_CATEGORY, DELETE_CATEGORY } from '@/store/_mutationtypes'
 
 const state = {
     expensecategories: []

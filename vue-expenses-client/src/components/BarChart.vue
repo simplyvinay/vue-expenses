@@ -10,7 +10,7 @@ export default {
     },
     seriesData: {
       type: Object,
-      default: function() {
+      default() {
         return {
           xAxisData: [],
           data: []

@@ -1,5 +1,5 @@
-import { TOGGLE_LOADING } from '@/store/_actionTypes'
-import { UPDATE_LOADING } from '@/store/_mutationTypes'
+import { TOGGLE_LOADING } from '@/store/_actiontypes'
+import { UPDATE_LOADING } from '@/store/_mutationtypes'
 
 const state = {
     loading: false

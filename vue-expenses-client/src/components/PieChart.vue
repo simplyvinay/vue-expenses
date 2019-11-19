@@ -10,7 +10,7 @@ export default {
     },
     seriesData: {
       type: Array,
-      default: function() {
+      default() {
         return [{ value: 310, name: "General", itemStyle: { color: "red" } }];
       }
     }
