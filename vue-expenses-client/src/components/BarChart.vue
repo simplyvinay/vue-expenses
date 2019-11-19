@@ -18,9 +18,9 @@ export default {
       }
     }
   },
-  data() {
-    return {
-      options: {
+  computed: {
+    options() {
+      return {
         backgroundColor: this.$vuetify.theme.dark ? "#424242" : "",
         textStyle: {
           fontFamily: "Nunito"
@@ -45,7 +45,7 @@ export default {
           {
             type: "bar",
             data: this.seriesData.data,
-            barWidth: "50%",
+            barWidth: "45%",
             center: ["50%", "50%"],
             label: {
               normal: {
@@ -84,7 +84,11 @@ export default {
             fontWeight: "normal"
           }
         }
-      },
+      };
+    }
+  },
+  data() {
+    return {
       style: {
         width: "100%"
       }
