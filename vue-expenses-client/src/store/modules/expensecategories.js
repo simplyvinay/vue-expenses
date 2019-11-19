@@ -3,7 +3,7 @@ import { LOAD_CATEGORIES, CREATE_CATEGORY, EDIT_CATEGORY, REMOVE_CATEGORY, ADD_A
 import { SET_CATEGORIES, ADD_CATEGORY, UPDATE_CATEGORY, DELETE_CATEGORY } from '@/store/_mutationtypes'
 
 const state = {
-    expensecategories: []
+    categories: []
 };
 
 const actions = {
@@ -47,25 +47,25 @@ const actions = {
 }
 
 const mutations = {
-    [SET_CATEGORIES](state, expensecategories) {
-        state.expensecategories = expensecategories;
+    [SET_CATEGORIES](state, expenseCategories) {
+        state.categories = expenseCategories;
     },
     [ADD_CATEGORY](state, expenseCategory) {
-        state.expensecategories = state.expensecategories.concat(expenseCategory);
+        state.categories = state.categories.concat(expenseCategory);
     },
     [UPDATE_CATEGORY](state, expenseCategory) {
-        let expenseCategoryUpdated = state.expensecategories.find(ec => ec.id == expenseCategory.id)
+        let expenseCategoryUpdated = state.categories.find(ec => ec.id == expenseCategory.id)
         expenseCategoryUpdated.name = expenseCategory.name;
         expenseCategoryUpdated.description = expenseCategory.description;
         expenseCategoryUpdated.budget = expenseCategory.budget;
         expenseCategoryUpdated.colourHex = expenseCategory.colourHex;
     },
     [DELETE_CATEGORY](state, id) {
-        state.expensecategories = state.expensecategories.filter(ec => ec.id != id)
+        state.categories = state.categories.filter(ec => ec.id != id)
     }
 }
 
-export const expensecategories = {
+export const expenseCategories = {
     namespaced: true,
     state,
     actions,

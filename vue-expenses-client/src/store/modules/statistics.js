@@ -36,10 +36,10 @@ const mutations = {
 }
 
 const getters = {
-    monthlybudget: state => {
+    monthlyBudget: (state, getters, rootState) => {
         var currentmonth = new Date().getMonth() + 1;
         var currentMonthBudget = state.categorybreakdown.filter((o) => { return o.month == currentmonth; });
-        var totalBudget = sumBy(currentMonthBudget, (cm) => { return cm.budget });
+        var totalBudget = sumBy(rootState.expenseCategories.categories, (ec) => { return ec.budget });
         var totalSpent = sumBy(currentMonthBudget, (cm) => { return cm.spent });
 
         return [
@@ -54,7 +54,7 @@ const getters = {
         return map(groupedBugetsByCategory, (budget, key) => ({
             name: key.split('|')[0],
             colour: key.split('|')[1],
-            monthlybudget: [
+            monthlyBudget: [
                 { value: sumBy(budget, "spent").toFixed(2), name: "Spent", itemStyle: { color: key.split('|')[1] } },
                 { value: (sumBy(budget, "budget") - sumBy(budget, "spent")).toFixed(2), name: "Remaining", itemStyle: { color: "#BDBDBD" } }
             ]

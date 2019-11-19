@@ -3,7 +3,7 @@ import { LOAD_EXPENSE_TYPES, CREATE_EXPENSE_TYPE, EDIT_EXPENSE_TYPE, REMOVE_EXPE
 import { SET_EXPENSE_TYPE, ADD_EXPENSE_TYPE, UPDATE_EXPENSE_TYPE, DELETE_EXPENSE_TYPE } from '@/store/_mutationtypes'
 
 const state = {
-    expensetypes: []
+    types: []
 };
 
 const actions = {
@@ -46,22 +46,22 @@ const actions = {
 
 const mutations = {
     [SET_EXPENSE_TYPE](state, expenseTypes) {
-        state.expensetypes = expenseTypes;
+        state.types = expenseTypes;
     },
     [ADD_EXPENSE_TYPE](state, expenseType) {
-        state.expensetypes = state.expensetypes.concat(expenseType);
+        state.types = state.types.concat(expenseType);
     },
     [UPDATE_EXPENSE_TYPE](state, expenseType) {
-        let expenseTypeUpdated = state.expensetypes.find(et => et.id == expenseType.id)
+        let expenseTypeUpdated = state.types.find(et => et.id == expenseType.id)
         expenseTypeUpdated.name = expenseType.name;
         expenseTypeUpdated.description = expenseType.description;
     },
     [DELETE_EXPENSE_TYPE](state, id) {
-        state.expensetypes = state.expensetypes.filter(et => et.id != id)
+        state.types = state.types.filter(et => et.id != id)
     }
 }
 
-export const expensetypes = {
+export const expenseTypes = {
     namespaced: true,
     state,
     actions,
