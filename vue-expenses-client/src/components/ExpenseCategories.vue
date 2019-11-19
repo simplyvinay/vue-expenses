@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="expensecategories"
+    :items="categories"
     sort-by="name"
     :items-per-page="5"
     loading-text="Loading... Please wait"
@@ -157,13 +157,9 @@ export default {
   }),
 
   computed: {
-     ...mapState({
-      expensecategories: state => state.expensecategories.expensecategories
-    }),
-     categoryFormTitle() {
-      return this.editedCategory.id === 0
-        ? "New Category"
-        : "Edit Category";
+    ...mapState({ categories: state => state.expenseCategories.categories }),
+    categoryFormTitle() {
+      return this.editedCategory.id === 0 ? "New Category" : "Edit Category";
     }
   },
 
@@ -173,7 +169,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("expensecategories", [
+    ...mapActions("expenseCategories", [
       CREATE_CATEGORY,
       EDIT_CATEGORY,
       REMOVE_CATEGORY
@@ -206,12 +202,24 @@ export default {
     },
 
     saveCategory() {
-      this.loading  =true;
+      this.loading = true;
       var expenseCategory = this.editedCategory;
       if (expenseCategory.id == 0) {
-        this.CREATE_CATEGORY({ expenseCategory, onSuccess: () => { this.close; this.loading = false; }});
+        this.CREATE_CATEGORY({
+          expenseCategory,
+          onSuccess: () => {
+            this.close();
+            this.loading = false;
+          }
+        });
       } else {
-        this.EDIT_CATEGORY({ expenseCategory, onSuccess: () => { this.close; this.loading = false; }});
+        this.EDIT_CATEGORY({
+          expenseCategory,
+          onSuccess: () => {
+            this.close();
+            this.loading = false;
+          }
+        });
       }
     }
   }

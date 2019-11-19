@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="expensetypes"
+    :items="types"
     sort-by="name"
     :items-per-page="5"
     loading-text="Loading... Please wait"
@@ -106,7 +106,7 @@ export default {
 
   computed: {
     ...mapState({
-      expensetypes: state => state.expensetypes.expensetypes
+      types: state => state.expenseTypes.types
     }),
 
     categoryFormTitle() {
@@ -122,7 +122,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("expensetypes", [
+    ...mapActions("expenseTypes", [
       CREATE_EXPENSE_TYPE,
       EDIT_EXPENSE_TYPE,
       REMOVE_EXPENSE_TYPE
@@ -150,7 +150,7 @@ export default {
         this.CREATE_EXPENSE_TYPE({
           expenseType,
           onSuccess: () => {
-            this.close;
+            this.close();
             this.loading = false;
           }
         });
@@ -158,7 +158,7 @@ export default {
         this.EDIT_EXPENSE_TYPE({
           expenseType,
           onSuccess: () => {
-            this.close;
+            this.close();
             this.loading = false;
           }
         });

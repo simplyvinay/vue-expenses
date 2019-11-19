@@ -3,8 +3,8 @@ import Vuex from 'vuex';
 import { alert } from '@/store/modules/alert';
 import { loader } from '@/store/modules/loader';
 import { account } from '@/store/modules/account';
-import { expensetypes } from '@/store/modules/expensetypes';
-import { expensecategories } from '@/store/modules/expensecategories';
+import { expenseTypes } from '@/store/modules/expenseTypes';
+import { expenseCategories } from '@/store/modules/expenseCategories';
 import { statistics } from '@/store/modules/statistics';
 
 Vue.use(Vuex);
@@ -14,8 +14,8 @@ const store = new Vuex.Store({
         alert,
         loader,
         account,
-        expensetypes,
-        expensecategories,
+        expenseTypes,
+        expenseCategories,
         statistics
     }
 });

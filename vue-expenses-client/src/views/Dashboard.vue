@@ -26,7 +26,7 @@
               :theme="theme"
               :showLabel="true"
               :showLabelLines="true"
-              :seriesData="monthlybudget"
+              :seriesData="monthlyBudget"
             />
             <div class="d-flex justify-space-around subtitle-2">
               <div>
@@ -60,7 +60,7 @@
                     :titleFontSize="14"
                     :theme="theme"
                     :showTooltip="false"
-                    :seriesData="budget.monthlybudget"
+                    :seriesData="budget.monthlyBudget"
                   />
                 </div>
               </div>
@@ -109,7 +109,7 @@ export default {
   },
   computed: {
     ...mapGetters("statistics", [
-      "monthlybudget",
+      "monthlyBudget",
       "monthlyBudgetsByCategory",
       "yearlyExpenses",
       "categoryExpenses"

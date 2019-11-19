@@ -22,8 +22,8 @@ export default {
     Navbar
   },
   mounted() {
-    this.$store.dispatch(`expensetypes/${LOAD_EXPENSE_TYPES}`);
-    this.$store.dispatch(`expensecategories/${LOAD_CATEGORIES}`);
+    this.$store.dispatch(`expenseTypes/${LOAD_EXPENSE_TYPES}`);
+    this.$store.dispatch(`expenseCategories/${LOAD_CATEGORIES}`);
     this.$store.dispatch(`statistics/${LOAD_CATEGORIES_BREAKDOWN}`);
     this.$store.dispatch(`statistics/${LOAD_EXPENSES_BREAKDOWN}`);
   },
