@@ -10,11 +10,8 @@ import 'echarts/lib/component/legend'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import 'echarts/theme/dark'
-import Vuelidate from 'vuelidate'
 
 Vue.component('chart', Echarts);
-Vue.use(Vuelidate);
-
 Vue.config.productionTip = false
 
 new Vue({

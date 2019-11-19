@@ -1,5 +1,5 @@
 <template>
-  <v-form class="mt-1">
+  <v-form class="mt-1" ref="expenseform">
     <v-container>
       <v-row>
         <v-col cols="12" md="6" class="py-0 ma-0">
@@ -12,8 +12,7 @@
             class="ma-0 pa-0 form-label"
             dense
             offset-x
-            :error-messages="expenseCategoryErrors"
-            @blur="$v.form.expenseCategory.$touch()"
+            :rules="[required('Category')]"
           ></v-select>
         </v-col>
         <v-col cols="12" md="6" class="py-0 ma-0">
@@ -26,8 +25,7 @@
                 v-on="on"
                 class="ma-0 pa-0 form-label"
                 dense
-                :error-messages="expenseDateErrors"
-                @blur="$v.form.expenseDate.$touch()"
+                :rules="[required('Date')]"
               ></v-text-field>
             </template>
             <v-date-picker v-model="form.expenseDate" @change="dateMenu = false" :no-title="true"></v-date-picker>
@@ -45,8 +43,7 @@
             class="ma-0 pa-0 form-label"
             dense
             offset-x
-            :error-messages="expensetypeErrors"
-            @blur="$v.form.expenseType.$touch()"
+            :rules="[required('Type')]"
           ></v-select>
         </v-col>
         <v-col cols="12" md="6" class="py-0 ma-0">
@@ -56,8 +53,7 @@
             required
             class="ma-0 pa-0 form-label"
             dense
-            :error-messages="expenseamountErrors"
-            @blur="$v.form.expenseAmount.$touch()"
+            :rules="[required('Amount'), minValue('Amount', 0.01)]"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -79,7 +75,7 @@
 
 <script>
 import { mapState } from "vuex";
-import { required, minValue } from "vuelidate/lib/validators";
+import validations from "@/helpers/validations";
 
 export default {
   data() {
@@ -91,55 +87,17 @@ export default {
         expenseType: "",
         expenseAmount: "",
         expenseComments: ""
-      }
+      },
+      ...validations
     };
-  },
-  validations: {
-    form: {
-      expenseCategory: { required },
-      expenseDate: { required },
-      expenseType: { required },
-      expenseAmount: { required, minValue: minValue(0.1) }
-    }
   },
   computed: {
     ...mapState("expenseCategories", ["categories"]),
-    ...mapState("expenseTypes", ["types"]),
-    expenseCategoryErrors() {
-      const errors = [];
-      if (!this.$v.form.expenseCategory.$dirty) return errors;
-      !this.$v.form.expenseCategory.required &&
-        errors.push("Expense category is required");
-      return errors;
-    },
-    expenseDateErrors() {
-      const errors = [];
-      if (!this.$v.form.expenseDate.$dirty) return errors;
-      !this.$v.form.expenseDate.required &&
-        errors.push("Expense date is required");
-      return errors;
-    },
-    expensetypeErrors() {
-      const errors = [];
-      if (!this.$v.form.expenseType.$dirty) return errors;
-      !this.$v.form.expenseType.required &&
-        errors.push("Expense type is required");
-      return errors;
-    },
-    expenseamountErrors() {
-      const errors = [];
-      if (!this.$v.form.expenseAmount.$dirty) return errors;
-      !this.$v.form.expenseAmount.minValue &&
-        errors.push("Must be greater than 0");
-      !this.$v.form.expenseAmount.required &&
-        errors.push("Expense amount is required");
-      return errors;
-    }
+    ...mapState("expenseTypes", ["types"])     
   },
   methods: {
     handleSubmit() {
-      this.$v.form.$touch();
-      if (this.$v.form.$error) return;
+      if (!this.$refs.expenseform.validate()) return;
     }
   }
 };
