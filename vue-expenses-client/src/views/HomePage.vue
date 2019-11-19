@@ -15,7 +15,8 @@ import {
   LOAD_EXPENSE_TYPES,
   LOAD_CATEGORIES,
   LOAD_CATEGORIES_BREAKDOWN,
-  LOAD_EXPENSES_BREAKDOWN
+  LOAD_EXPENSES_BREAKDOWN,
+  LOAD_EXPENSES
 } from "@/store/_actiontypes";
 export default {
   components: {
@@ -26,6 +27,7 @@ export default {
     this.$store.dispatch(`expenseCategories/${LOAD_CATEGORIES}`);
     this.$store.dispatch(`statistics/${LOAD_CATEGORIES_BREAKDOWN}`);
     this.$store.dispatch(`statistics/${LOAD_EXPENSES_BREAKDOWN}`);
+    this.$store.dispatch(`expenses/${LOAD_EXPENSES}`);
   },
   created() {
     this.$vuetify.theme.dark = JSON.parse(

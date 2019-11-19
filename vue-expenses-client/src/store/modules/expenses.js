@@ -1,6 +1,6 @@
 import Api from '@/services/api'
-import { LOAD_EXPENSES, ADD_EXPENSE, EDIT_EXPENSE, REMOVE_EXPENSE, ADD_ALERT } from '@/store/_actiontypes'
-import { SET_EXPENSES, CREATE_EXPENSE, UPDATE_EXPENSE, DELETE_EXPENSE } from '@/store/_mutationtypes'
+import { LOAD_EXPENSES, CREATE_EXPENSE, EDIT_EXPENSE, REMOVE_EXPENSE, ADD_ALERT } from '@/store/_actiontypes'
+import { SET_EXPENSES, ADD_EXPENSE, UPDATE_EXPENSE, DELETE_EXPENSE } from '@/store/_mutationtypes'
 
 const state = {
     expenses: []
@@ -14,7 +14,7 @@ const actions = {
                 commit(SET_EXPENSES, expenses);
             })
     },
-    [ADD_EXPENSE]({ commit, dispatch }, { expense, onSuccess }) {
+    [CREATE_EXPENSE]({ commit, dispatch }, { expense, onSuccess }) {
         Api.post('/expenses', {
             date: expense.expenseDate,
             categoryId: expense.expense,
@@ -24,7 +24,7 @@ const actions = {
         })
             .then(response => {
                 let expense = response.data;
-                commit(CREATE_EXPENSE, expense);
+                commit(ADD_EXPENSE, expense);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense added successfully', color: 'success' }, { root: true });
                 onSuccess();
             })
@@ -69,7 +69,7 @@ const mutations = {
     }
 }
 
-export const expense = {
+export const expenses = {
     namespaced: true,
     state,
     actions,

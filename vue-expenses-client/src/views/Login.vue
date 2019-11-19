@@ -20,7 +20,9 @@
                     v-model="form.password"
                     label="Password"
                     prepend-icon="lock"
-                    type="password"
+                    :type="showPassword ? 'text' : 'password'" 
+                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="showPassword = !showPassword"
                     :rules="[required('Password')]"
                   ></v-text-field>
                 </v-form>
@@ -49,6 +51,7 @@ export default {
         email: "test@demo.com",
         password: ""
       },
+      showPassword: false,
       ...validations
     };
   },
