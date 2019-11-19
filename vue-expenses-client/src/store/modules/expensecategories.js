@@ -39,7 +39,7 @@ const actions = {
     },
     [REMOVE_CATEGORY]({ commit, dispatch }, { id }) {
         Api.delete(`/expensecategories/${id}`)
-            .then(response => {
+            .then(() => {
                 commit(DELETE_CATEGORY, id);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense category deleted successfully', color: 'success' }, { root: true });
             })
