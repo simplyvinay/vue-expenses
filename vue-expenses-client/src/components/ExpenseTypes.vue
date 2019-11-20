@@ -152,9 +152,8 @@ export default {
         })
           .then(() => {
             this.close();
-            this.loading = false;
           })
-          .catch(() => {
+          .finally(() => {
             this.loading = false;
           });
       } else {
@@ -163,9 +162,8 @@ export default {
         })
           .then(() => {
             this.close();
-            this.loading = false;
           })
-          .catch(() => {
+          .finally(() => {
             this.loading = false;
           });
       }

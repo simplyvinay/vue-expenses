@@ -40,6 +40,14 @@ namespace vue_expenses_api.Features.Expenses
             return await _mediator.Send(command);
         }
 
+        [HttpPut("{id}")]
+        public async Task<ExpenseDto> Update(
+            int? id,
+            [FromBody] ExpenseUpdate.Command command)
+        {
+            return await _mediator.Send(command);
+        }
+
         [HttpDelete("{id}")]
         public async Task Delete(
             int id)

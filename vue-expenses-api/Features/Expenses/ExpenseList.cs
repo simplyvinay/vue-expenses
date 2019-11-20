@@ -36,6 +36,7 @@ namespace vue_expenses_api.Features.Expenses
             {
                 var sql = @"SELECT 
                                 e.Id,
+                                STRFTIME('%Y-%m-%d', e.Date) AS Date,
                                 ec.Name AS Category,
                                 ec.Id AS CategoryId,
                                 et.Name AS Type,

@@ -1,6 +1,6 @@
 import Api from '@/services/api'
-import { LOAD_CATEGORIES_BREAKDOWN, LOAD_EXPENSES_BREAKDOWN } from '@/store/_actiontypes'
-import { SET_CATEGORIES_BREAKDOWN, SET_EXPENSES_BREAKDOWN } from '@/store/_mutationtypes'
+import { LOAD_CATEGORIES_BREAKDOWN, LOAD_EXPENSES_BREAKDOWN, EDIT_STATISTICS } from '@/store/_actiontypes'
+import { SET_CATEGORIES_BREAKDOWN, SET_EXPENSES_BREAKDOWN, UPDATE_STATISTICS } from '@/store/_mutationtypes'
 import map from 'lodash/map'
 import sumBy from 'lodash/sumBy'
 import groupBy from 'lodash/groupBy'
@@ -23,6 +23,9 @@ const actions = {
             .then(response => {
                 commit(SET_EXPENSES_BREAKDOWN, response.data);
             })
+    },
+    [EDIT_STATISTICS]({ commit }, { expense }) {
+        commit(UPDATE_STATISTICS, expense);
     }
 };
 
@@ -33,6 +36,28 @@ const mutations = {
     [SET_EXPENSES_BREAKDOWN](state, expensesbreakdown) {
         state.expensesbreakdown = expensesbreakdown;
     },
+    [UPDATE_STATISTICS](state, expense) {
+        var currentmonth = new Date().getMonth() + 1;
+        var dateParts = expense.date.split(" ")[0].split("/");
+        var date = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0])
+        if (date.getMonth() + 1 == currentmonth) {
+            var currentmonthData = state.categorybreakdown.filter((o) => { return o.month == currentmonth; })
+            var category = currentmonthData.filter((o) => { return o.name == expense.category })
+            if (category[0]) {
+                category[0].spent += expense.value;
+            } else {
+                state.categorybreakdown.push({
+                    budget: expense.categoryBudget,
+                    colour: expense.categoryColour,
+                    id: expense.categoryId,
+                    month: currentmonth,
+                    name: expense.category,
+                    spent: expense.value,
+
+                })
+            }
+        }
+    }
 }
 
 const getters = {

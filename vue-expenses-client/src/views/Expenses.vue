@@ -3,13 +3,46 @@
     <v-container>
       <v-layout row>
         <v-flex xs12>
-          <v-data-table :headers="headers" :items="desserts" sort-by="calories" class="elevation-1">
-            <template v-slot:item.action="{ item }">
-              <v-icon small class="mr-2" @click="editItem(item)">edit</v-icon>
-              <v-icon small @click="deleteItem(item)">delete</v-icon>
+          <v-data-table :headers="headers" :items="expenses" sort-by="date" class="elevation-1">
+            <template v-slot:top>
+              <div class="d-flex align-center pa-4">
+                <span class="blue--text font-weight-medium">Expenses</span>
+                <v-divider class="mx-2 my-1" inset vertical style="height: 20px"></v-divider>
+                <v-spacer></v-spacer>
+                <v-dialog v-model="dialog" max-width="650px">
+                  <template v-slot:activator="{ on }">
+                    <v-btn outlined small class="blue--text font-weight-bold" v-on="on">New Expense</v-btn>
+                  </template>
+                  <v-card>
+                    <v-card-title>
+                      <span class="headline">{{ formTitle }}</span>
+                    </v-card-title>
+
+                    <v-card-text>
+                      <v-container>
+                        <ExpenseForm
+                          :expense="editedExpense"
+                          :showCloseButton="true"
+                          :onCloseClick="close"
+                          :onSubmitClick="saveExpense"
+                          :loading="loading"
+                          ref="form"
+                        />
+                      </v-container>
+                    </v-card-text>
+                  </v-card>
+                </v-dialog>
+              </div>
             </template>
-            <template v-slot:no-data>
-              <v-btn color="primary" @click="initialize">Reset</v-btn>
+            <template v-slot:item.value="{ item }">
+              <span>{{item.value.toFixed(2)}}</span>
+            </template>
+            <template v-slot:item.date="{ item }">
+              <span>{{new Date(item.date).toISOString().split('T')[0]}}</span>
+            </template>
+            <template v-slot:item.action="{ item }">
+              <v-icon small class="mr-2" @click="editExpense(item)">edit</v-icon>
+              <v-icon small @click="deleteExpense(item)">delete</v-icon>
             </template>
           </v-data-table>
         </v-flex>
@@ -18,109 +51,108 @@
   </div>
 </template>
 <script>
+import { mapState, mapActions } from "vuex";
+import {
+  CREATE_EXPENSE,
+  EDIT_EXPENSE,
+  REMOVE_EXPENSE
+} from "@/store/_actiontypes";
+import ExpenseForm from "@/components/ExpenseForm";
+
 export default {
-  data() {
-    return {
-      headers: [
-        {
-          text: "Dessert (100g serving)",
-          align: "left",
-          sortable: false,
-          value: "name",
-          class: "tableHeader"
-        },
-        { text: "Calories", value: "calories" },
-        { text: "Fat (g)", value: "fat" },
-        { text: "Carbs (g)", value: "carbs" },
-        { text: "Protein (g)", value: "protein" },
-        { text: "Iron (%)", value: "iron" }
-      ],
-      desserts: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: "1%"
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: "1%"
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: "7%"
-        },
-        {
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: "8%"
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          iron: "16%"
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: "0%"
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: "2%"
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          iron: "45%"
-        },
-        {
-          name: "Donut",
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          iron: "22%"
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          iron: "6%"
-        }
-      ]
-    };
+  components: { ExpenseForm },
+  data: () => ({
+    loading: false,
+    dialog: false,
+    headers: [
+      { text: "Id", value: "id", align: " d-none" },
+      { text: "CategoryId", value: "categoryId", align: " d-none" },
+      { text: "TypeId", value: "typeId", align: " d-none" },
+      { text: "Value", value: "value" },
+      { text: "Date", value: "date" },
+      { text: "Category", value: "category" },
+      { text: "Type", value: "type" },
+      { text: "Description", value: "comments" },
+      { text: "Actions", value: "action", sortable: false, width: 50 }
+    ],
+    editedExpense: {
+      id: 0,
+      date: "",
+      value: "",
+      categoryId: "",
+      typeId: "",
+      comments: ""
+    },
+    defaultExpense: {
+      id: 0,
+      date: "",
+      value: "",
+      categoryId: "",
+      typeId: "",
+      comments: ""
+    }
+  }),
+  computed: {
+    ...mapState({
+      expenses: state => state.expenses.expenses
+    }),
+
+    formTitle() {
+      return this.editedExpense.id === 0 ? "New Expense" : "Edit Expense";
+    }
+  },
+  watch: {
+    dialog(val) {
+      val || this.close();
+    }
+  },
+  methods: {
+    ...mapActions("expenses", [CREATE_EXPENSE, EDIT_EXPENSE, REMOVE_EXPENSE]),
+
+    editExpense(item) {
+      this.editedExpense = Object.assign({}, item);
+      this.dialog = true;
+    },
+
+    deleteExpense(item) {
+      confirm("Are you sure you want to delete this item?") &&
+        this.REMOVE_EXPENSE({ id: item.id });
+    },
+
+    close() {
+      this.dialog = false;
+      this.editedExpense = Object.assign({}, this.defaultExpense);
+      this.$refs.form.reset();
+    },
+
+    saveExpense() {
+      var editedExpense = this.editedExpense;
+      this.loading = true;
+      if (editedExpense.id == 0) {
+        this.CREATE_EXPENSE({
+          expense: editedExpense
+        })
+          .then(() => {
+            this.close();
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      } else {
+        this.EDIT_EXPENSE({
+          expense: editedExpense
+        })
+          .then(() => {
+            this.close();
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      }
+    }
   }
 };
 </script>
 
 <style>
-</style> pt-2
+</style> 

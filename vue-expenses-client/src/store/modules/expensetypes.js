@@ -47,7 +47,7 @@ const mutations = {
         state.types = expenseTypes;
     },
     [ADD_EXPENSE_TYPE](state, expenseType) {
-        state.types = state.types.concat(expenseType);
+        state.types.push(expenseType);
     },
     [UPDATE_EXPENSE_TYPE](state, expenseType) {
         let expenseTypeUpdated = state.types.find(et => et.id == expenseType.id)
