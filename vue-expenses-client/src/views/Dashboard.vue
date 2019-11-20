@@ -6,7 +6,7 @@
           <v-card class="pa-2 mr-2" raised>
             <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Add New Expense</div>
             <v-divider></v-divider>
-            <ExpenseForm :expense="expense"/>
+            <ExpenseForm :expense="expense" :onSubmitClick="saveExpense" :loading="loading" ref="form"/>
           </v-card>
         </v-flex>
         <v-flex xs12 md6>
@@ -100,7 +100,8 @@ import ExpenseForm from "@/components/ExpenseForm";
 import DoughnutChart from "@/components/DoughnutChart";
 import BarChart from "@/components/BarChart";
 import PieChart from "@/components/PieChart";
-import { mapGetters } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
+import { CREATE_EXPENSE } from "@/store/_actiontypes";
 
 export default {
   components: { ExpenseForm, DoughnutChart, BarChart, PieChart },
@@ -117,10 +118,27 @@ export default {
   },
   data() {
     return {
+      loading: false,
       dateMenu: false,
       theme: "",
       expense: {}
     };
+  },
+  methods: {
+    ...mapActions("expenses", [CREATE_EXPENSE]),
+    saveExpense() {
+      this.loading = true;
+      this.CREATE_EXPENSE({
+        expense: this.expense
+      })
+        .then(() => {
+          this.expense = {};
+          this.$refs.form.reset();
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    }
   }
 };
 </script>

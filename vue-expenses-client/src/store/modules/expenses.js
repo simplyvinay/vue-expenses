@@ -1,5 +1,5 @@
 import Api from '@/services/api'
-import { LOAD_EXPENSES, CREATE_EXPENSE, EDIT_EXPENSE, REMOVE_EXPENSE, ADD_ALERT } from '@/store/_actiontypes'
+import { LOAD_EXPENSES, CREATE_EXPENSE, EDIT_EXPENSE, REMOVE_EXPENSE, ADD_ALERT, EDIT_STATISTICS } from '@/store/_actiontypes'
 import { SET_EXPENSES, ADD_EXPENSE, UPDATE_EXPENSE, DELETE_EXPENSE } from '@/store/_mutationtypes'
 
 const state = {
@@ -16,16 +16,17 @@ const actions = {
     },
     [CREATE_EXPENSE]({ commit, dispatch }, { expense }) {
         return Api.post('/expenses', {
-            date: expense.expenseDate,
-            categoryId: expense.expense,
-            typeId: expense.expenseType,
-            value: expense.expenseAmount,
-            comments: expense.expenseComments
+            date: expense.date,
+            categoryId: expense.categoryId,
+            typeId: expense.typeId,
+            value: expense.value,
+            comments: expense.comments
         })
             .then(response => {
                 let expense = response.data;
                 commit(ADD_EXPENSE, expense);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense added successfully', color: 'success' }, { root: true });
+                dispatch(`statistics/${EDIT_STATISTICS}`, { expense: expense }, { root: true });
             })
     },
     [EDIT_EXPENSE]({ commit, dispatch }, { expense }) {
@@ -50,7 +51,7 @@ const mutations = {
         state.expenses = expenses;
     },
     [ADD_EXPENSE](state, expense) {
-        state.expenses = state.expenses.concat(expense);
+        state.expenses.push(expense);
     },
     [UPDATE_EXPENSE](state, expense) {
         let expenseUpdated = state.expenses.find(ec => ec.id == expense.id)

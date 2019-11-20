@@ -49,7 +49,7 @@ const mutations = {
         state.categories = expenseCategories;
     },
     [ADD_CATEGORY](state, expenseCategory) {
-        state.categories = state.categories.concat(expenseCategory);
+        state.categories.push(expenseCategory);
     },
     [UPDATE_CATEGORY](state, expenseCategory) {
         let expenseCategoryUpdated = state.categories.find(ec => ec.id == expenseCategory.id)
