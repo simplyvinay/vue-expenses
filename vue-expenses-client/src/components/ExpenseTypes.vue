@@ -148,20 +148,26 @@ export default {
       this.loading = true;
       if (expenseType.id == 0) {
         this.CREATE_EXPENSE_TYPE({
-          expenseType,
-          onSuccess: () => {
+          expenseType
+        })
+          .then(() => {
             this.close();
             this.loading = false;
-          }
-        });
+          })
+          .catch(() => {
+            this.loading = false;
+          });
       } else {
         this.EDIT_EXPENSE_TYPE({
-          expenseType,
-          onSuccess: () => {
+          expenseType
+        })
+          .then(() => {
             this.close();
             this.loading = false;
-          }
-        });
+          })
+          .catch(() => {
+            this.loading = false;
+          });
       }
     }
   }

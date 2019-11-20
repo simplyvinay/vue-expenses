@@ -206,20 +206,26 @@ export default {
       var expenseCategory = this.editedCategory;
       if (expenseCategory.id == 0) {
         this.CREATE_CATEGORY({
-          expenseCategory,
-          onSuccess: () => {
+          expenseCategory
+        })
+          .then(() => {
             this.close();
             this.loading = false;
-          }
-        });
+          })
+          .catch(() => {
+            this.loading = false;
+          });
       } else {
         this.EDIT_CATEGORY({
-          expenseCategory,
-          onSuccess: () => {
+          expenseCategory
+        })
+          .then(() => {
             this.close();
             this.loading = false;
-          }
-        });
+          })
+          .catch(() => {
+            this.loading = false;
+          });
       }
     }
   }
