@@ -41,7 +41,8 @@ namespace vue_expenses_api.Features.ExpenseCategories
                             INNER JOIN
                                 Users u ON u.Id = ec.UserId
                             WHERE 
-                                u.Email=@userEmailId";
+                                u.Email=@userEmailId
+                                AND ec.Archived = 0";
 
                 var expenses = await _dbConnection.QueryAsync<ExpenseCategoryDto>(
                     sql,

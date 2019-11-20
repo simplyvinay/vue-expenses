@@ -6,7 +6,7 @@
           <v-card class="pa-2 mr-2" raised>
             <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Add New Expense</div>
             <v-divider></v-divider>
-            <ExpenseForm />
+            <ExpenseForm :expense="expense"/>
           </v-card>
         </v-flex>
         <v-flex xs12 md6>
@@ -118,7 +118,8 @@ export default {
   data() {
     return {
       dateMenu: false,
-      theme: ""
+      theme: "",
+      expense: {}
     };
   }
 };

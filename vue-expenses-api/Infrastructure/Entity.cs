@@ -10,6 +10,13 @@ namespace vue_expenses_api.Infrastructure
         int Id { get; }
     }
 
+    public interface IArchivableEntity
+    {
+        bool Archived { get; }
+        void Archive();
+        void UnArchive();
+    }
+
     public class Entity : IEntity
     {
         [JsonIgnore]
@@ -18,5 +25,20 @@ namespace vue_expenses_api.Infrastructure
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+    }
+
+    public class ArchivableEntity : Entity, IArchivableEntity
+    {
+        public bool Archived { get; set; }
+        
+        public void Archive()
+        {
+            Archived = true;
+        }
+
+        public void UnArchive()
+        {
+            Archived = false;
+        }
     }
 }
