@@ -14,8 +14,8 @@ const actions = {
                 commit(SET_EXPENSES, expenses);
             })
     },
-    [CREATE_EXPENSE]({ commit, dispatch }, { expense, onSuccess }) {
-        Api.post('/expenses', {
+    [CREATE_EXPENSE]({ commit, dispatch }, { expense }) {
+        return Api.post('/expenses', {
             date: expense.expenseDate,
             categoryId: expense.expense,
             typeId: expense.expenseType,
@@ -26,20 +26,18 @@ const actions = {
                 let expense = response.data;
                 commit(ADD_EXPENSE, expense);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense added successfully', color: 'success' }, { root: true });
-                onSuccess();
             })
     },
-    [EDIT_EXPENSE]({ commit, dispatch }, { expense, onSuccess }) {
-        Api.put(`/expenses/${expense.id}`, expense)
+    [EDIT_EXPENSE]({ commit, dispatch }, { expense }) {
+        return Api.put(`/expenses/${expense.id}`, expense)
             .then(response => {
                 let expense = response.data;
                 commit(UPDATE_EXPENSE, expense);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense updaded successfully', color: 'success' }, { root: true });
-                onSuccess();
             })
     },
     [REMOVE_EXPENSE]({ commit, dispatch }, { id }) {
-        Api.delete(`/expenses/${id}`)
+        return Api.delete(`/expenses/${id}`)
             .then(() => {
                 commit(DELETE_EXPENSE, id);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense deleted successfully', color: 'success' }, { root: true });
@@ -57,7 +55,7 @@ const mutations = {
     [UPDATE_EXPENSE](state, expense) {
         let expenseUpdated = state.expenses.find(ec => ec.id == expense.id)
         expenseUpdated.date = expense.date;
-        expenseUpdated.value = expense.value;        
+        expenseUpdated.value = expense.value;
         expenseUpdated.categoryId = expense.categoryId;
         expenseUpdated.category = expense.category;
         expenseUpdated.typeId = expense.typeId;

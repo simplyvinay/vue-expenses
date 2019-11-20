@@ -14,8 +14,8 @@ const actions = {
                 commit(SET_EXPENSE_TYPE, expenseTypes);
             })
     },
-    [CREATE_EXPENSE_TYPE]({ commit, dispatch }, { expenseType, onSuccess }) {
-        Api.post('/expensetypes', {
+    [CREATE_EXPENSE_TYPE]({ commit, dispatch }, { expenseType }) {
+        return Api.post('/expensetypes', {
             name: expenseType.name,
             description: expenseType.description
         })
@@ -23,20 +23,18 @@ const actions = {
                 let expenseType = response.data;
                 commit(ADD_EXPENSE_TYPE, expenseType);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense type added successfully', color: 'success' }, { root: true });
-                onSuccess();
             })
     },
-    [EDIT_EXPENSE_TYPE]({ commit, dispatch }, { expenseType, onSuccess }) {
-        Api.put(`/expensetypes/${expenseType.id}`, expenseType)
+    [EDIT_EXPENSE_TYPE]({ commit, dispatch }, { expenseType }) {
+        return Api.put(`/expensetypes/${expenseType.id}`, expenseType)
             .then(response => {
                 let expenseType = response.data;
                 commit(UPDATE_EXPENSE_TYPE, expenseType);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense type updaded successfully', color: 'success' }, { root: true });
-                onSuccess();
             })
     },
     [REMOVE_EXPENSE_TYPE]({ commit, dispatch }, { id }) {
-        Api.delete(`/expensetypes/${id}`)
+        return Api.delete(`/expensetypes/${id}`)
             .then(() => {
                 commit(DELETE_EXPENSE_TYPE, id);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense type deleted successfully', color: 'success' }, { root: true });

@@ -14,8 +14,8 @@ const actions = {
                 commit(SET_CATEGORIES, expensecategories);
             })
     },
-    [CREATE_CATEGORY]({ commit, dispatch }, { expenseCategory, onSuccess }) {
-        Api.post('/expensecategories', {
+    [CREATE_CATEGORY]({ commit, dispatch }, { expenseCategory }) {
+        return Api.post('/expensecategories', {
             name: expenseCategory.name,
             description: expenseCategory.description,
             budget: expenseCategory.budget,
@@ -25,17 +25,15 @@ const actions = {
                 let expenseCategory = response.data;
                 commit(ADD_CATEGORY, expenseCategory);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense category added successfully', color: 'success' }, { root: true });
-                onSuccess();
             })
     },
-    [EDIT_CATEGORY]({ commit, dispatch }, { expenseCategory, onSuccess }) {
-        Api.put(`/expensecategories/${expenseCategory.id}`, expenseCategory)
+    [EDIT_CATEGORY]({ commit, dispatch }, { expenseCategory }) {
+        return Api.put(`/expensecategories/${expenseCategory.id}`, expenseCategory)
             .then(response => {
                 let expenseCategory = response.data;
                 commit(UPDATE_CATEGORY, expenseCategory);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense category updaded successfully', color: 'success' }, { root: true });
-                onSuccess();
-            })
+            });
     },
     [REMOVE_CATEGORY]({ commit, dispatch }, { id }) {
         Api.delete(`/expensecategories/${id}`)

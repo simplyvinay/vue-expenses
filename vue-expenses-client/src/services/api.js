@@ -12,15 +12,15 @@ api.interceptors.request.use((request) => {
     if (user && user.token) {
         request.headers['Authorization'] = `Bearer ${user.token}`
     }
-    updateLoader(true);
+    updateLoaderTo(true);
     return request;
 });
 
 api.interceptors.response.use((response) => {
-    updateLoader(false);
+    updateLoaderTo(false);
     return response;
 }, (error) => {
-    updateLoader(false);
+    updateLoaderTo(false);
     var errormessage = error.response && error.response.data.errors && error.response.data.errors.Error
         ? error.response.data.errors.Error
         : error.message;
@@ -40,7 +40,7 @@ api.interceptors.response.use((response) => {
     return Promise.reject(error);
 });
 
-let updateLoader = (loading) => {
+let updateLoaderTo = (loading) => {
     store.dispatch(`loader/${TOGGLE_LOADING}`, { loading: loading }, { root: true });
 }
 
