@@ -3,7 +3,7 @@ using vue_expenses_api.Infrastructure;
 
 namespace vue_expenses_api.Domain
 {
-    public class ExpenseType : Entity
+    public class ExpenseType : ArchivableEntity
     {
         protected ExpenseType()
         {

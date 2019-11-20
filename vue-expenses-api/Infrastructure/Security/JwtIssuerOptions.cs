@@ -6,8 +6,6 @@ namespace vue_expenses_api.Infrastructure.Security
 {
     public class JwtIssuerOptions
     {
-        public const string Schemes = "Bearer";
-
         /// <summary>
         /// "iss" (Issuer) Claim - The "iss" (issuer) claim identifies the principal that issued the JWT.
         /// </summary>
@@ -31,18 +29,17 @@ namespace vue_expenses_api.Infrastructure.Security
         /// <summary>
         /// "nbf" (Not Before) Claim - The "nbf" (not before) claim identifies the time before which the JWT MUST NOT be accepted for processing.
         /// </summary>
-        public DateTime NotBefore { get; set; } = DateTime.UtcNow;
+        public DateTime NotBefore => DateTime.UtcNow;
 
         /// <summary>
         /// "iat" (Issued At) Claim - The "iat" (issued at) claim identifies the time at which the JWT was issued.
         /// </summary>
-        public DateTime IssuedAt { get; set; } = DateTime.UtcNow;
+        public DateTime IssuedAt => DateTime.UtcNow;
 
         /// <summary>
         /// Set the timespan the token will be valid for (default is 60 min)
         /// </summary>
         public TimeSpan ValidFor { get; set; } = TimeSpan.FromMinutes(60);
-
 
 
         /// <summary>

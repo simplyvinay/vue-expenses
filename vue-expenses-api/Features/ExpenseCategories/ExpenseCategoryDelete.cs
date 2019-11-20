@@ -52,7 +52,7 @@ namespace vue_expenses_api.Features.ExpenseCategories
                     throw new Exception("Not Found");
                 }
 
-                _context.ExpenseCategories.Remove(expenseCategory);
+                expenseCategory.Archive();
                 await _context.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

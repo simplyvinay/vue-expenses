@@ -58,7 +58,13 @@ namespace vue_expenses_api.Features.Users
                 Command request,
                 CancellationToken cancellationToken)
             {
-                var sql = "SELECT * FROM [Users] WHERE Email=@email";
+                var sql = @"SELECT 
+                                * 
+                            FROM 
+                                [Users] 
+                            WHERE 
+                                Email=@email 
+                                AND Archived = 0";
                 var customerDto = await _dbConnection.QuerySingleOrDefaultAsync<UserDto>(
                     sql,
                     new {email = request.Email});

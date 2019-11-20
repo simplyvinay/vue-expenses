@@ -92,7 +92,8 @@ namespace vue_expenses_api.Infrastructure
                 Id = 1,
                 UseDarkMode = true,
                 CreatedAt = createdAt,
-                UpdatedAt = createdAt
+                UpdatedAt = createdAt,
+                Archived = false
             };
             modelBuilder.Entity<User>().HasData(user);
 
@@ -106,7 +107,8 @@ namespace vue_expenses_api.Infrastructure
                     ColourHex = "#CE93D8",
                     CreatedAt = createdAt,
                     UpdatedAt = createdAt,
-                    UserId = user.Id
+                    UserId = user.Id,
+                    Archived = false
                 },
                 new
                 {
@@ -116,7 +118,8 @@ namespace vue_expenses_api.Infrastructure
                     ColourHex = "#64B5F6",
                     CreatedAt = createdAt,
                     UpdatedAt = createdAt,
-                    UserId = user.Id
+                    UserId = user.Id,
+                    Archived = false
                 },
                 new
                 {
@@ -126,7 +129,8 @@ namespace vue_expenses_api.Infrastructure
                     ColourHex = "#26A69A",
                     CreatedAt = createdAt,
                     UpdatedAt = createdAt,
-                    UserId = user.Id
+                    UserId = user.Id,
+                    Archived = false
                 },
                 new
                 {
@@ -136,7 +140,8 @@ namespace vue_expenses_api.Infrastructure
                     ColourHex = "#FB8C00",
                     CreatedAt = createdAt,
                     UpdatedAt = createdAt,
-                    UserId = user.Id
+                    UserId = user.Id,
+                    Archived = false
                 }
 
             );
@@ -147,7 +152,8 @@ namespace vue_expenses_api.Infrastructure
                     Name = "Credit Card",
                     CreatedAt = createdAt,
                     UpdatedAt = createdAt,
-                    UserId = user.Id
+                    UserId = user.Id,
+                    Archived = false
                 },
                 new
                 {
@@ -155,7 +161,8 @@ namespace vue_expenses_api.Infrastructure
                     Name = "Debit Card",
                     CreatedAt = createdAt,
                     UpdatedAt = createdAt,
-                    UserId = user.Id
+                    UserId = user.Id,
+                    Archived = false
                 },
                 new
                 {
@@ -163,7 +170,8 @@ namespace vue_expenses_api.Infrastructure
                     Name = "Cheque",
                     CreatedAt = createdAt,
                     UpdatedAt = createdAt,
-                    UserId = user.Id
+                    UserId = user.Id,
+                    Archived = false
                 },
                 
                 new
@@ -172,7 +180,8 @@ namespace vue_expenses_api.Infrastructure
                     Name = "Cash",
                     CreatedAt = createdAt,
                     UpdatedAt = createdAt,
-                    UserId = user.Id
+                    UserId = user.Id,
+                    Archived = false
                 }
             );
 
@@ -205,7 +214,8 @@ namespace vue_expenses_api.Infrastructure
                             2019,
                             i,
                             dates[r.Next(1, 28)]),
-                        UserId = user.Id
+                        UserId = user.Id,
+                        Archived = false
                     },
                     new
                     {
@@ -225,7 +235,8 @@ namespace vue_expenses_api.Infrastructure
                             2019,
                             i,
                             dates[r.Next(1, 28)]),
-                        UserId = user.Id
+                        UserId = user.Id,
+                        Archived = false
                     });
             }
 

@@ -15,6 +15,7 @@ namespace vue_expenses_api.Features.Users
             _mediator = mediator;
         }
 
+        //[HttpPost("api/login")]
         [HttpPost("login")]
         public async Task<UserDto> Login(
             [FromBody] Login.Command command)

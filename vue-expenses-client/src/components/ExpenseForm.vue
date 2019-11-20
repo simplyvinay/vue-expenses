@@ -4,7 +4,7 @@
       <v-row>
         <v-col cols="12" md="6" class="py-0 ma-0">
           <v-select
-            v-model="form.expenseCategory"
+            v-model="expense.expenseCategory"
             :items="categories"
             item-text="name"
             item-value="id"
@@ -19,7 +19,7 @@
           <v-menu v-model="dateMenu" :close-on-content-click="false" max-width="290">
             <template v-slot:activator="{ on }">
               <v-text-field
-                v-model="form.expenseDate"
+                v-model="expense.expenseDate"
                 label="Date"
                 readonly
                 v-on="on"
@@ -28,14 +28,18 @@
                 :rules="[required('Date')]"
               ></v-text-field>
             </template>
-            <v-date-picker v-model="form.expenseDate" @change="dateMenu = false" :no-title="true"></v-date-picker>
+            <v-date-picker
+              v-model="expense.expenseDate"
+              @change="dateMenu = false"
+              :no-title="true"
+            ></v-date-picker>
           </v-menu>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12" md="6" class="py-0 ma-0">
           <v-select
-            v-model="form.expenseType"
+            v-model="expense.expenseType"
             :items="types"
             item-text="name"
             item-value="id"
@@ -48,7 +52,7 @@
         </v-col>
         <v-col cols="12" md="6" class="py-0 ma-0">
           <v-text-field
-            v-model="form.expenseAmount"
+            v-model="expense.expenseAmount"
             label="Amount"
             required
             class="ma-0 pa-0 form-label"
@@ -58,7 +62,7 @@
         </v-col>
       </v-row>
       <v-textarea
-        v-model="form.expenseComments"
+        v-model="expense.expenseComments"
         label="Description"
         :auto-grow="true"
         required
@@ -78,22 +82,18 @@ import { mapState } from "vuex";
 import validations from "@/helpers/validations";
 
 export default {
+  props: {
+    expense: Object
+  },
   data() {
     return {
       dateMenu: false,
-      form: {
-        expenseCategory: "",
-        expenseDate: "",
-        expenseType: "",
-        expenseAmount: "",
-        expenseComments: ""
-      },
       ...validations
     };
   },
   computed: {
     ...mapState("expenseCategories", ["categories"]),
-    ...mapState("expenseTypes", ["types"])     
+    ...mapState("expenseTypes", ["types"])
   },
   methods: {
     handleSubmit() {

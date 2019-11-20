@@ -3,7 +3,7 @@ using vue_expenses_api.Infrastructure;
 
 namespace vue_expenses_api.Domain
 {
-    public class User : Entity
+    public class User : ArchivableEntity
     {
         public User(
             string firstName,

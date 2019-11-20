@@ -45,16 +45,12 @@ namespace vue_expenses_api
 
             var tokenValidationParameters = new TokenValidationParameters
             {
-                // The signing key must match!
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = signingCredentials.Key,
-                // Validate the JWT Issuer (iss) claim
                 ValidateIssuer = true,
                 ValidIssuer = issuer,
-                // Validate the JWT Audience (aud) claim
                 ValidateAudience = true,
                 ValidAudience = audience,
-                // Validate the token expiry
                 ValidateLifetime = true
             };
 
@@ -90,11 +86,9 @@ namespace vue_expenses_api
         public static void AddSerilogLogging(
             this ILoggerFactory loggerFactory)
         {
-            // Attach the sink to the logger configuration
             var log = new LoggerConfiguration()
                 .MinimumLevel.Verbose()
                 .Enrich.FromLogContext()
-                //just for local debug
                 .WriteTo.Console(
                     outputTemplate:
                     "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext} {Message:lj}{NewLine}{Exception}",
