@@ -39,8 +39,11 @@ const mutations = {
     [UPDATE_STATISTICS](state, expense) {
         var currentmonth = new Date().getMonth() + 1;
         var dateParts = expense.date.split(" ")[0].split("/");
-        var date = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0])
-        if (date.getMonth() + 1 == currentmonth) {
+        var expensedate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0])
+        const expenseMonth = expensedate.getMonth() + 1;
+        //if the expense is for current month
+        if (expenseMonth == currentmonth) {
+            //check if there is a entry for the current month for the category and update it, if not create a new entry
             var currentmonthData = state.categorybreakdown.filter((o) => { return o.month == currentmonth; })
             var category = currentmonthData.filter((o) => { return o.name == expense.category })
             if (category[0]) {
@@ -56,6 +59,20 @@ const mutations = {
 
                 })
             }
+        }
+
+        //check if there is a entry for the current category and month and update it, if not create a new entry
+        var expensebreakdown = state.expensesbreakdown.filter((o) => { return o.month == expenseMonth && o.categoryName == expense.category; });
+        if (expensebreakdown[0]) {
+            expensebreakdown[0].spent += expense.value;
+        } else if (expensedate.getYear() == new Date().getYear()) {
+            state.expensesbreakdown.push({
+                categoryColour: expense.categoryColour,
+                categoryName: expense.category,
+                month: expenseMonth,
+                spent: expense.value,
+
+            })
         }
     }
 }
