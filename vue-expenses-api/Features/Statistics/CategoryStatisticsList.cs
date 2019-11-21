@@ -33,30 +33,43 @@ namespace vue_expenses_api.Features.Statistics
                 Query request,
                 CancellationToken cancellationToken)
             {
-                var sql = $@"SELECT 
-	                            ec.Id,
-	                            ec.Name AS Name,
-	                            ec.Budget AS Budget,
-	                            ec.ColourHex AS Colour,
-	                            COALESCE(SUM(e.Value), 0) AS Spent,
-                                STRFTIME('%m', e.Date) as Month
-                            FROM 
-	                            ExpenseCategories ec
-                            LEFT JOIN	
-	                            Expenses e ON ec.Id = e.CategoryId 
-                                    AND e.Archived = 0
-                                    AND STRFTIME('%Y', e.Date) = STRFTIME('%Y', DATE('now'))
-                                    AND STRFTIME('%m', e.Date) <= STRFTIME('%m', DATE('now'))
-                            INNER JOIN
-                                Users u ON u.Id = ec.UserId
-                            WHERE 
-                                u.Email = @userEmailId 
-                                AND ec.Archived = 0
-                            GROUP BY 
-	                            ec.Name,
-	                            STRFTIME('%m', e.Date)
-                            ORDER BY 
-	                            Month";
+                var sql = $@"WITH RECURSIVE Months(month) AS (
+								SELECT 
+									strftime('%m', 'now')
+								UNION ALL
+								SELECT 
+									strftime('%m', strftime('%Y','now') || '-' ||  month || '-01', '-1 month')
+								FROM 
+									Months
+								LIMIT 
+									strftime('%m', 'now')
+							)
+
+							SELECT
+								ec.Id,
+								ec.Name AS Name,
+								ec.Budget AS Budget,
+								ec.ColourHex AS Colour,
+								CAST(COALESCE(SUM(e.Value), 0) AS REAL) AS Spent,
+								Month AS Month
+							FROM 
+								Months
+							CROSS JOIN 
+								ExpenseCategories ec
+							INNER JOIN
+								Users u ON u.Id = ec.UserId
+							LEFT JOIN	
+								Expenses e ON ec.Id = e.CategoryId 
+									AND e.Archived = 0
+									AND STRFTIME('%Y', e.Date) = STRFTIME('%Y', DATE('now'))
+									AND STRFTIME('%m', e.Date) <= STRFTIME('%m', DATE('now'))
+									AND STRFTIME('%m', e.Date) = month
+							WHERE
+								u.Email = @userEmailId  
+								AND ec.Archived = 0
+							GROUP BY 
+								Month,
+								ec.Name";
 
                 var expenses = await _dbConnection.QueryAsync<CategoryStatisticsDto>(
                     sql,
