@@ -26,7 +26,7 @@ const actions = {
                 let expense = response.data;
                 commit(ADD_EXPENSE, expense);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense added successfully', color: 'success' }, { root: true });
-                dispatch(`statistics/${EDIT_STATISTICS}`, { expense: expense }, { root: true });
+                dispatch(`statistics/${EDIT_STATISTICS}`, { expense: expense, operation: 'create' }, { root: true });
             })
     },
     [EDIT_EXPENSE]({ commit, dispatch }, { expense }) {
@@ -35,13 +35,16 @@ const actions = {
                 let expense = response.data;
                 commit(UPDATE_EXPENSE, expense);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense updaded successfully', color: 'success' }, { root: true });
+                dispatch(`statistics/${EDIT_STATISTICS}`, { expense: expense, operation: 'edit' }, { root: true });
             })
     },
     [REMOVE_EXPENSE]({ commit, dispatch }, { id }) {
         return Api.delete(`/expenses/${id}`)
             .then(() => {
+                var expense = state.expenses.filter(ec => ec.id == id)[0];
                 commit(DELETE_EXPENSE, id);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense deleted successfully', color: 'success' }, { root: true });
+                dispatch(`statistics/${EDIT_STATISTICS}`, { expense: expense, operation: 'remove' }, { root: true });
             })
     },
 }

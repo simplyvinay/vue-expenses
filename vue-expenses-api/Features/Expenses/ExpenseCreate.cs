@@ -91,7 +91,7 @@ namespace vue_expenses_api.Features.Expenses
 
                 return new ExpenseDto(
                     expense.Id,
-                    expense.Date.ToString(),
+                    expense.Date.ToString("yyyy-MM-dd"),
                     expenseCategory.Id,
                     expenseCategory.Name,
                     expenseCategory.Budget,

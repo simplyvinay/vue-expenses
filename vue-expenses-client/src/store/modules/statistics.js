@@ -13,19 +13,25 @@ const state = {
 
 const actions = {
     [LOAD_CATEGORIES_BREAKDOWN]({ commit }) {
-        Api.get('/statistics/getcurrentyearcategoriesbreakdown')
+        return Api.get('/statistics/getcurrentyearcategoriesbreakdown')
             .then(response => {
                 commit(SET_CATEGORIES_BREAKDOWN, response.data);
             })
     },
     [LOAD_EXPENSES_BREAKDOWN]({ commit }) {
-        Api.get('/statistics/getcurrentyearexpensesbycategorybreakdown')
+        return Api.get('/statistics/getcurrentyearexpensesbycategorybreakdown')
             .then(response => {
                 commit(SET_EXPENSES_BREAKDOWN, response.data);
             })
     },
-    [EDIT_STATISTICS]({ commit }, { expense }) {
-        commit(UPDATE_STATISTICS, expense);
+    [EDIT_STATISTICS]({ commit, dispatch }, { expense, operation }) {
+        //when editing an expense (which is most likey not done often), reload the state
+        if (operation === 'edit') {
+            dispatch(LOAD_CATEGORIES_BREAKDOWN);
+            dispatch(LOAD_EXPENSES_BREAKDOWN);
+        } else {
+            commit(UPDATE_STATISTICS, {expense, operation});
+        }
     }
 };
 
@@ -36,41 +42,51 @@ const mutations = {
     [SET_EXPENSES_BREAKDOWN](state, expensesbreakdown) {
         state.expensesbreakdown = expensesbreakdown;
     },
-    [UPDATE_STATISTICS](state, expense) {
+    [UPDATE_STATISTICS](state, payload) {
         var currentmonth = new Date().getMonth() + 1;
-        var dateParts = expense.date.split(" ")[0].split("/");
-        var expensedate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0])
-        const expenseMonth = expensedate.getMonth() + 1;
+        const expenseMonth = new Date(payload.expense.date).getMonth() + 1;
+
         //if the expense is for current month
         if (expenseMonth == currentmonth) {
             //check if there is a entry for the current month for the category and update it, if not create a new entry
             var currentmonthData = state.categorybreakdown.filter((o) => { return o.month == currentmonth; })
-            var category = currentmonthData.filter((o) => { return o.name == expense.category })
+            var category = currentmonthData.filter((o) => { return o.name == payload.expense.category })
             if (category[0]) {
-                category[0].spent += expense.value;
-            } else {
+                if (payload.operation === 'create') {
+                    category[0].spent += payload.expense.value;
+                }
+                else {
+                    category[0].spent -= payload.expense.value;
+                }
+            } else if (payload.operation === 'create') {
                 state.categorybreakdown.push({
-                    budget: expense.categoryBudget,
-                    colour: expense.categoryColour,
-                    id: expense.categoryId,
+                    budget: payload.expense.categoryBudget,
+                    colour: payload.expense.categoryColour,
+                    id: payload.expense.categoryId,
                     month: currentmonth,
-                    name: expense.category,
-                    spent: expense.value,
+                    name: payload.expense.category,
+                    spent: payload.expense.value,
 
                 })
             }
+
         }
 
         //check if there is a entry for the current category and month and update it, if not create a new entry
-        var expensebreakdown = state.expensesbreakdown.filter((o) => { return o.month == expenseMonth && o.categoryName == expense.category; });
+        var expensebreakdown = state.expensesbreakdown.filter((o) => { return o.month == expenseMonth && o.categoryName == payload.expense.category; });
         if (expensebreakdown[0]) {
-            expensebreakdown[0].spent += expense.value;
-        } else if (expensedate.getYear() == new Date().getYear()) {
+            if (payload.operation === 'create') {
+                expensebreakdown[0].spent += payload.expense.value;
+            }
+            else {
+                expensebreakdown[0].spent -= payload.expense.value;
+            }
+        } else if (expensedate.getYear() == new Date().getYear() && payload.operation === 'create') {
             state.expensesbreakdown.push({
-                categoryColour: expense.categoryColour,
-                categoryName: expense.category,
+                categoryColour: payload.expense.categoryColour,
+                categoryName: payload.expense.category,
                 month: expenseMonth,
-                spent: expense.value,
+                spent: payload.expense.value,
 
             })
         }
