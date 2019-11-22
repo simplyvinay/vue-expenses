@@ -165,4 +165,11 @@ export default {
   width: 200px;
   flex: 0 0 auto;
 }
+::v-deep .v-select__slot {
+  font-size: smaller;
+}
+::v-deep .v-text-field__slot {
+  font-size: smaller;
+}
+
 </style>

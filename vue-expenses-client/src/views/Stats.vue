@@ -37,19 +37,19 @@
         </v-flex>
         <v-flex xs12 md12>
           <v-flex>
-            <v-container  pb-0>
+            <v-container pb-0>
               <v-layout row wrap>
                 <v-flex xs12 md12>
                   <v-card class="pa-2 mr-2" tile>
-                    <div class="d-flex align-top">
+                    <div class="d-flex align-center">
                       <div
                         class="blue--text px-2 py-1 text-capitalize font-weight-medium"
                       >Expenses Breakdown</div>
                       <div class="ml-2">
-                        <v-select :items="items" dense placeholder="Year"></v-select>
+                        <v-select :items="years" dense label="Year" width="50"></v-select>
                       </div>
                       <div class="ml-2">
-                        <v-select :items="items" dense placeholder="Month"></v-select>
+                        <v-select :items="months" dense label="Month"></v-select>
                       </div>
                     </div>
                     <v-divider></v-divider>
@@ -67,8 +67,8 @@
                               }"
                           />
                         </v-flex>
-                        <v-flex xs12 md6 style="min-height:340px;height=100%">
-                          <BarChart :theme="theme" :height=95 :seriesData="yearlyExpenses" />
+                        <v-flex xs12 md6 style="min-height:340px; height=100%">
+                          <BarChart :theme="theme" :height="95" :seriesData="yearlyExpenses" />
                         </v-flex>
                       </v-layout>
                     </v-container>
@@ -84,15 +84,15 @@
               <v-layout row wrap>
                 <v-flex xs12 md12>
                   <v-card class="pa-2 mr-2" tile>
-                    <div class="d-flex align-top">
+                    <div class="d-flex align-center">
                       <div
                         class="blue--text px-2 py-1 text-capitalize font-weight-medium"
                       >Category Breakdown</div>
                       <div class="ml-2">
-                        <v-select :items="items" dense placeholder="Year"></v-select>
+                        <v-select :items="years" dense label="Year"></v-select>
                       </div>
                       <div class="ml-2">
-                        <v-select :items="items" dense placeholder="Month"></v-select>
+                        <v-select :items="months" dense label="Month"></v-select>
                       </div>
                     </div>
                     <v-divider></v-divider>
@@ -110,7 +110,7 @@
                               }"
                           />
                         </v-flex>
-                        <v-flex xs12 md6 style="min-height:340px;height=100%">
+                        <v-flex xs12 md6 style="min-height:340px; height=100%">
                           <PieChart :theme="theme" :seriesData="categoryExpenses" />
                         </v-flex>
                       </v-layout>
@@ -127,15 +127,15 @@
               <v-layout row wrap>
                 <v-flex xs12 md12>
                   <v-card class="pa-2 mr-2" tile>
-                    <div class="d-flex align-top">
+                    <div class="d-flex align-center">
                       <div
                         class="blue--text px-2 py-1 text-capitalize font-weight-medium"
                       >Types Breakdown</div>
                       <div class="ml-2">
-                        <v-select :items="items" dense placeholder="Year"></v-select>
+                        <v-select :items="years" dense label="Year"></v-select>
                       </div>
                       <div class="ml-2">
-                        <v-select :items="items" dense placeholder="Month"></v-select>
+                        <v-select :items="months" dense label="Month"></v-select>
                       </div>
                     </div>
                     <v-divider></v-divider>
@@ -153,7 +153,7 @@
                               }"
                           />
                         </v-flex>
-                        <v-flex xs12 md6 style="min-height:340px;height=100%">
+                        <v-flex xs12 md6 style="min-height:340px; height=100%">
                           <PieChart :theme="theme" :seriesData="categoryExpenses" />
                         </v-flex>
                       </v-layout>
@@ -178,7 +178,32 @@ export default {
   components: { PieChart, BarChart },
   computed: {
     ...mapState({ categories: state => state.expenseCategories.categories }),
-    ...mapGetters("statistics", ["categoryExpenses", "yearlyExpenses"])
+    ...mapGetters("statistics", ["categoryExpenses", "yearlyExpenses"]),
+    years: () => {
+      var items = ["All"];
+      var startYear = new Date().getFullYear() - 4;
+      for (var i = 0; i < 7; i++) {
+        items.push(startYear++);
+      }
+      return items;
+    },
+    months: () => {
+      return [
+        "All",
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ];
+    }
   },
   mounted() {
     this.theme = this.$vuetify.theme.dark ? "dark" : "";
@@ -207,8 +232,13 @@ export default {
 }
 ::v-deep .v-select__slot {
   font-size: smaller;
+  width: 100px;
 }
 ::v-deep .v-text-field > .v-input__control > .v-input__slot:before {
   border: 0px;
+}
+
+::v-deep .v-select__slot input {
+  width: 50px;
 }
 </style> 
