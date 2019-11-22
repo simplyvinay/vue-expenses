@@ -1,10 +1,15 @@
 import Api from '@/services/api'
-import { LOAD_CATEGORIES_BREAKDOWN, LOAD_EXPENSES_BREAKDOWN, EDIT_STATISTICS } from '@/store/_actiontypes'
-import { SET_CATEGORIES_BREAKDOWN, SET_EXPENSES_BREAKDOWN, UPDATE_STATISTICS } from '@/store/_mutationtypes'
+import {
+    LOAD_CATEGORIES_BREAKDOWN, LOAD_EXPENSES_BREAKDOWN, EDIT_STATISTICS, CREATE_NEWCATEGORY_STATISTICS, EDIT_CATEGORY_STATISTICS, DELETE_CATEGORY_STATISTICS
+} from '@/store/_actiontypes'
+import { 
+    SET_CATEGORIES_BREAKDOWN, SET_EXPENSES_BREAKDOWN, UPDATE_STATISTICS, ADD_NEWCATEGORY_STATISTICS, UPDATE_CATEGORY_STATISTICS, REMOVE_CATEGORY_STATISTICS 
+} from '@/store/_mutationtypes'
 import map from 'lodash/map'
 import sumBy from 'lodash/sumBy'
 import groupBy from 'lodash/groupBy'
 import forEach from 'lodash/forEach'
+import uniq from 'lodash/uniq'
 
 const state = {
     categorybreakdown: [],
@@ -30,8 +35,17 @@ const actions = {
             dispatch(LOAD_CATEGORIES_BREAKDOWN);
             dispatch(LOAD_EXPENSES_BREAKDOWN);
         } else {
-            commit(UPDATE_STATISTICS, {expense, operation});
+            commit(UPDATE_STATISTICS, { expense, operation });
         }
+    },
+    [CREATE_NEWCATEGORY_STATISTICS]({ commit }, { category }) {
+        commit(ADD_NEWCATEGORY_STATISTICS, category);
+    },
+    [EDIT_CATEGORY_STATISTICS]({ commit }, { category }) {
+        commit(UPDATE_CATEGORY_STATISTICS, category);
+    },
+    [DELETE_CATEGORY_STATISTICS]({ commit }, { categoryId }) {
+        commit(REMOVE_CATEGORY_STATISTICS, categoryId);
     }
 };
 
@@ -90,6 +104,40 @@ const mutations = {
 
             })
         }
+    },
+    [ADD_NEWCATEGORY_STATISTICS](state, category) {
+        var months = uniq(state.categorybreakdown.map(c => c.month));
+        forEach(months, (value, key) => {
+            state.categorybreakdown.push({
+                budget: category.budget,
+                colour: category.colourHex,
+                id: category.id,
+                month: value,
+                name: category.name,
+                spent: 0,
+
+            })
+        });
+
+    },
+    [UPDATE_CATEGORY_STATISTICS](state, category) {
+        var categories = state.categorybreakdown.filter((o) => { return o.id == category.id });
+        forEach(categories, (value, key) => {
+            value.name = category.name,
+            value.budget = category.budget,
+            value.colour = category.colourHex
+        });
+
+        var expenses = state.expensesbreakdown.filter((o) => { return o.id == category.id });
+        forEach(expenses, (value, key) => {
+            value.categoryName = category.name,
+            value.categoryColour = category.colourHex
+        });
+
+    },
+    [REMOVE_CATEGORY_STATISTICS](state, categoryId) {
+        state.categorybreakdown = state.categorybreakdown.filter((o) => { return o.id != categoryId });
+        state.expensesbreakdown = state.expensesbreakdown.filter((o) => { return o.id != categoryId });
     }
 }
 

@@ -1,5 +1,5 @@
 import Api from '@/services/api'
-import { LOAD_CATEGORIES, CREATE_CATEGORY, EDIT_CATEGORY, REMOVE_CATEGORY, ADD_ALERT } from '@/store/_actiontypes'
+import { LOAD_CATEGORIES, CREATE_CATEGORY, EDIT_CATEGORY, REMOVE_CATEGORY, ADD_ALERT, CREATE_NEWCATEGORY_STATISTICS, EDIT_CATEGORY_STATISTICS, DELETE_CATEGORY_STATISTICS } from '@/store/_actiontypes'
 import { SET_CATEGORIES, ADD_CATEGORY, UPDATE_CATEGORY, DELETE_CATEGORY } from '@/store/_mutationtypes'
 
 const state = {
@@ -25,6 +25,7 @@ const actions = {
                 let expenseCategory = response.data;
                 commit(ADD_CATEGORY, expenseCategory);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense category added successfully', color: 'success' }, { root: true });
+                dispatch(`statistics/${CREATE_NEWCATEGORY_STATISTICS}`, { category: expenseCategory }, { root: true });
             })
     },
     [EDIT_CATEGORY]({ commit, dispatch }, { expenseCategory }) {
@@ -33,6 +34,7 @@ const actions = {
                 let expenseCategory = response.data;
                 commit(UPDATE_CATEGORY, expenseCategory);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense category updaded successfully', color: 'success' }, { root: true });
+                dispatch(`statistics/${EDIT_CATEGORY_STATISTICS}`, { category: expenseCategory }, { root: true });
             });
     },
     [REMOVE_CATEGORY]({ commit, dispatch }, { id }) {
@@ -40,6 +42,7 @@ const actions = {
             .then(() => {
                 commit(DELETE_CATEGORY, id);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense category deleted successfully', color: 'success' }, { root: true });
+                dispatch(`statistics/${DELETE_CATEGORY_STATISTICS}`, { categoryId: id }, { root: true });
             })
     },
 }
