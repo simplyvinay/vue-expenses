@@ -36,7 +36,8 @@ namespace vue_expenses_api.Features.Statistics
                 ExpensesByCategoryThisYearQuery request,
                 CancellationToken cancellationToken)
             {
-                var sql = $@"SELECT 
+                var sql = $@"SELECT
+                                ec.Id AS Id, 
 	                            ec.Name AS CategoryName,
 	                            ec.ColourHex AS CategoryColour,
 	                            STRFTIME('%m', e.Date) as Month,
