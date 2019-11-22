@@ -9,7 +9,7 @@
             :items="categories"
             item-text="name"
             item-value="id"
-            label="Category"
+            placeholder="Category"
             class="ma-0 pa-0 form-label"
             dense
             offset-x
@@ -21,7 +21,7 @@
             <template v-slot:activator="{ on }">
               <v-text-field
                 v-model="expense.date"
-                label="Date"
+                placeholder="Date"
                 readonly
                 v-on="on"
                 class="ma-0 pa-0 form-label"
@@ -40,7 +40,7 @@
             :items="types"
             item-text="name"
             item-value="id"
-            label="Type"
+            placeholder="Type"
             class="ma-0 pa-0 form-label"
             dense
             offset-x
@@ -50,7 +50,7 @@
         <v-col cols="12" md="6" class="py-0 ma-0">
           <v-text-field
             v-model="expense.value"
-            label="Amount"
+            placeholder="Amount"
             required
             class="ma-0 pa-0 form-label"
             dense
@@ -60,7 +60,7 @@
       </v-row>
       <v-textarea
         v-model="expense.comments"
-        label="Description"
+        placeholder="Description"
         :auto-grow="true"
         required
         clearable

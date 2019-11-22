@@ -20,7 +20,7 @@ namespace vue_expenses_api.Dtos
 
         public string Email { get; set; }
         public string Token { get; set; }
-        public bool UseDarkMode => true;
+        public bool UseDarkMode => false;
 
         [JsonIgnore]
         public byte[] Hash { get; set; }
