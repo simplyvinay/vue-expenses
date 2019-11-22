@@ -8,6 +8,10 @@ export default {
     theme: {
       type: String
     },
+    height: {
+      type: Number,
+      default: 100
+    },
     seriesData: {
       type: Object,
       default() {
@@ -28,7 +32,9 @@ export default {
         grid: {
           show: false,
           top: 80,
-          bottom: 80
+          bottom: 40,
+          left: 60,
+          right: 10
         },
         xAxis: {
           data: this.seriesData.xAxisData
@@ -46,7 +52,6 @@ export default {
             type: "bar",
             data: this.seriesData.data,
             barWidth: "45%",
-            center: ["50%", "50%"],
             label: {
               normal: {
                 show: true,
@@ -90,6 +95,7 @@ export default {
   data() {
     return {
       style: {
+        height: this.height + "%",
         width: "100%"
       }
     };

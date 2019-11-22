@@ -6,7 +6,12 @@
           <v-card class="pa-2 mr-2" raised>
             <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Add New Expense</div>
             <v-divider></v-divider>
-            <ExpenseForm :expense="expense" :onSubmitClick="saveExpense" :loading="loading" ref="form"/>
+            <ExpenseForm
+              :expense="expense"
+              :onSubmitClick="saveExpense"
+              :loading="loading"
+              ref="form"
+            />
           </v-card>
         </v-flex>
         <v-flex xs12 md6>
@@ -68,28 +73,30 @@
           </v-container>
         </v-flex>
         <v-flex xs12 md12>
-          <v-container>
-            <v-layout row wrap>
-              <v-flex xs12 md12>
-                <v-card class="pa-2 mr-2" tile>
-                  <div
-                    class="blue--text px-2 py-1 text-capitalize font-weight-medium"
-                  >Breakdown (Current Year)</div>
-                  <v-divider></v-divider>
-                  <v-container>
-                    <v-layout row wrap>
-                      <v-flex xs12 md6>
-                        <BarChart :theme="theme" :seriesData="yearlyExpenses" />
-                      </v-flex>
-                      <v-flex xs12 md6>
-                        <PieChart :theme="theme" :seriesData="categoryExpenses" />
-                      </v-flex>
-                    </v-layout>
-                  </v-container>
-                </v-card>
-              </v-flex>
-            </v-layout>
-          </v-container>
+          <v-flex>
+            <v-container>
+              <v-layout row wrap>
+                <v-flex xs12 md12>
+                  <v-card class="pa-2 mr-2" tile>
+                    <div
+                      class="blue--text px-2 py-1 text-capitalize font-weight-medium"
+                    >Breakdown (Current Year)</div>
+                    <v-divider></v-divider>
+                    <v-container>
+                      <v-layout row wrap>
+                        <v-flex xs12 md6 style="min-height:340px;height=100%">
+                          <BarChart :theme="theme" :seriesData="yearlyExpenses" />
+                        </v-flex>
+                        <v-flex xs12 md6 style="min-height:340px;height=100%">
+                          <PieChart :theme="theme" :seriesData="categoryExpenses" />
+                        </v-flex>
+                      </v-layout>
+                    </v-container>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-flex>
         </v-flex>
       </v-layout>
     </v-container>
@@ -146,7 +153,7 @@ export default {
 <style scoped>
 .category-budgets {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   overflow: hidden;
   height: 180px;
   padding-left: 40px;
