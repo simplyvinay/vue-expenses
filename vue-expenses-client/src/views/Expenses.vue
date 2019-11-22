@@ -37,9 +37,6 @@
             <template v-slot:item.value="{ item }">
               <span>{{item.value.toFixed(2)}}</span>
             </template>
-            <template v-slot:item.date="{ item }">
-              <span>{{new Date(item.date).toISOString().split('T')[0]}}</span>
-            </template>
             <template v-slot:item.action="{ item }">
               <v-icon small class="mr-2" @click="editExpense(item)">edit</v-icon>
               <v-icon small @click="deleteExpense(item)">delete</v-icon>
