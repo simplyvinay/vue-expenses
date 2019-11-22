@@ -8,6 +8,10 @@ export default {
     theme: {
       type: String
     },
+    height: {
+      type: Number,
+      default: 100
+    },
     seriesData: {
       type: Array,
       default() {
@@ -27,7 +31,7 @@ export default {
             name: "Category",
             type: "pie",
             radius: "60%",
-            center: ["50%", "50%"],
+            center: ["50%", "60%"],
             roseType: "radius",
             data: this.seriesData,
             itemStyle: {
@@ -48,7 +52,8 @@ export default {
             },
             labelLine: {
               normal: {
-                show: true
+                show: true,
+                length: 0
               }
             }
           }
@@ -81,6 +86,7 @@ export default {
   data() {
     return {
       style: {
+        height: this.height + "%",
         width: "100%"
       }
     };
