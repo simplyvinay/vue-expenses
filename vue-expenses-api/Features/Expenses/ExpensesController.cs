@@ -25,6 +25,13 @@ namespace vue_expenses_api.Features.Expenses
         {
             return await _mediator.Send(new ExpenseList.Query());
         }
+        
+        [HttpGet]
+        [Route("getbyyear/{year}")]
+        public async Task<List<ExpenseDto>> GetByYear(int year)
+        {
+            return await _mediator.Send(new ExpenseList.Query(year));
+        }
 
         [HttpGet("{id}")]
         public async Task<ExpenseDto> Get(

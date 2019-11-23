@@ -19,7 +19,6 @@
                     </v-card-title>
 
                     <v-card-text>
-                      <v-container>
                         <ExpenseForm
                           :expense="editedExpense"
                           :showCloseButton="true"
@@ -28,7 +27,6 @@
                           :loading="loading"
                           ref="form"
                         />
-                      </v-container>
                     </v-card-text>
                   </v-card>
                 </v-dialog>

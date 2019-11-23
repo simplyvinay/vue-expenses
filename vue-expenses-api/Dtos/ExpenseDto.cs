@@ -42,5 +42,6 @@ namespace vue_expenses_api.Dtos
         public int TypeId { get; set; }
         public decimal Value { get; set; }
         public string Comments { get; set; }
+        public int Month { get; set; }
     }
 }
