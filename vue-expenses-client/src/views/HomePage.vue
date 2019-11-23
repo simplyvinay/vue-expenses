@@ -1,7 +1,10 @@
 <template>
   <div>
     <Navbar />
-    <v-container pt-2>
+    <v-container
+      pt-2
+      :class="{'singleAppbar': $vuetify.breakpoint.smAndDown, 'doubleAppbar': $vuetify.breakpoint.mdAndUp}"
+    >
       <v-content class="pt-1 pl-1">
         <router-view></router-view>
       </v-content>
@@ -39,7 +42,7 @@ export default {
   })
 };
 </script>
-<style>
+<style scoped>
 /* scroll bar style */
 ::-webkit-scrollbar-track {
   --webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -63,5 +66,13 @@ export default {
 .tableHeader {
   height: 20px;
   font-size: 16px !important;
+}
+
+.singleAppbar {
+  margin-top: 48px;
+}
+
+.doubleAppbar {
+  margin-top: 92px;
 }
 </style>

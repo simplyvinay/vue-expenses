@@ -18,7 +18,7 @@ const router = new Router({
       children: [
         //HomePage's <router-view>
         { path: '/dashboard', component: Dashboard },
-        { path: '/expenses', component: Expenses },     
+        { path: '/expenses', component: Expenses },
         { path: '/stats', component: Stats },
         { path: '/settings', component: Settings },
         { path: '/profile', component: Profile },
@@ -28,7 +28,10 @@ const router = new Router({
     { path: '/login', component: Login },
     // otherwise redirect to home
     { path: '*', redirect: '/' }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 });
 
 router.beforeEach((to, from, next) => {
