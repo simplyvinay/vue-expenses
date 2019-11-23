@@ -14,6 +14,13 @@ namespace vue_expenses_api.Features.Expenses
     {
         public class Query : IRequest<List<ExpenseDto>>
         {
+            public int? Year { get; }
+
+            public Query(
+                int? year = null)
+            {
+                Year = year;
+            }
         }
 
         public class QueryHandler : IRequestHandler<Query, List<ExpenseDto>>
@@ -34,11 +41,17 @@ namespace vue_expenses_api.Features.Expenses
                 Query message,
                 CancellationToken cancellationToken)
             {
-                var sql = @"SELECT 
+                var yearCriteria = message.Year.HasValue
+                    ? $" AND STRFTIME('%Y', e.Date) = '{message.Year}'"
+                    : string.Empty;
+                var sql = $@"SELECT 
                                 e.Id,
                                 STRFTIME('%Y-%m-%d', e.Date) AS Date,
+                                STRFTIME('%m', e.Date) AS Month,
                                 ec.Name AS Category,
                                 ec.Id AS CategoryId,
+                                ec.Budget AS CategoryBudget,
+                                ec.ColourHex AS CategoryColour,
                                 et.Name AS Type,
                                 et.Id AS TypeId,
                                 e.Value,
@@ -52,8 +65,9 @@ namespace vue_expenses_api.Features.Expenses
                             INNER JOIN
                                 Users u ON u.Id = e.UserId
                             WHERE 
-                                u.Email=@userEmailId AND
-                                e.Archived = 0";
+                                u.Email=@userEmailId 
+                                AND e.Archived = 0
+                                {yearCriteria}";
 
                 var expenses = await _dbConnection.QueryAsync<ExpenseDto>(
                     sql,
