@@ -14,7 +14,7 @@
       </v-list-item>
     </v-navigation-drawer>
 
-    <v-toolbar dense dark color="primary">
+    <v-app-bar dense dark fixed color="primary">
       <span class="hidden-md-and-up">
         <v-app-bar-nav-icon @click="sidebar = !sidebar"></v-app-bar-nav-icon>
       </span>
@@ -50,8 +50,13 @@
           </v-list-item>
         </v-list>
       </v-menu>
-    </v-toolbar>
-    <v-toolbar dense flat class="hidden-sm-and-down secondary-toolbar">
+    </v-app-bar>
+    <v-app-bar
+      dense
+      class="hidden-sm-and-down secondary-toolbar mt-12"
+      :elevate-on-scroll="true"
+      fixed
+    >
       <v-toolbar-items>
         <v-btn text v-for="item in navItems" :key="item.text" :to="item.route">
           <span>
@@ -60,8 +65,8 @@
           <span class="mt-1 subtitle-2 text-capitalize">{{ item.text }}</span>
         </v-btn>
       </v-toolbar-items>
-    </v-toolbar>
-    <ProgressBar/>
+    </v-app-bar>
+    <ProgressBar />
   </div>
 </template>
 
@@ -69,7 +74,7 @@
 import ProgressBar from "@/components/TheProgressBar";
 
 export default {
-  components:{
+  components: {
     ProgressBar
   },
   computed: {
@@ -111,7 +116,7 @@ export default {
   bottom: 0;
   height: 2px;
   width: 75%;
-  border-bottom: 1px solid #1e88e5;
+  border-bottom: 2px solid #1e88e5;
 }
 
 ::v-deep .secondary-toolbar .v-toolbar__content {
