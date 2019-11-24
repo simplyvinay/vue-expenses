@@ -46,5 +46,17 @@ namespace vue_expenses_api.Features.Statistics
                     month,
                     out var mth) ? mth : (int?)null));
         }
+        
+        [HttpGet]
+        [Route("gettypesbreakdownforyear/{year}/{month}")]
+        public async Task<List<TypeStatisticsDto>> GetTypesBreakdownForYear(
+            int year,
+            string month)
+        {
+            return await _mediator.Send(
+                new TypesStatisticsList.Query(year, int.TryParse(
+                    month,
+                    out var mth) ? mth : (int?)null));
+        }
     }
 }
