@@ -10,7 +10,6 @@
                 :items="years"
                 dense
                 label="Year"
-                width="50"
                 v-model="selectedYear"
                 @change="loaddata"
               ></v-select>

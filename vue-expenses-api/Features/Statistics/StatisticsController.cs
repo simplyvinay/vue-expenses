@@ -25,14 +25,26 @@ namespace vue_expenses_api.Features.Statistics
         public async Task<List<CategoryStatisticsDto>> GetCurrentYearCategoriesBreakdown()
         {
             return await _mediator.Send(
-                new CategoryStatisticsList.Query());
+                new DashboardCategoryStatisticsList.Query());
         }
 
         [HttpGet]
         [Route("getcurrentyearexpensesbycategorybreakdown")]
         public async Task<List<ExpenseByCategoryStatisticsDto>> GetCurrentYearExpensesByCategoryBreakdown()
         {
-            return await _mediator.Send(new ExpenseStatisticsList.ExpensesByCategoryThisYearQuery());
+            return await _mediator.Send(new DasboardExpenseStatisticsList.ExpensesByCategoryThisYearQuery());
+        }
+
+        [HttpGet]
+        [Route("getcategoriesbreakdownforyear/{year}/{month}")]
+        public async Task<List<CategoryStatisticsDto>> GetCategoriesBreakdownForYear(
+            int year,
+            string month)
+        {
+            return await _mediator.Send(
+                new CategoryStatisticsList.Query(year, int.TryParse(
+                    month,
+                    out var mth) ? mth : (int?)null));
         }
     }
 }

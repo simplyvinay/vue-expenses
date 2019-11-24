@@ -88,7 +88,7 @@
                           <BarChart :theme="theme" :seriesData="yearlyExpenses" />
                         </v-flex>
                         <v-flex xs12 md6 style="min-height:340px;height=100%">
-                          <PieChart :theme="theme" :seriesData="categoryExpenses" />
+                          <PieChart :theme="theme" titleText="Expenses By Category" :seriesData="categoryExpenses" />
                         </v-flex>
                       </v-layout>
                     </v-container>
