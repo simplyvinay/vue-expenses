@@ -65,7 +65,7 @@ export default {
           }
         },
         legend: {
-          data: this.seriesData.legendData // ["General", "Travel", "Shopping", "Utilities", "Misc"]
+          data: this.seriesData.legendData && this.seriesData.legendData.length <= 5 ? this.seriesData.legendData : [] // ["General", "Travel", "Shopping", "Utilities", "Misc"]
         }
       };
     }
