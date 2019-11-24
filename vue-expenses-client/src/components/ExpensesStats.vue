@@ -47,6 +47,11 @@
 <script>
 import Api from "@/services/api";
 import StackChart from "@/components/StackChart";
+import { mapState, mapActions } from "vuex";
+import forEach from "lodash/forEach";
+import find from "lodash/find";
+import groupBy from "lodash/groupBy";
+import map from "lodash/map";
 
 export default {
   props: {
@@ -61,44 +66,85 @@ export default {
     StackChart
   },
   mounted() {
-    this.loadyearlydata(this.selectedYear);
-    this.loadcategoryStack(this.selectedYear);
+    this.loadyearlydata(this.selectedYear).then(() => {
+      this.loadcategoryStack(this.selectedYear);
+    });
+
     this.theme = this.$vuetify.theme.dark ? "dark" : "";
   },
-  computed: {},
+  computed: {
+    ...mapState({ categories: state => state.expenseCategories.categories })
+  },
   methods: {
     loaddata(year) {
-      this.loadyearlydata(year);
-      this.loadcategoryStack(year);
-    },
-    loadyearlydata(year) {
-      Api.get(`/expenses/getbyyear/${this.selectedYear}`).then(response => {
-        this.yearlyExpenses = response.data;
+      this.loadyearlydata(year).then(() => {
+        this.loadcategoryStack(year);
       });
     },
-    loadcategoryStack(year) {
-      Api.get(`/statistics/getexpenesesbycategory/${this.selectedYear}`).then(
+    loadyearlydata(year) {
+      return Api.get(`/expenses/getbyyear/${this.selectedYear}`).then(
         response => {
-          this.categoryStack = {
-            xAxisData: [
-              "Jan",
-              "Feb",
-              "Mar",
-              "Apr",
-              "May",
-              "Jun",
-              "Jul",
-              "Aug",
-              "Sep",
-              "Oct",
-              "Nov",
-              "Dec"
-            ],
-            legendData: ['Utilities', 'Travel'],
-            data: response.data
-          };
+          this.yearlyExpenses = response.data;
         }
       );
+    },
+    loadcategoryStack(year) {
+      let expenses = this.yearlyExpenses;
+      let categories = this.categories;
+
+      let expensesByMonth = [];
+      forEach(categories, (value, key) => {
+        Array.from(Array(12).keys(), month => {
+          let x = expenses.find(
+            ex => ex && +ex.month === month + 1 && ex.category == value.name
+          );
+          expensesByMonth.push(
+            x || {
+              category: value.name,
+              categoryBudget: value.budget,
+              categoryColour: value.colourHex,
+              categoryId: value.id,
+              comments: null,
+              date: null,
+              id: null,
+              month: month + 1,
+              type: null,
+              typeId: null,
+              value: 0
+            }
+          );
+        });
+      });
+
+      this.categoryStack = {
+        xAxisData: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec"
+        ],
+        legendData: this.categories.map(x => x.name),
+        data: map(
+          groupBy(expensesByMonth, e => {
+            return e.category + "|" + e.categoryColour;
+          }),
+          (cat, key) => {
+            return {
+              name: key.split("|")[0],
+              color: key.split("|")[1],
+              data: cat.map(x => x.value.toFixed(2))
+            };
+          }
+        )
+      };
     }
   },
   data: () => ({
