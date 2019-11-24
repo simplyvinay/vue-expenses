@@ -63,12 +63,13 @@ export default {
   mounted() {
     this.loadyearlydata(this.selectedYear);
     this.loadcategoryStack(this.selectedYear);
+    this.theme = this.$vuetify.theme.dark ? "dark" : "";
   },
   computed: {},
   methods: {
     loaddata(year) {
-      loadyearlydata(year);
-      loadcategoryStack(year);
+      this.loadyearlydata(year);
+      this.loadcategoryStack(year);
     },
     loadyearlydata(year) {
       Api.get(`/expenses/getbyyear/${this.selectedYear}`).then(response => {
@@ -93,7 +94,7 @@ export default {
               "Nov",
               "Dec"
             ],
-            legendData: [],
+            legendData: ['Utilities', 'Travel'],
             data: response.data
           };
         }
