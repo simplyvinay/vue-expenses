@@ -65,10 +65,7 @@ export default {
     StackChart
   },
   mounted() {
-    this.loadyearlydata(this.selectedYear).then(() => {
-      this.loadcategoryStack(this.selectedYear);
-    });
-
+    this.loaddata(this.selectedYear);
     this.theme = this.$vuetify.theme.dark ? "dark" : "";
   },
   computed: {

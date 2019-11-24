@@ -90,9 +90,8 @@ export default {
     loadchart() {
         this.typesChartData = [];
         forEach(this.typesBreakdown, (value, key) => {
-            debugger;
             this.typesChartData.push({
-                value: value.spent,
+                value: value.spent.toFixed(2),
                 name: value.name
             })
         });

@@ -90,9 +90,8 @@ export default {
     loadchart() {
         this.categoryChartData = [];
         forEach(this.categoryBreakdown, (value, key) => {
-            debugger;
             this.categoryChartData.push({
-                value: value.spent,
+                value: value.spent.toFixed(2),
                 name: value.name,
                 itemStyle: { color: value.colour }
             })
