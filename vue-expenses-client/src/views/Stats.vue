@@ -37,55 +37,17 @@
         </v-flex>
         <v-flex xs12 md12>
           <v-flex>
-            <ExpensesStats :years="getYears(false)" />
+            <ExpensesStats :years="getYears()" />
           </v-flex>
         </v-flex>
         <v-flex xs12 md12>
           <v-flex>
-            <CategoryStats :years="getYears(false)" :months="months" />
+            <CategoryStats :years="getYears()" :months="months" />
           </v-flex>
         </v-flex>
         <v-flex xs12 md12>
           <v-flex>
-            <v-container pb-0>
-              <v-layout row wrap>
-                <v-flex xs12 md12>
-                  <v-card class="pa-2 mr-2" tile>
-                    <div class="d-flex align-center">
-                      <div
-                        class="blue--text px-2 py-1 text-capitalize font-weight-medium"
-                      >Types Breakdown</div>
-                      <div class="ml-2">
-                        <v-select :items="getYears(true)" dense label="Year"></v-select>
-                      </div>
-                      <div class="ml-2">
-                        <v-select :items="months" dense label="Month"></v-select>
-                      </div>
-                    </div>
-                    <v-divider></v-divider>
-                    <v-container>
-                      <v-layout row wrap>
-                        <v-flex xs12 md6>
-                          <v-data-table
-                            :headers="headers"
-                            :items="categories"
-                            sort-by="name"
-                            :items-per-page="5"
-                            loading-text="Loading... Please wait"
-                            :footer-props="{
-                                itemsPerPageOptions: [5],
-                              }"
-                          />
-                        </v-flex>
-                        <v-flex xs12 md6 style="min-height:340px; height=100%">
-                          <PieChart :theme="theme" :seriesData="categoryExpenses" />
-                        </v-flex>
-                      </v-layout>
-                    </v-container>
-                  </v-card>
-                </v-flex>
-              </v-layout>
-            </v-container>
+            <TypeStats :years="getYears()" :months="months" />
           </v-flex>
         </v-flex>
       </v-layout>
@@ -93,21 +55,16 @@
   </div>
 </template>
 <script>
-import PieChart from "@/components/PieChart";
-import BarChart from "@/components/BarChart";
 import ExpensesStats from "@/components/ExpensesStats";
 import CategoryStats from "@/components/CategoryStats";
+import TypeStats from "@/components/TypeStats";
 import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
-  components: { ExpensesStats, CategoryStats, PieChart },
-  computed: {
-    ...mapState({ categories: state => state.expenseCategories.categories }),
-    ...mapGetters("statistics", ["categoryExpenses", "yearlyExpenses"])
-  },
+  components: { ExpensesStats, CategoryStats, TypeStats },
   methods: {
-    getYears(showAll) {
-      var items = showAll ? ["All"] : [];
+    getYears() {
+      var items = [];
       var startYear = new Date().getFullYear() - 4;
       for (var i = 0; i < 7; i++) {
         items.push(startYear++);
@@ -120,14 +77,6 @@ export default {
   },
   data: () => ({
     theme: "",
-    headers: [
-      { text: "Id", value: "id", align: " d-none" },
-      { text: "Name", value: "name" },
-      { text: "Description", value: "description" },
-      { text: "Budget", value: "budget", width: 100 },
-      { text: "Colour", value: "colourHex", width: 100 },
-      { text: "Actions", value: "action", sortable: false, width: 50 }
-    ],
     months: [
       { name: "All", value: null },
       { name: "January", value: 1 },
