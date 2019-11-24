@@ -51,14 +51,6 @@ export default {
         series: this.getSeries(),
         //   [{
         //     name: "General",
-        //     type: "bar",
-        //     stack: "stack",
-        //     barWidth: "45%",
-        //     label: {
-        //       normal: {
-        //         show: true
-        //       }
-        //     },
         //     itemStyle: { color: "green" },
         //     data: [320, 302, 301, 334, 390, 330, 320]
         //   }]

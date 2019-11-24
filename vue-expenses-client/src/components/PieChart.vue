@@ -5,12 +5,32 @@
 <script>
 export default {
   props: {
+    showTitle: {
+      type: Boolean,
+      default: true
+    },
+    titleText: {
+      type: String,
+      default: ""
+    },
     theme: {
       type: String
     },
     height: {
       type: Number,
       default: 100
+    },
+    pieRadius: {
+      type: Number,
+      default: 60
+    },
+    centerX: {
+      type: Number,
+      default: 50
+    },
+    centerY: {
+      type: Number,
+      default: 60
     },
     seriesData: {
       type: Array,
@@ -30,8 +50,8 @@ export default {
           {
             name: "Category",
             type: "pie",
-            radius: "60%",
-            center: ["50%", "60%"],
+            radius: this.pieRadius + '%',
+            center: [this.centerX + '%', this.centerY + '%'],
             roseType: "radius",
             data: this.seriesData,
             itemStyle: {
@@ -59,13 +79,14 @@ export default {
           }
         ],
         title: {
-          text: "Expenses By Category",
+          text: this.titleText,
           x: "center",
           top: "20",
           textStyle: {
             fontSize: 14,
-            fontWeight: "normal"
-          }
+            fontWeight: "norm,al"
+          },
+          show: this.showTitle
         },
         legend: {
           show: false,

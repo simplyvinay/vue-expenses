@@ -10,7 +10,7 @@ using vue_expenses_api.Infrastructure.Security;
 
 namespace vue_expenses_api.Features.Statistics
 {
-    public class ExpenseStatisticsList
+    public class DasboardExpenseStatisticsList
     {
         public class ExpensesByCategoryThisYearQuery : IRequest<List<ExpenseByCategoryStatisticsDto>>
         {
