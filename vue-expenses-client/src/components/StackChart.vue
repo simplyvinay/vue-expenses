@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import map from "lodash/map";
+
 export default {
   props: {
     theme: {
@@ -31,7 +33,7 @@ export default {
           fontFamily: "Nunito"
         },
         grid: {
-          top: 20,
+          top: 60,
           bottom: 40,
           left: 60,
           right: 10
@@ -46,7 +48,7 @@ export default {
             show: false
           }
         },
-        series: this.seriesData.data 
+        series: this.getSeries(),
         //   [{
         //     name: "General",
         //     type: "bar",
@@ -60,7 +62,6 @@ export default {
         //     itemStyle: { color: "green" },
         //     data: [320, 302, 301, 334, 390, 330, 320]
         //   }]
-        ,
         tooltip: {
           trigger: "axis",
           textStyle: {
@@ -75,6 +76,26 @@ export default {
           data: this.seriesData.legendData // ["General", "Travel", "Shopping", "Utilities", "Misc"]
         }
       };
+    }
+  },
+  methods: {
+    getSeries() {
+      let yy = this.seriesData.data && this.seriesData.data.map(x => {
+        return {
+          name: x.name,
+          type: "bar",
+          stack: "stack",
+          barWidth: "45%",
+          label: {
+            normal: {
+              show: false
+            }
+          },
+          itemStyle: { color: x.color },
+          data: x.data
+        };
+      });
+      return yy;
     }
   },
   data() {
