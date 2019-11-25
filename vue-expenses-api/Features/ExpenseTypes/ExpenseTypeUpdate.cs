@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using vue_expenses_api.Domain;
 using vue_expenses_api.Dtos;
 using vue_expenses_api.Infrastructure;
 using vue_expenses_api.Infrastructure.Exceptions;
