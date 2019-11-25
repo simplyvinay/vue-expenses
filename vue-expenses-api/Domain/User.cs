@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json;
 using vue_expenses_api.Infrastructure;
 
 namespace vue_expenses_api.Domain
@@ -31,5 +34,31 @@ namespace vue_expenses_api.Domain
 
         [JsonIgnore]
         public byte[] Salt { get; set; }
+
+        private readonly List<RefreshToken> _refreshTokens = new List<RefreshToken>();
+        public IReadOnlyCollection<RefreshToken> RefreshTokens => _refreshTokens.AsReadOnly();
+
+        public void AddRefreshToken(
+            string token,
+            double daysToExpire = 2)
+        {
+            _refreshTokens.Add(
+                new RefreshToken(
+                    token,
+                    DateTime.UtcNow.AddDays(daysToExpire),
+                    this));
+        }
+
+        public void RemoveRefreshToken(
+            string refreshToken)
+        {
+            _refreshTokens.Remove(_refreshTokens.First(t => t.Token == refreshToken));
+        }
+
+        public bool IsValidRefreshToken(
+            string refreshToken)
+        {
+            return _refreshTokens.Any(rt => rt.Token == refreshToken && rt.Active);
+        }
     }
 }

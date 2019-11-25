@@ -77,9 +77,19 @@ namespace vue_expenses_api
                             }
 
                             return Task.CompletedTask;
+                        },
+                        OnAuthenticationFailed = context =>
+                        {
+                            if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                            {
+                                context.Response.Headers.Add(
+                                    "Token-Expired",
+                                    "true");
+                            }
+
+                            return Task.CompletedTask;
                         }
                     };
-
                 });
         }
 

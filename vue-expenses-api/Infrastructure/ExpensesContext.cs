@@ -24,6 +24,7 @@ namespace vue_expenses_api.Infrastructure
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<ExpenseCategory> ExpenseCategories { get; set; }
         public DbSet<ExpenseType> ExpenseTypes { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnConfiguring(
             DbContextOptionsBuilder optionsBuilder)
@@ -67,6 +68,16 @@ namespace vue_expenses_api.Infrastructure
         protected override void OnModelCreating(
             ModelBuilder modelBuilder)
         {
+            var navigation = modelBuilder.Entity<User>()
+                .Metadata.FindNavigation(nameof(User.RefreshTokens));
+            navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
+
+            modelBuilder.Entity<RefreshToken>()
+                .HasOne(d => d.User)
+                .WithMany(e => e.RefreshTokens)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);;
+
             modelBuilder.Entity<Expense>()
                 .HasOne(d => d.Category)
                 .WithMany(e => e.Expenses);
@@ -74,7 +85,7 @@ namespace vue_expenses_api.Infrastructure
             modelBuilder.Entity<Expense>()
                 .HasOne(d => d.Type)
                 .WithMany(e => e.Expenses);
-
+            
             #region Seed
 
             var createdAt = DateTime.Now;

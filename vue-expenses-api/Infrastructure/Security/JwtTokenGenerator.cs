@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 
@@ -10,6 +11,9 @@ namespace vue_expenses_api.Infrastructure.Security
     {
         Task<string> CreateToken(
             string email);
+
+        string GenerateRefreshToken(
+            int size = 32);
     }
 
     public class JwtTokenGenerator : IJwtTokenGenerator
@@ -47,6 +51,15 @@ namespace vue_expenses_api.Infrastructure.Security
                 _jwtOptions.SigningCredentials);
 
             return new JwtSecurityTokenHandler().WriteToken(jwt);
+        }
+
+        public string GenerateRefreshToken(
+            int size = 32)
+        {
+            var randomNumber = new byte[size];
+            using var numberGenerator = RandomNumberGenerator.Create();
+            numberGenerator.GetBytes(randomNumber);
+            return Convert.ToBase64String(randomNumber);
         }
     }
 }

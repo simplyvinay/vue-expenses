@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -12,79 +11,73 @@ using vue_expenses_api.Infrastructure.Security;
 
 namespace vue_expenses_api.Features.Users
 {
-    public class Login
+    public class ExchangeRefreshToken
     {
         public class Command : IRequest<UserDto>
         {
             public Command(
-                string email,
-                string password)
+                string refreshToken)
             {
-                Email = email;
-                Password = password;
+                RefreshToken = refreshToken;
             }
 
-            public string Email { get; set; }
-            public string Password { get; set; }
-
+            public string RefreshToken { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
-                RuleFor(x => x.Email).NotNull().NotEmpty();
-                RuleFor(x => x.Password).NotNull().NotEmpty();
+                RuleFor(x => x.RefreshToken).NotNull().NotEmpty();
             }
         }
 
         public class Handler : IRequestHandler<Command, UserDto>
         {
-            private readonly IPasswordHasher _passwordHasher;
-            private readonly IJwtTokenGenerator _jwtTokenGenerator;
+            private readonly ICurrentUser _currentUser;
             private readonly ExpensesContext _context;
+            private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
             public Handler(
-                IPasswordHasher passwordHasher,
-                IJwtTokenGenerator jwtTokenGenerator,
-                ExpensesContext context)
+                ICurrentUser currentUser,
+                ExpensesContext context,
+                IJwtTokenGenerator jwtTokenGenerator)
             {
-                _passwordHasher = passwordHasher;
-                _jwtTokenGenerator = jwtTokenGenerator;
+                _currentUser = currentUser;
                 _context = context;
+                _jwtTokenGenerator = jwtTokenGenerator;
             }
 
             public async Task<UserDto> Handle(
                 Command request,
                 CancellationToken cancellationToken)
             {
-                var user = await _context.Users.SingleAsync(
-                    x => x.Email == request.Email && !x.Archived,
+                var user = await _context.Users.Include(u => u.RefreshTokens)
+                    .SingleAsync(x => x.Email == _currentUser.EmailId && !x.Archived,
                     cancellationToken);
 
                 if (user == null)
                 {
                     throw new HttpException(
                         HttpStatusCode.Unauthorized,
-                        new {Error = "Invalid credentials."});
+                        new { Error = "Invalid credentials." });
                 }
 
-                if (!user.Hash.SequenceEqual(
-                    _passwordHasher.Hash(
-                        request.Password,
-                        user.Salt)))
+                if (!user.IsValidRefreshToken(request.RefreshToken))
                 {
                     throw new HttpException(
                         HttpStatusCode.Unauthorized,
-                        new {Error = "Invalid credentials."});
+                        new { Error = "Invalid credentials." });
                 }
-                // generate refresh token
+
                 var refreshToken = _jwtTokenGenerator.GenerateRefreshToken();
-                user.AddRefreshToken(refreshToken, user.Id);
-                
-                var token = await _jwtTokenGenerator.CreateToken(request.Email);
+                user.RemoveRefreshToken(request.RefreshToken);
+                user.AddRefreshToken(
+                    refreshToken,
+                    user.Id);
+                var token = await _jwtTokenGenerator.CreateToken(user.Email);
                 await _context.SaveChangesAsync(cancellationToken);
-                
+
                 return new UserDto(
                     user.Email,
                     token,
