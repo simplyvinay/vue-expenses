@@ -36,27 +36,23 @@ namespace vue_expenses_api.Features.Statistics
         }
 
         [HttpGet]
-        [Route("getcategoriesbreakdownforyear/{year}/{month}")]
+        [Route("getcategoriesbreakdownforyear/{year}/{month?}")]
         public async Task<List<CategoryStatisticsDto>> GetCategoriesBreakdownForYear(
             int year,
-            string month)
+            int? month = null)
         {
             return await _mediator.Send(
-                new CategoryStatisticsList.Query(year, int.TryParse(
-                    month,
-                    out var mth) ? mth : (int?)null));
+                new CategoryStatisticsList.Query(year, month));
         }
         
         [HttpGet]
-        [Route("gettypesbreakdownforyear/{year}/{month}")]
+        [Route("gettypesbreakdownforyear/{year}/{month?}")]
         public async Task<List<TypeStatisticsDto>> GetTypesBreakdownForYear(
             int year,
-            string month)
+            int? month = null)
         {
             return await _mediator.Send(
-                new TypesStatisticsList.Query(year, int.TryParse(
-                    month,
-                    out var mth) ? mth : (int?)null));
+                new TypesStatisticsList.Query(year, month));
         }
     }
 }

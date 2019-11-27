@@ -26,7 +26,6 @@ namespace vue_expenses_api.Features.Users
         }
 
         [HttpPost("refreshtoken")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<UserDto> RefreshToken(
             [FromBody] ExchangeRefreshToken.Command command)
         {

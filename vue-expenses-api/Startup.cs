@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using FluentValidation.AspNetCore;
@@ -104,6 +105,7 @@ namespace vue_expenses_api
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICurrentUser, CurrentUser>();
+            services.AddScoped<IJwtSigningCredentials, JwtSigningCredentials>();
 
             services.AddCors();
             services.AddJwt();
@@ -137,7 +139,8 @@ namespace vue_expenses_api
                     builder
                         .AllowAnyOrigin()
                         .AllowAnyHeader()
-                        .AllowAnyMethod());
+                        .AllowAnyMethod()
+                        .WithExposedHeaders("Token-Expired"));
 
             // Enable middleware to serve generated Swagger as a JSON endpoint
             app.UseSwagger(c => { c.RouteTemplate = "swagger/{documentName}/swagger.json"; });

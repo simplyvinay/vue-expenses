@@ -1,6 +1,6 @@
 import Api from '@/services/api'
 import router from '@/router/index';
-import { LOGIN, LOGOUT } from '@/store/_actiontypes'
+import { LOGIN, LOGOUT, REFRESHTOKEN } from '@/store/_actiontypes'
 import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER } from '@/store/_mutationtypes'
 
 const state = {
@@ -18,9 +18,21 @@ const actions = {
                 commit(LOGIN_SUCCESS, user);
                 router.push('/dashboard');
             })
+            .catch(() => {
+                commit(LOGIN_FAILURE);
+            });
+    },
+    [REFRESHTOKEN]({ commit }, { refreshtoken, token }) {
+        return Api.post('/refreshtoken', {
+            token,
+            refreshtoken
+        })
+            .then(response => {
+                let user = response.data;
+                commit(LOGIN_SUCCESS, user);
+            })
             .catch((e) => {
-                var error = e.response ? e.response.data.errors.Error : e;
-                commit(LOGIN_FAILURE, error);                
+                commit(LOGIN_FAILURE);
             });
     },
     [LOGOUT]({ commit }) {

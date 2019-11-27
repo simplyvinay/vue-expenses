@@ -1,6 +1,7 @@
 //LOGIN
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const REFRESHTOKEN = 'REFRESHTOKEN';
 
 //TYPES
 export const CREATE_EXPENSE_TYPE = 'CREATE_EXPENSE_TYPE';

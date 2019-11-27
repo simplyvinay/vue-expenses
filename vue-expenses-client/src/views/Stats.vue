@@ -78,7 +78,7 @@ export default {
   data: () => ({
     theme: "",
     months: [
-      { name: "All", value: null },
+      { name: "All", value: '' },
       { name: "January", value: 1 },
       { name: "February", value: 2 },
       { name: "March", value: 3 },
