@@ -100,7 +100,7 @@ export default {
   data: () => ({
     theme: "",
     selectedYear: new Date().getFullYear(),
-    selectedMonth: { name: "All", value: null },
+    selectedMonth: '',
     typesBreakdown: [],
     typesChartData: [],
     headers: [

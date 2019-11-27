@@ -20,37 +20,24 @@ namespace vue_expenses_api
         {
             services.AddOptions();
 
-            //security key
-            var securityKey =
-                "Nam_interdum_tortor_vel_tempus_malesuada._Donec_efficitur,_nibh_suscipit_fringilla_dapibus,_erat_massa_bibendum_risus,_sed_semper_nulla_leo_et_orci.";
-
-            //symmetric security key
-            var signingKey =
-                new SymmetricSecurityKey(Encoding.ASCII.GetBytes(securityKey));
-
-            //signing credentials
-            var signingCredentials = new SigningCredentials(
-                signingKey,
-                SecurityAlgorithms.HmacSha256Signature);
-            var issuer = "issuer";
-            var audience = "audience";
+            var signingCredentials = services.BuildServiceProvider().GetService<IJwtSigningCredentials>();
 
             services.Configure<JwtIssuerOptions>(
                 options =>
                 {
-                    options.Issuer = issuer;
-                    options.Audience = audience;
-                    options.SigningCredentials = signingCredentials;
+                    options.Issuer = signingCredentials.Issuer;
+                    options.Audience = signingCredentials.Audience;
+                    options.SigningCredentials = signingCredentials.SigningCredentials;
                 });
 
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = signingCredentials.Key,
+                IssuerSigningKey = signingCredentials.SigningCredentials.Key,
                 ValidateIssuer = true,
-                ValidIssuer = issuer,
+                ValidIssuer = signingCredentials.Issuer,
                 ValidateAudience = true,
-                ValidAudience = audience,
+                ValidAudience = signingCredentials.Audience,
                 ValidateLifetime = true
             };
 
