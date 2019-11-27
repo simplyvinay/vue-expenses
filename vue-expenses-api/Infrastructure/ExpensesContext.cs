@@ -11,13 +11,16 @@ namespace vue_expenses_api.Infrastructure
 {
     public class ExpensesContext : DbContext
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
+        private readonly IPasswordHasher _passwordHasher;
 
         public ExpensesContext(
             DbContextOptions options,
-            IConfiguration configuration) : base(options)
+            IConfiguration configuration,
+            IPasswordHasher passwordHasher) : base(options)
         {
             _configuration = configuration;
+            _passwordHasher = passwordHasher;
         }
 
         public DbSet<User> Users { get; set; }
@@ -94,7 +97,7 @@ namespace vue_expenses_api.Infrastructure
                 "John",
                 "Doe",
                 "test@demo.com",
-                new PasswordHasher().Hash(
+                _passwordHasher.Hash(
                     "test",
                     salt),
                 salt

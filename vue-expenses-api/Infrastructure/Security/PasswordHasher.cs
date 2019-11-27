@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 
 namespace vue_expenses_api.Infrastructure.Security
 {
@@ -13,7 +14,15 @@ namespace vue_expenses_api.Infrastructure.Security
 
     public class PasswordHasher : IPasswordHasher
     {
-        private readonly HMACSHA512 hmacsha512 = new HMACSHA512(Encoding.UTF8.GetBytes("secret key"));
+        private readonly IConfiguration _configuration;
+        private readonly HMACSHA512 _hmacsha512;
+
+        public PasswordHasher(
+            IConfiguration configuration)
+        {
+            _configuration = configuration;
+            _hmacsha512 = new HMACSHA512(Encoding.UTF8.GetBytes(_configuration["PasswordHasher:Key"]));
+        }
 
         public byte[] Hash(
             string password,
@@ -38,7 +47,7 @@ namespace vue_expenses_api.Infrastructure.Security
                 passwordBytes.Length,
                 salt.Length);
 
-            return hmacsha512.ComputeHash(passwordBytesWithSaltBytes);
+            return _hmacsha512.ComputeHash(passwordBytesWithSaltBytes);
         }
     }
 }

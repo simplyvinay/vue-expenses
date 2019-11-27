@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace vue_expenses_api.Infrastructure.Security
@@ -13,22 +14,21 @@ namespace vue_expenses_api.Infrastructure.Security
 
     public class JwtSigningCredentials : IJwtSigningCredentials
     {
-        public JwtSigningCredentials()
+        private readonly IConfiguration _configuration;
+
+        public JwtSigningCredentials(
+            IConfiguration configuration)
         {
-            //security key
-            var securityKey =
-                "Nam_interdum_tortor_vel_tempus_malesuada._Donec_efficitur,_nibh_suscipit_fringilla_dapibus,_erat_massa_bibendum_risus,_sed_semper_nulla_leo_et_orci.";
+            _configuration = configuration;
 
-            //symmetric security key
             var signingKey =
-                new SymmetricSecurityKey(Encoding.ASCII.GetBytes(securityKey));
+                new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JwtSettings:SecurityKey"]));
 
-            //signing credentials
             SigningCredentials = new SigningCredentials(
                 signingKey,
                 SecurityAlgorithms.HmacSha256Signature);
-            Issuer = "issuer";
-            Audience = "audience";
+            Issuer = _configuration["JwtSettings:Issuer"];
+            Audience = _configuration["JwtSettings:Audience"];
         }
 
         public SigningCredentials SigningCredentials { get; }
