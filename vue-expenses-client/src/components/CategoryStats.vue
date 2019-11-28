@@ -49,7 +49,7 @@
 </template>
 <script>
 import Api from "@/services/api";
-import PieChart from "@/components/PieChart";
+import PieChart from "@/components/Charts/PieChart";
 import forEach from "lodash/forEach";
 
 export default {

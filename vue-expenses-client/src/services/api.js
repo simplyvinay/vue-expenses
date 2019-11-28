@@ -48,7 +48,6 @@ api.interceptors.response.use((response) => {
                         tokenRefreshed()
                     })
                     .catch(() => {
-                        debugger;
                         router.push('/login');
                     })
             }

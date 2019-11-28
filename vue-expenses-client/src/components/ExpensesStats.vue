@@ -45,7 +45,7 @@
 
 <script>
 import Api from "@/services/api";
-import StackChart from "@/components/StackChart";
+import StackChart from "@/components/Charts/StackChart";
 import { mapState, mapActions } from "vuex";
 import forEach from "lodash/forEach";
 import find from "lodash/find";

@@ -2,8 +2,8 @@ import Api from '@/services/api'
 import {
     LOAD_CATEGORIES_BREAKDOWN, LOAD_EXPENSES_BREAKDOWN, EDIT_STATISTICS, CREATE_NEWCATEGORY_STATISTICS, EDIT_CATEGORY_STATISTICS, DELETE_CATEGORY_STATISTICS
 } from '@/store/_actiontypes'
-import { 
-    SET_CATEGORIES_BREAKDOWN, SET_EXPENSES_BREAKDOWN, UPDATE_STATISTICS, ADD_NEWCATEGORY_STATISTICS, UPDATE_CATEGORY_STATISTICS, REMOVE_CATEGORY_STATISTICS 
+import {
+    SET_CATEGORIES_BREAKDOWN, SET_EXPENSES_BREAKDOWN, UPDATE_STATISTICS, ADD_NEWCATEGORY_STATISTICS, UPDATE_CATEGORY_STATISTICS, REMOVE_CATEGORY_STATISTICS
 } from '@/store/_mutationtypes'
 import map from 'lodash/map'
 import sumBy from 'lodash/sumBy'
@@ -95,7 +95,7 @@ const mutations = {
             else {
                 expensebreakdown[0].spent -= payload.expense.value;
             }
-        } else if (expensedate.getYear() == new Date().getYear() && payload.operation === 'create') {
+        } else if (payload.expense.date.getYear() == new Date().getYear() && payload.operation === 'create') {
             state.expensesbreakdown.push({
                 categoryColour: payload.expense.categoryColour,
                 categoryName: payload.expense.category,
@@ -124,14 +124,14 @@ const mutations = {
         var categories = state.categorybreakdown.filter((o) => { return o.id == category.id });
         forEach(categories, (value, key) => {
             value.name = category.name,
-            value.budget = category.budget,
-            value.colour = category.colourHex
+                value.budget = category.budget,
+                value.colour = category.colourHex
         });
 
         var expenses = state.expensesbreakdown.filter((o) => { return o.id == category.id });
         forEach(expenses, (value, key) => {
             value.categoryName = category.name,
-            value.categoryColour = category.colourHex
+                value.categoryColour = category.colourHex
         });
 
     },
@@ -147,24 +147,27 @@ const getters = {
         var currentMonthBudget = state.categorybreakdown.filter((o) => { return o.month == currentmonth; });
         var totalBudget = sumBy(rootState.expenseCategories.categories, (ec) => { return ec.budget });
         var totalSpent = sumBy(currentMonthBudget, (cm) => { return cm.spent });
-
+        var remaining = totalBudget - totalSpent;
         return [
             { value: totalSpent.toFixed(2), name: "Spent", itemStyle: { color: "#2779bd" } },
-            { value: (totalBudget - totalSpent).toFixed(2), name: "Remaining", itemStyle: { color: "#BDBDBD" } }
+            { value: (remaining < 0 ? 0 : remaining).toFixed(2), name: "Remaining", itemStyle: { color: "#BDBDBD" } }
         ]
     },
     monthlyBudgetsByCategory: state => {
         var currentmonth = new Date().getMonth() + 1;
         var currentMonthBudgets = state.categorybreakdown.filter((o) => { return o.month == currentmonth; });
         var groupedBugetsByCategory = groupBy(currentMonthBudgets, (e) => { return e.name + '|' + e.colour });
-        return map(groupedBugetsByCategory, (budget, key) => ({
-            name: key.split('|')[0],
-            colour: key.split('|')[1],
-            monthlyBudget: [
-                { value: sumBy(budget, "spent").toFixed(2), name: "Spent", itemStyle: { color: key.split('|')[1] } },
-                { value: (sumBy(budget, "budget") - sumBy(budget, "spent")).toFixed(2), name: "Remaining", itemStyle: { color: "#BDBDBD" } }
-            ]
-        }));
+        return map(groupedBugetsByCategory, function (budget, key) {
+            let remaining = sumBy(budget, "budget") - sumBy(budget, "spent");
+            return {
+                name: key.split('|')[0],
+                colour: key.split('|')[1],
+                monthlyBudget: [
+                    { value: sumBy(budget, "spent").toFixed(2), name: "Spent", itemStyle: { color: key.split('|')[1] } },
+                    { value: (remaining < 0 ? 0 : remaining).toFixed(2), name: "Remaining", itemStyle: { color: "#BDBDBD" } }
+                ]
+            }
+        });
     },
     yearlyExpenses: state => {
         var months = ["Jan",

@@ -36,6 +36,22 @@ export default {
       type: Boolean,
       default: true
     },
+    pieRadiusInner: {
+      type: Number,
+      default: 45
+    },
+    pieRadiusOuter: {
+      type: Number,
+      default: 65
+    },
+    centerX: {
+      type: Number,
+      default: 50
+    },
+    centerY: {
+      type: Number,
+      default: 58
+    },
     seriesData: {
       type: Array,
       default() {
@@ -57,8 +73,8 @@ export default {
           {
             name: "Category",
             type: "pie",
-            radius: ["45%", "65%"],
-            center: ["50%", "58%"],
+            radius: [this.pieRadiusInner + '%', this.pieRadiusOuter + '%'],
+            center: [this.centerX + '%', this.centerY + '%'],
             data: this.seriesData,
             itemStyle: {
               emphasis: {
