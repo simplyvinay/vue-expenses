@@ -38,7 +38,8 @@ namespace vue_expenses_api
                 ValidIssuer = signingCredentials.Issuer,
                 ValidateAudience = true,
                 ValidAudience = signingCredentials.Audience,
-                ValidateLifetime = true
+                ValidateLifetime = true,
+                ClockSkew = new TimeSpan(0, 0, 0, 0)
             };
 
             services.AddAuthentication(

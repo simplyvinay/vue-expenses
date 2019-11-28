@@ -3,6 +3,9 @@ import store from "@/store"
 import { ADD_ALERT, TOGGLE_LOADING, REFRESHTOKEN } from '@/store/_actiontypes'
 import router from '@/router/index';
 
+let isRefreshingToken = false
+let callbacks = []
+
 let api = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL
 });
@@ -33,29 +36,48 @@ api.interceptors.response.use((response) => {
             errormessage += value.toString() + ' ';
         });
     }
-
-    if (error.response && error.response.status === 401) {
-        if (error.response.headers['token-expired']) {
-            let user = JSON.parse(localStorage.getItem('user'))
-            if (user && user.refreshToken) {
+    else if (error.response && error.response.status === 401 && error.response.headers['token-expired']) {
+        let user = JSON.parse(localStorage.getItem('user'))
+        if (user && user.refreshToken) {
+            const originalRequest = error.config;
+            if (!isRefreshingToken) {
+                isRefreshingToken = true
                 store.dispatch(`account/${REFRESHTOKEN}`, { refreshtoken: user.refreshToken, token: user.token }, { root: true })
                     .then(() => {
-                        return api(error.config);
+                        isRefreshingToken = false
+                        tokenRefreshed()
                     })
                     .catch(() => {
+                        debugger;
                         router.push('/login');
                     })
             }
+
+            const retryOriginalRequest = new Promise((resolve) => {
+                addCallback(() => {
+                    originalRequest.headers.Authorization = `Bearer ${store.state.account.user.token}`
+                    resolve(api(originalRequest))
+                })
+            })
+            return retryOriginalRequest
         }
     }
-
-    store.dispatch(`alert/${ADD_ALERT}`, { message: errormessage, color: 'error' }, { root: true });
-
+    else {
+        store.dispatch(`alert/${ADD_ALERT}`, { message: errormessage, color: 'error' }, { root: true });
+    }
     return Promise.reject(error);
 });
 
 let updateLoaderTo = (loading) => {
     store.dispatch(`loader/${TOGGLE_LOADING}`, { loading: loading }, { root: true });
+}
+
+let tokenRefreshed = () => {
+    callbacks = callbacks.filter(callback => callback());
+}
+
+let addCallback = (callback) => {
+    callbacks.push(callback);
 }
 
 export default api;
