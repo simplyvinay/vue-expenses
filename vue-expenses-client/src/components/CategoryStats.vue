@@ -3,12 +3,12 @@
     <v-layout row wrap>
       <v-flex xs12 md12>
         <v-card class="pa-2 mr-2" tile>
-          <div class="d-flex align-center">
+          <div class="d-flex align-baseline">
             <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Category Breakdown</div>
-            <div class="ml-2">
+            <div class="ml-2 mt-2">
               <v-select :items="years" dense label="Year" v-model="selectedYear" @change="loaddata"></v-select>
             </div>
-            <div class="ml-2">
+            <div class="ml-2 mt-2">
               <v-select
                 :items="months"
                 dense

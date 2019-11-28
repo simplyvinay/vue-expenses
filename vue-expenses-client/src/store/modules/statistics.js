@@ -58,7 +58,8 @@ const mutations = {
     },
     [UPDATE_STATISTICS](state, payload) {
         var currentmonth = new Date().getMonth() + 1;
-        const expenseMonth = new Date(payload.expense.date).getMonth() + 1;
+        const expenseDate = new Date(payload.expense.date);
+        const expenseMonth = expenseDate.getMonth() + 1;
 
         //if the expense is for current month
         if (expenseMonth == currentmonth) {
@@ -95,7 +96,7 @@ const mutations = {
             else {
                 expensebreakdown[0].spent -= payload.expense.value;
             }
-        } else if (payload.expense.date.getYear() == new Date().getYear() && payload.operation === 'create') {
+        } else if (expenseDate.getYear() == new Date().getYear() && payload.operation === 'create') {
             state.expensesbreakdown.push({
                 categoryColour: payload.expense.categoryColour,
                 categoryName: payload.expense.category,
@@ -148,10 +149,14 @@ const getters = {
         var totalBudget = sumBy(rootState.expenseCategories.categories, (ec) => { return ec.budget });
         var totalSpent = sumBy(currentMonthBudget, (cm) => { return cm.spent });
         var remaining = totalBudget - totalSpent;
-        return [
-            { value: totalSpent.toFixed(2), name: "Spent", itemStyle: { color: "#2779bd" } },
-            { value: (remaining < 0 ? 0 : remaining).toFixed(2), name: "Remaining", itemStyle: { color: "#BDBDBD" } }
-        ]
+        return {
+            data: [
+                { value: totalSpent.toFixed(2), name: "Spent", itemStyle: { color: "#2779bd" } },
+                { value: (remaining < 0 ? 0 : remaining).toFixed(2), name: "Remaining", itemStyle: { color: "#BDBDBD" } }
+            ],
+            totalBudget: totalBudget.toFixed(2),
+            totalSpent: totalSpent.toFixed(2)
+    }
     },
     monthlyBudgetsByCategory: state => {
         var currentmonth = new Date().getMonth() + 1;

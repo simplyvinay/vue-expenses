@@ -1,7 +1,7 @@
 import Api from '@/services/api'
 import router from '@/router/index';
-import { LOGIN, LOGOUT, REFRESHTOKEN } from '@/store/_actiontypes'
-import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER } from '@/store/_mutationtypes'
+import { LOGIN, LOGOUT, REFRESHTOKEN, EDIT_USER_DETAILS } from '@/store/_actiontypes'
+import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER, UPDATE_USER_DETAILS } from '@/store/_mutationtypes'
 
 const state = {
     user: null
@@ -37,6 +37,9 @@ const actions = {
     },
     [LOGOUT]({ commit }) {
         commit(LOGOUT_USER);
+    }, 
+    [EDIT_USER_DETAILS]({ commit }) {
+        commit(UPDATE_USER_DETAILS);
     }
 };
 
@@ -56,6 +59,10 @@ const mutations = {
         // remove user from local storage 
         localStorage.removeItem('user');
         state.user = null;
+    },
+    [UPDATE_USER_DETAILS](state) {
+        console.log(state.user);
+        state.user.useDarkMode = !state.user.useDarkMode;
     }
 };
 

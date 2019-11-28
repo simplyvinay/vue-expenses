@@ -5,12 +5,24 @@
 <script>
 export default {
   props: {
+    showTitle: {
+      type: Boolean,
+      default: true
+    },
+    titleText: {
+      type: String,
+      default: ""
+    },
     theme: {
       type: String
     },
     height: {
       type: Number,
       default: 100
+    },
+    barWidth: {
+      type: Number,
+      default: 45
     },
     seriesData: {
       type: Object,
@@ -51,7 +63,7 @@ export default {
           {
             type: "bar",
             data: this.seriesData.data,
-            barWidth: "45%",
+            barWidth: this.barWidth + '%',
             label: {
               normal: {
                 show: true,
@@ -73,13 +85,14 @@ export default {
           }
         ],
         title: {
-          text: "Expenses By Month",
+          text: this.titleText,
           x: "center",
           top: "20",
           textStyle: {
             fontSize: 14,
             fontWeight: "normal"
-          }
+          },
+          show: this.showTitle
         },
         //color: ["#2196f3"],
         tooltip: {
