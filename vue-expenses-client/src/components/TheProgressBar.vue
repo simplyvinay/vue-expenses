@@ -5,7 +5,7 @@
     :indeterminate="true"
     fixed
     color="blue lighten-2"
-    :class="{'singleAppbar': $vuetify.breakpoint.smAndDown, 'doubleAppbar': $vuetify.breakpoint.mdAndUp}"
+    :class="{'singlebar': $vuetify.breakpoint.smAndDown, 'doublebar': $vuetify.breakpoint.mdAndUp}"
   ></v-progress-linear>
 </template>
 <script>
@@ -19,11 +19,11 @@ export default {
 };
 </script>
 <style scoped>
-.singleAppbar {
+.singlebar {
   top: 50px;
 }
 
-.doubleAppbar {
+.doublebar {
   top: 98px;
 }
 </style>

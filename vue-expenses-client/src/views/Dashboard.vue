@@ -21,19 +21,18 @@
             min-height="340px"
             height="100%"
           >
-            <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Monthly Budget</div>
+            <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Budget (Current Month)</div>
             <v-divider></v-divider>
             <DoughnutChart
-              titleText="This Month"
-              :height="70"
-              :showTitle="true"
-              :titleFontSize="15"
+              :height="75"
               :theme="theme"
               :showLabel="true"
               :showLabelLines="true"
               :seriesData="monthlyBudget"
+              :centerY="50"
+              :pieRadiusOuter="75"
             />
-            <div class="d-flex justify-space-around subtitle-2">
+            <div class="d-flex justify-space-around subtitle-2 px-12 mx-10">
               <div>
                 <div>Monthly Limit</div>
                 <div>35000</div>
@@ -50,7 +49,7 @@
             <v-card class="pa-2 mr-2" tile>
               <div
                 class="blue--text px-2 py-1 text-capitalize font-weight-medium"
-              >Budgets By Categories</div>
+              >Budgets By Categories (Current Month)</div>
               <v-divider></v-divider>
               <div class="category-budgets">
                 <div
@@ -104,9 +103,9 @@
 </template>
 <script>
 import ExpenseForm from "@/components/ExpenseForm";
-import DoughnutChart from "@/components/DoughnutChart";
-import BarChart from "@/components/BarChart";
-import PieChart from "@/components/PieChart";
+import DoughnutChart from "@/components/Charts/DoughnutChart";
+import BarChart from "@/components/Charts/BarChart";
+import PieChart from "@/components/Charts/PieChart";
 import { mapState, mapActions, mapGetters } from "vuex";
 import { CREATE_EXPENSE } from "@/store/_actiontypes";
 
