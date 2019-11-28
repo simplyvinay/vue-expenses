@@ -28,18 +28,18 @@
               :theme="theme"
               :showLabel="true"
               :showLabelLines="true"
-              :seriesData="monthlyBudget"
+              :seriesData="monthlyBudget.data"
               :centerY="50"
               :pieRadiusOuter="75"
             />
-            <div class="d-flex justify-space-around subtitle-2 px-12 mx-10">
+            <div class="d-flex justify-space-around subtitle-2 px-12 mx-12">
               <div>
-                <div>Monthly Limit</div>
-                <div>35000</div>
+                <div>Limit</div>
+                <div>{{monthlyBudget.totalBudget}}</div>
               </div>
               <div>
-                <div>Spent Amount</div>
-                <div>20000</div>
+                <div>Spent</div>
+                <div>{{monthlyBudget.totalSpent}}</div>
               </div>
             </div>
           </v-card>
@@ -84,10 +84,10 @@
                     <v-container>
                       <v-layout row wrap>
                         <v-flex xs12 md6 style="min-height:340px;height=100%">
-                          <BarChart :theme="theme" :seriesData="yearlyExpenses" />
+                          <BarChart :theme="theme" titleText="Expenses" :seriesData="yearlyExpenses" />
                         </v-flex>
                         <v-flex xs12 md6 style="min-height:340px;height=100%">
-                          <PieChart :theme="theme" titleText="Expenses By Category" :seriesData="categoryExpenses" />
+                          <PieChart :theme="theme" titleText="Category" :seriesData="categoryExpenses" />
                         </v-flex>
                       </v-layout>
                     </v-container>
@@ -106,7 +106,7 @@ import ExpenseForm from "@/components/ExpenseForm";
 import DoughnutChart from "@/components/Charts/DoughnutChart";
 import BarChart from "@/components/Charts/BarChart";
 import PieChart from "@/components/Charts/PieChart";
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { CREATE_EXPENSE } from "@/store/_actiontypes";
 
 export default {
