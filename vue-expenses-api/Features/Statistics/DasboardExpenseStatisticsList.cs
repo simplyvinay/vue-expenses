@@ -51,7 +51,7 @@ namespace vue_expenses_api.Features.Statistics
                             WHERE 
                                 u.Email = @userEmailId  
                                 AND STRFTIME('%Y', e.Date) = STRFTIME('%Y', DATE('now')) 
-                                AND STRFTIME('%m', e.Date) <= STRFTIME('%m', DATE('now'))
+                                --AND STRFTIME('%m', e.Date) <= STRFTIME('%m', DATE('now'))
                                 AND ec.Archived = 0
 	                        GROUP BY 
                                 ec.Name,
