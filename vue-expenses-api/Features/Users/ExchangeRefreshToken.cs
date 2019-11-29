@@ -93,7 +93,7 @@ namespace vue_expenses_api.Features.Users
                     user.Email,
                     token,
                     refreshToken,
-                    false);
+                    user.UseDarkMode);
             }
 
 

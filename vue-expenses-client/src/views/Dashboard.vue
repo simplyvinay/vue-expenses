@@ -106,27 +106,26 @@ import ExpenseForm from "@/components/ExpenseForm";
 import DoughnutChart from "@/components/Charts/DoughnutChart";
 import BarChart from "@/components/Charts/BarChart";
 import PieChart from "@/components/Charts/PieChart";
-import { mapActions, mapGetters } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 import { CREATE_EXPENSE } from "@/store/_actiontypes";
 
 export default {
   components: { ExpenseForm, DoughnutChart, BarChart, PieChart },
-  mounted() {
-    this.theme = this.$vuetify.theme.dark ? "dark" : "";
-  },
   computed: {
     ...mapGetters("statistics", [
       "monthlyBudget",
       "monthlyBudgetsByCategory",
       "yearlyExpenses",
       "categoryExpenses"
-    ])
+    ]),
+     ...mapState({
+      theme: state => state.account.user.theme
+    })
   },
   data() {
     return {
       loading: false,
       dateMenu: false,
-      theme: "",
       expense: {}
     };
   },

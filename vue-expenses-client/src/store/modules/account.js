@@ -61,7 +61,6 @@ const mutations = {
         state.user = null;
     },
     [UPDATE_USER_DETAILS](state) {
-        console.log(state.user);
         state.user.useDarkMode = !state.user.useDarkMode;
     }
 };

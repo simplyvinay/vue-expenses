@@ -37,17 +37,17 @@
         </v-flex>
         <v-flex xs12 md12>
           <v-flex>
-            <ExpensesStats :years="getYears()" />
+            <ExpensesStats :years="getYears()" :theme="theme" />
           </v-flex>
         </v-flex>
         <v-flex xs12 md12>
           <v-flex>
-            <CategoryStats :years="getYears()" :months="months" />
+            <CategoryStats :years="getYears()" :months="months" :theme="theme" />
           </v-flex>
         </v-flex>
         <v-flex xs12 md12>
           <v-flex>
-            <TypeStats :years="getYears()" :months="months" />
+            <TypeStats :years="getYears()" :months="months" :theme="theme" />
           </v-flex>
         </v-flex>
       </v-layout>
@@ -58,7 +58,7 @@
 import ExpensesStats from "@/components/ExpensesStats";
 import CategoryStats from "@/components/CategoryStats";
 import TypeStats from "@/components/TypeStats";
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   components: { ExpensesStats, CategoryStats, TypeStats },
@@ -72,11 +72,12 @@ export default {
       return items;
     }
   },
-  mounted() {
-    this.theme = this.$vuetify.theme.dark ? "dark" : "";
+  computed: {
+    ...mapState({
+      theme: state => state.account.user.theme
+    })
   },
   data: () => ({
-    theme: "",
     months: [
       { name: "All", value: '' },
       { name: "January", value: 1 },
