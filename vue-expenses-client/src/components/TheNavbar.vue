@@ -109,6 +109,12 @@ export default {
   margin: auto;
 }
 
+::v-deep .v-toolbar__items > a.v-btn--active {
+  .v-btn__content span {
+    font-weight: bold;
+  }
+}
+
 ::v-deep .v-toolbar__items > a.v-btn--active:after {
   content: "";
   position: absolute;

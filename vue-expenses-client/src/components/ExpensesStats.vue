@@ -59,6 +59,9 @@ export default {
       default() {
         return [];
       }
+    },
+    theme: {
+      type: String
     }
   },
   components: {
@@ -66,7 +69,6 @@ export default {
   },
   mounted() {
     this.loaddata(this.selectedYear);
-    this.theme = this.$vuetify.theme.dark ? "dark" : "";
   },
   computed: {
     ...mapState({ categories: state => state.expenseCategories.categories })
@@ -144,7 +146,6 @@ export default {
     }
   },
   data: () => ({
-    theme: "",
     selectedYear: new Date().getFullYear(),
     yearlyExpenses: [],
     categoryStack: {},

@@ -65,6 +65,9 @@ export default {
       default() {
         return [];
       }
+    },
+    theme: {
+      type: String
     }
   },
   components: {
@@ -72,7 +75,6 @@ export default {
   },
   mounted() {
     this.loaddata(this.selectedYear, this.selectedMonth);
-    this.theme = this.$vuetify.theme.dark ? "dark" : "";
   },
   methods: {
       loaddata(year, month) {
@@ -98,7 +100,6 @@ export default {
     }
   },
   data: () => ({
-    theme: "",
     selectedYear: new Date().getFullYear(),
     selectedMonth: '',
     typesBreakdown: [],
