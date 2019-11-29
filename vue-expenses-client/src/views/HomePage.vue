@@ -32,7 +32,7 @@ export default {
     this.$store.dispatch(`statistics/${LOAD_CATEGORIES_BREAKDOWN}`);
     this.$store.dispatch(`statistics/${LOAD_EXPENSES_BREAKDOWN}`);
     this.$store.dispatch(`expenses/${LOAD_EXPENSES}`);
-    this.$vuetify.theme.dark = this.theme;
+    this.$vuetify.theme.dark = this.theme === 'dark';
   },
   computed: {
     ...mapState({

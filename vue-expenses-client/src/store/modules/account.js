@@ -1,7 +1,7 @@
 import Api from '@/services/api'
 import router from '@/router/index';
-import { LOGIN, LOGOUT, REFRESHTOKEN, EDIT_USER_DETAILS } from '@/store/_actiontypes'
-import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER, UPDATE_USER_DETAILS } from '@/store/_mutationtypes'
+import { LOGIN, LOGOUT, REFRESHTOKEN, EDIT_USER_DETAILS, EDIT_USER_SETTINGS, ADD_ALERT } from '@/store/_actiontypes'
+import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER, UPDATE_USER_DETAILS, UPDATE_USER_SETTINGS } from '@/store/_mutationtypes'
 
 const state = {
     user: null
@@ -37,9 +37,20 @@ const actions = {
     },
     [LOGOUT]({ commit }) {
         commit(LOGOUT_USER);
-    }, 
+    },
     [EDIT_USER_DETAILS]({ commit }) {
         commit(UPDATE_USER_DETAILS);
+    },
+    [EDIT_USER_SETTINGS]({ commit, dispatch }, { systemName, displayCurrency, useDarkMode }) {
+        Api.post('/settings', {
+            systemName,
+            displayCurrency,
+            useDarkMode
+        })
+            .then(response => {
+                commit(UPDATE_USER_SETTINGS, response.data);
+                dispatch(`alert/${ADD_ALERT}`, { message: 'Settings updaded successfully', color: 'success' }, { root: true });
+            })
     }
 };
 
@@ -62,6 +73,10 @@ const mutations = {
     },
     [UPDATE_USER_DETAILS](state) {
         state.user.useDarkMode = !state.user.useDarkMode;
+    },
+    [UPDATE_USER_SETTINGS](state, { systemName, displayCurrency, useDarkMode, theme }) {
+        state.user.useDarkMode = useDarkMode;
+        state.user.theme = theme;
     }
 };
 

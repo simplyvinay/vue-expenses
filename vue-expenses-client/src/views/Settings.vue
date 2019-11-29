@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <h1 class="headline blue--text text--lighten-1">Settings</h1> -->
     <v-container>
       <v-layout row justify-space-between>
         <v-flex xs12>
@@ -14,27 +13,37 @@
                 <v-form class="xs12">
                   <v-container>
                     <v-text-field
-                      label="Currency"
+                      label="System Name"
                       required
                       clearable
                       class="ma-0 pa-0 form-label"
                       dense
                     ></v-text-field>
                     <v-text-field
-                      label="Monthly Budget"
+                      label="Display Currency"
                       required
                       clearable
                       class="ma-0 pa-0 form-label"
                       dense
+                      @input="updateLocalSettings('currency', $event)"
                     ></v-text-field>
                     <v-switch
                       class="ma-0 pa-0 form-label"
                       color="grey"
                       label="Dark Theme"
+                      dense
+                      v-model="user.useDarkMode"
+                      @change="updateLocalSettings('useDarkMode', $event)"
                     ></v-switch>
 
                     <v-row class="justify-end">
-                      <v-btn outlined small class="blue--text font-weight-bold">Submit</v-btn>
+                      <v-btn
+                        outlined
+                        small
+                        class="blue--text font-weight-bold"
+                        @click="handleSubmit"
+                        :loading="loading"
+                      >Submit</v-btn>
                     </v-row>
                   </v-container>
                 </v-form>
@@ -70,6 +79,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+import { EDIT_USER_SETTINGS } from "@/store/_actiontypes";
 import ExpenseCategories from "@/components/ExpenseCategories";
 import ExpenseTypes from "@/components/ExpenseTypes";
 
@@ -78,7 +89,27 @@ export default {
     ExpenseCategories,
     ExpenseTypes
   },
-  data: () => ({})
+  computed: {
+    ...mapState({
+      user: state => state.account.user
+    })
+  },
+  methods: {
+    ...mapActions("account", [EDIT_USER_SETTINGS]),
+    updateLocalSettings(id, value) {
+      this.$set(this.settings, id, value);
+    },
+    handleSubmit() {
+      this.loading = true;
+      this.EDIT_USER_SETTINGS(this.settings).finally(() => {
+        this.loading = false;
+      });
+    }
+  },
+  data: () => ({
+    loading: false,
+    settings: {}
+  })
 };
 </script>
 
