@@ -17,12 +17,14 @@ namespace vue_expenses_api.Dtos
             Email = email;
             Token = token;
             RefreshToken = refreshToken;
+            UseDarkMode = useDarkMode;
             Theme = useDarkMode ? "dark" : "light";
         }
 
         public string Email { get; set; }
         public string Token { get; set; }
         public string RefreshToken { get; set; }
+        public bool UseDarkMode { get; set; }
         public string Theme { get; set; }
         
         [JsonIgnore]
