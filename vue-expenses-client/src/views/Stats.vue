@@ -80,12 +80,12 @@ export default {
       "spentThisYear"
     ]),
     ...mapState({
-      theme: state => state.account.user ? state.account.user.theme : ''
+      theme: state => (state.account.user ? state.account.user.theme : "")
     })
   },
   data: () => ({
     months: [
-      { name: "All", value: '' },
+      { name: "All", value: "" },
       { name: "January", value: 1 },
       { name: "February", value: 2 },
       { name: "March", value: 3 },

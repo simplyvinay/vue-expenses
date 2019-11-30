@@ -21,7 +21,9 @@
             min-height="340px"
             height="100%"
           >
-            <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Budget (Current Month)</div>
+            <div
+              class="blue--text px-2 py-1 text-capitalize font-weight-medium"
+            >Budget (Current Month)</div>
             <v-divider></v-divider>
             <DoughnutChart
               :height="75"
@@ -84,10 +86,18 @@
                     <v-container>
                       <v-layout row wrap>
                         <v-flex xs12 md6 style="min-height:340px;height=100%">
-                          <BarChart :theme="theme" titleText="Expenses" :seriesData="yearlyExpenses" />
+                          <BarChart
+                            :theme="theme"
+                            titleText="Expenses"
+                            :seriesData="yearlyExpenses"
+                          />
                         </v-flex>
                         <v-flex xs12 md6 style="min-height:340px;height=100%">
-                          <PieChart :theme="theme" titleText="Category" :seriesData="categoryExpenses" />
+                          <PieChart
+                            :theme="theme"
+                            titleText="Category"
+                            :seriesData="categoryExpenses"
+                          />
                         </v-flex>
                       </v-layout>
                     </v-container>
@@ -118,8 +128,8 @@ export default {
       "yearlyExpenses",
       "categoryExpenses"
     ]),
-     ...mapState({
-      theme: state => state.account.user ? state.account.user.theme : ''
+    ...mapState({
+      theme: state => (state.account.user ? state.account.user.theme : "")
     })
   },
   data() {
@@ -154,13 +164,13 @@ export default {
   justify-content: space-between;
   overflow: hidden;
   height: 180px;
-  padding-left: 40px;
+  padding-left: 10px;
 }
 .category-budgets:hover {
   overflow-x: scroll;
 }
 .category-budgets-budget {
-  width: 200px;
+  width: 180px;
   flex: 0 0 auto;
 }
 </style>

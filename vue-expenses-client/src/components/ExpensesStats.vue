@@ -6,26 +6,22 @@
           <div class="d-flex align-baseline">
             <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Expenses Breakdown</div>
             <div class="ml-2 mt-2">
-              <v-select
-                :items="years"
-                dense
-                label="Year"
-                v-model="selectedYear"
-                @change="loaddata"
-              ></v-select>
+              <v-select :items="years" dense label="Year" v-model="selectedYear" @change="loaddata"></v-select>
             </div>
           </div>
           <v-divider></v-divider>
           <v-container>
             <v-layout row wrap>
-              <v-flex xs12 md6>
+              <v-flex xs12 md6 mt-5>
                 <v-data-table
+                  height="340px"
                   :headers="headers"
                   :items="yearlyExpenses"
                   sort-by="date"
                   :items-per-page="5"
                   loading-text="Loading... Please wait"
-                  :footer-props="{itemsPerPageOptions: [5]}"
+                  dense
+                  :footer-props="{itemsPerPageOptions: [12]}"
                 >
                   <template #item.value="{ value }">
                     <span>{{value.toFixed(2)}}</span>

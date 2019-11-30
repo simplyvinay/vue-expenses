@@ -62,7 +62,9 @@ namespace vue_expenses_api.Domain
             return _refreshTokens.Any(rt => rt.Token == refreshToken && rt.Active);
         }
 
-        public void UpdateName(string firstName, string lastName)
+        public void UpdateName(
+            string firstName,
+            string lastName)
         {
             FirstName = firstName;
             LastName = lastName;

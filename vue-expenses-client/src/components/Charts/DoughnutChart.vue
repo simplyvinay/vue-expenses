@@ -73,8 +73,8 @@ export default {
           {
             name: "Category",
             type: "pie",
-            radius: [this.pieRadiusInner + '%', this.pieRadiusOuter + '%'],
-            center: [this.centerX + '%', this.centerY + '%'],
+            radius: [this.pieRadiusInner + "%", this.pieRadiusOuter + "%"],
+            center: [this.centerX + "%", this.centerY + "%"],
             data: this.seriesData,
             itemStyle: {
               emphasis: {

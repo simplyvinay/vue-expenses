@@ -20,7 +20,7 @@
                     v-model="form.password"
                     label="Password"
                     prepend-icon="lock"
-                    :type="showPassword ? 'text' : 'password'" 
+                    :type="showPassword ? 'text' : 'password'"
                     :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                     @click:append="showPassword = !showPassword"
                     :rules="[required('Password')]"
@@ -29,7 +29,13 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn outlined class="primary--text" @click="handleSubmit" :loading="loading">Login</v-btn>
+                <v-btn
+                  small
+                  outlined
+                  class="primary--text"
+                  @click="handleSubmit"
+                  :loading="loading"
+                >Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>

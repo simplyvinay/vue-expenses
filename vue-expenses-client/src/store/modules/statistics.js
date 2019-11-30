@@ -156,7 +156,7 @@ const getters = {
             ],
             totalBudget: new Intl.NumberFormat(window.navigator.language).format(totalBudget.toFixed(2)),
             totalSpent: new Intl.NumberFormat(window.navigator.language).format(totalSpent.toFixed(2))
-    }
+        }
     },
     monthlyBudgetsByCategory: state => {
         var currentmonth = new Date().getMonth() + 1;

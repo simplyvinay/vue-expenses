@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="sidebar" app left offset-y>
+    <v-navigation-drawer v-model="sidebar" app left offset-y style="margin-top: 50px;">
       <v-list-item
         v-for="item in navItems"
         :key="item.text"
@@ -31,7 +31,7 @@
         <template v-slot:activator="{ on }" class="ml-4">
           <div v-on="on" class="d-flex align-center">
             <v-avatar size="30px" color="blue lighten-2" class="ml-2" style="cursor: pointer">
-              <span class="white--text">{{userNameInitials}}</span>
+              <span class="white--text">{{nameInitials}}</span>
             </v-avatar>
             <div class="hidden-sm-and-down">
               <v-btn text class="pa-1">
@@ -79,12 +79,12 @@ export default {
     ProgressBar
   },
   computed: {
-     ...mapGetters("account", [
-      "userNameInitials"
-    ]),
-     ...mapState({
-      fullName: state => state.account.user ? state.account.user.fullName : '',
-      systemName: state => state.account.user ? state.account.user.systemName : ''
+    ...mapGetters("account", ["nameInitials"]),
+    ...mapState({
+      fullName: state =>
+        state.account.user ? state.account.user.fullName : "",
+      systemName: state =>
+        state.account.user ? state.account.user.systemName : ""
     })
   },
   data() {

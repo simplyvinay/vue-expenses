@@ -63,7 +63,7 @@ export default {
           {
             type: "bar",
             data: this.seriesData.data,
-            barWidth: this.barWidth + '%',
+            barWidth: this.barWidth + "%",
             label: {
               normal: {
                 show: true,
