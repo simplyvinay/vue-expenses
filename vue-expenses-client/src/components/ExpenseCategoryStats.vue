@@ -6,7 +6,13 @@
           <div class="d-flex align-baseline">
             <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Category Breakdown</div>
             <div class="ml-2 mt-2">
-              <v-autocomplete :items="years" dense label="Year" v-model="selectedYear" @change="loaddata"></v-autocomplete>
+              <v-autocomplete
+                :items="years"
+                dense
+                label="Year"
+                v-model="selectedYear"
+                @change="loaddata"
+              ></v-autocomplete>
             </div>
             <div class="ml-2 mt-2">
               <v-autocomplete
@@ -23,9 +29,9 @@
           <v-divider></v-divider>
           <v-container>
             <v-layout row wrap>
-              <v-flex xs12 md6 mt-5>
+              <v-flex xs12 md6 mt-4>
                 <v-data-table
-                  height="340px"
+                  height="280px"
                   :headers="headers"
                   :items="categoryBreakdown"
                   sort-by="name"

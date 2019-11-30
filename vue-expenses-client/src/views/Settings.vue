@@ -32,7 +32,7 @@
                     <v-switch
                       class="ma-0 pa-0 form-label"
                       color="grey"
-                      placeholder="Dark Theme"
+                      label="Dark Theme"
                       dense
                       v-model="settings.useDarkMode"
                     ></v-switch>

@@ -18,16 +18,16 @@
           <v-divider></v-divider>
           <v-container>
             <v-layout row wrap>
-              <v-flex xs12 md6 mt-5>
+              <v-flex xs12 md6 mt-4>
                 <v-data-table
-                  height="340px"
+                  height="280px"
                   :headers="headers"
                   :items="yearlyExpenses"
                   sort-by="date"
                   :items-per-page="5"
                   loading-text="Loading... Please wait"
                   dense
-                  :footer-props="{itemsPerPageOptions: [12]}"
+                  :footer-props="{itemsPerPageOptions: [10]}"
                 >
                   <template #item.value="{ value }">
                     <span>{{`${user.displayCurrency} ${value.toFixed(2)}`}}</span>
