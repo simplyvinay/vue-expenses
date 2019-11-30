@@ -29,9 +29,9 @@
           <v-divider></v-divider>
           <v-container>
             <v-layout row wrap>
-              <v-flex xs12 md6 mt-5>
+              <v-flex xs12 md6 mt-4>
                 <v-data-table
-                  height="340px"
+                  height="280px"
                   :headers="headers"
                   :items="typesBreakdown"
                   sort-by="name"
