@@ -154,8 +154,8 @@ const getters = {
                 { value: totalSpent.toFixed(2), name: "Spent", itemStyle: { color: "#2779bd" } },
                 { value: (remaining < 0 ? 0 : remaining).toFixed(2), name: "Remaining", itemStyle: { color: "#BDBDBD" } }
             ],
-            totalBudget: totalBudget.toFixed(2),
-            totalSpent: totalSpent.toFixed(2)
+            totalBudget: new Intl.NumberFormat(window.navigator.language).format(totalBudget.toFixed(2)),
+            totalSpent: new Intl.NumberFormat(window.navigator.language).format(totalSpent.toFixed(2))
     }
     },
     monthlyBudgetsByCategory: state => {

@@ -80,7 +80,7 @@ export default {
       "spentThisYear"
     ]),
     ...mapState({
-      theme: state => state.account.user.theme
+      theme: state => state.account.user ? state.account.user.theme : ''
     })
   },
   data: () => ({

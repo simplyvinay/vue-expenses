@@ -23,7 +23,6 @@
                   dense
                 ></v-text-field>
                 <v-text-field label="Email" class="ma-0 pa-0 form-label" dense readonly></v-text-field>
-                <v-switch class="ma-0 pa-0 form-label" color="grey" label="Use Dark Mode"></v-switch>
                 <v-row class="justify-end">
                   <v-btn outlined small class="blue--text font-weight-bold">Submit</v-btn>
                 </v-row>

@@ -78,7 +78,7 @@ const mutations = {
 
 const getters = {
     overallSpent: state => {
-        return sumBy(state.expenses, "value").toFixed(2)
+        return new Intl.NumberFormat(window.navigator.language).format(sumBy(state.expenses, "value").toFixed(2))
     },
     mostSpentBy: state => {
         return orderBy(
@@ -102,10 +102,10 @@ const getters = {
     },
     spentThisYear: state => {
         var currentYear = new Date().getFullYear();
-        return sumBy(
+        return new Intl.NumberFormat(window.navigator.language).format(sumBy(
             state.expenses.filter((o) => {
                 return new Date(o.date).getFullYear() == currentYear
-            }), "value").toFixed(2)
+            }), "value").toFixed(2))
     }
 }
 

@@ -59,7 +59,10 @@ const mutations = {
         // login successful if there's a jwt token in the response
         if (user.token) {
             // store user details and jwt token in local storage
-            localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('user', JSON.stringify({
+                token: user.token,
+                refreshToken: user.refreshToken
+            }));
         }
         state.user = user;
     },
