@@ -101,7 +101,8 @@ export default {
     },
     handleSubmit() {
       this.loading = true;
-      this.EDIT_USER_SETTINGS(this.settings).finally(() => {
+      this.EDIT_USER_SETTINGS(this.settings)
+      .finally(() => {
         this.loading = false;
       });
     }

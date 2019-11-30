@@ -1,6 +1,11 @@
 import Api from '@/services/api'
 import { LOAD_EXPENSES, CREATE_EXPENSE, EDIT_EXPENSE, REMOVE_EXPENSE, ADD_ALERT, EDIT_STATISTICS } from '@/store/_actiontypes'
 import { SET_EXPENSES, ADD_EXPENSE, UPDATE_EXPENSE, DELETE_EXPENSE } from '@/store/_mutationtypes'
+import sumBy from 'lodash/sumBy'
+import groupBy from 'lodash/groupBy'
+import map from 'lodash/map'
+import orderBy from 'lodash/orderBy'
+
 
 const state = {
     expenses: []
@@ -71,9 +76,43 @@ const mutations = {
     }
 }
 
+const getters = {
+    overallSpent: state => {
+        return sumBy(state.expenses, "value").toFixed(2)
+    },
+    mostSpentBy: state => {
+        return orderBy(
+            map(
+                groupBy(state.expenses, (e) => {
+                    return e.type
+                }), (type, id) => ({
+                    type: id,
+                    value: sumBy(type, 'value')
+                })), ['value'], ['desc'])[0].type;
+    },
+    mostSpentOn: state => {
+        return orderBy(
+            map(
+                groupBy(state.expenses, (e) => {
+                    return e.category
+                }), (category, id) => ({
+                    category: id,
+                    value: sumBy(category, 'value')
+                })), ['value'], ['desc'])[0].category;
+    },
+    spentThisYear: state => {
+        var currentYear = new Date().getFullYear();
+        return sumBy(
+            state.expenses.filter((o) => {
+                return new Date(o.date).getFullYear() == currentYear
+            }), "value").toFixed(2)
+    }
+}
+
 export const expenses = {
     namespaced: true,
     state,
     actions,
-    mutations
+    mutations,
+    getters
 };
