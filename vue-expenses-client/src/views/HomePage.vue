@@ -82,4 +82,13 @@ export default {
 .doubleAppbar {
   margin-top: 92px;
 }
+
+.v-select__slot {
+  font-size: smaller;
+}
+
+.v-text-field__slot {
+  font-size: smaller;
+}
+
 </style>

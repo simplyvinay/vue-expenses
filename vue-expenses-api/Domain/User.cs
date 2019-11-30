@@ -27,6 +27,7 @@ namespace vue_expenses_api.Domain
         public string LastName { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
+        public string SystemName { get; set; } = "VueExpenses";
         public bool UseDarkMode { get; set; }
 
         [JsonIgnore]
@@ -59,6 +60,13 @@ namespace vue_expenses_api.Domain
             string refreshToken)
         {
             return _refreshTokens.Any(rt => rt.Token == refreshToken && rt.Active);
+        }
+
+        public void UpdateName(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            FullName = $"{FirstName} {LastName}";
         }
     }
 }

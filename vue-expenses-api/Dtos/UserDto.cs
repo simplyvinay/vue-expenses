@@ -9,11 +9,19 @@ namespace vue_expenses_api.Dtos
         }
 
         public UserDto(
+            string firstName,
+            string lastName,
+            string fullName,
+            string systemName,
             string email,
             string token,
             string refreshToken,
             bool useDarkMode)
         {
+            FirstName = firstName;
+            LastName = lastName;
+            FullName = fullName;
+            SystemName = systemName;
             Email = email;
             Token = token;
             RefreshToken = refreshToken;
@@ -21,6 +29,10 @@ namespace vue_expenses_api.Dtos
             Theme = useDarkMode ? "dark" : "light";
         }
 
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string FullName { get; set; }
+        public string SystemName { get; set; }
         public string Email { get; set; }
         public string Token { get; set; }
         public string RefreshToken { get; set; }

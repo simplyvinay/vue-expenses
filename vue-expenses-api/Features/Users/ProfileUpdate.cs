@@ -9,31 +9,31 @@ using vue_expenses_api.Infrastructure.Security;
 
 namespace vue_expenses_api.Features.Users
 {
-    public class SettingsUpdate
+    public class ProfileUpdate
     {
-        public class Command : IRequest<UserDetailsDto>
+        public class Command : IRequest<ProfileDetailsDto>
         {
             public Command(
-                string systemName,
-                bool useDarkMode)
+                string firstName,
+                string lastName)
             {
-                SystemName = systemName;
-                UseDarkMode = useDarkMode;
+                FirstName = firstName;
+                LastName = lastName;
             }
 
-            public string SystemName { get; set; }
-            public bool UseDarkMode { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
-                RuleFor(x => x.SystemName).NotEmpty().NotNull();
+                RuleFor(x => x.FirstName).NotEmpty().NotNull();
             }
         }
 
-        public class Handler : IRequestHandler<Command, UserDetailsDto>
+        public class Handler : IRequestHandler<Command, ProfileDetailsDto>
         {
             private readonly ExpensesContext _context;
             private readonly ICurrentUser _currentUser;
@@ -46,21 +46,24 @@ namespace vue_expenses_api.Features.Users
                 _currentUser = currentUser;
             }
 
-            public async Task<UserDetailsDto> Handle(
+            public async Task<ProfileDetailsDto> Handle(
                 Command request,
                 CancellationToken cancellationToken)
             {
                 var user = await _context.Users.SingleAsync(
                     x => x.Email == _currentUser.EmailId,
                     cancellationToken);
-                user.SystemName = request.SystemName;
-                user.UseDarkMode = request.UseDarkMode;
+
+                user.UpdateName(
+                    request.FirstName,
+                    request.LastName);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new UserDetailsDto(
-                    user.SystemName,
-                    user.UseDarkMode);
+                return new ProfileDetailsDto(
+                    user.FirstName,
+                    user.LastName,
+                    user.FullName);
             }
         }
     }
