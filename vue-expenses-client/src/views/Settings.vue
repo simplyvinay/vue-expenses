@@ -19,13 +19,16 @@
                       dense
                       v-model="settings.systemName"
                     ></v-text-field>
-                    <v-text-field
+
+                    <v-autocomplete
+                      v-model="settings.currencyRegionName"
+                      :items="currencies"
+                      item-text="name"
+                      item-value="id"
                       placeholder="Display Currency"
-                      required
                       class="ma-0 pa-0 form-label"
                       dense
-                      v-model="settings.displayCurrency"
-                    ></v-text-field>
+                    ></v-autocomplete>
                     <v-switch
                       class="ma-0 pa-0 form-label"
                       color="grey"
@@ -33,7 +36,6 @@
                       dense
                       v-model="settings.useDarkMode"
                     ></v-switch>
-
                     <v-row class="justify-end">
                       <v-btn
                         outlined
@@ -89,7 +91,8 @@ export default {
   },
   computed: {
     ...mapState({
-      user: state => state.account.user
+      user: state => state.account.user,
+      currencies: state => state.account.currencies
     })
   },
   methods: {
@@ -105,12 +108,12 @@ export default {
     this.settings = {
       systemName: this.user.systemName,
       useDarkMode: this.user.useDarkMode,
-      displayCurrency: ""
+      currencyRegionName: this.user.currencyRegionName
     };
   },
   data: () => ({
     loading: false,
-    settings: {}
+    settings: {},
   })
 };
 </script>

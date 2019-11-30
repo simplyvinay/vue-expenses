@@ -33,7 +33,7 @@
               </div>
             </template>
             <template v-slot:item.value="{ item }">
-              <span>{{item.value.toFixed(2)}}</span>
+              <span>{{`${user.displayCurrency} ${item.value.toFixed(2)}`}}</span>
             </template>
             <template v-slot:item.action="{ item }">
               <v-icon small class="mr-2" @click="editExpense(item)">edit</v-icon>
@@ -89,7 +89,8 @@ export default {
   }),
   computed: {
     ...mapState({
-      expenses: state => state.expenses.expenses
+      expenses: state => state.expenses.expenses,
+      user: state => state.account.user
     }),
 
     formTitle() {
