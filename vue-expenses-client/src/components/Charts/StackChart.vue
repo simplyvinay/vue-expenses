@@ -65,28 +65,33 @@ export default {
           }
         },
         legend: {
-          data: this.seriesData.legendData && this.seriesData.legendData.length <= 5 ? this.seriesData.legendData : [] // ["General", "Travel", "Shopping", "Utilities", "Misc"]
+          data:
+            this.seriesData.legendData && this.seriesData.legendData.length <= 5
+              ? this.seriesData.legendData
+              : [] // ["General", "Travel", "Shopping", "Utilities", "Misc"]
         }
       };
     }
   },
   methods: {
     getSeries() {
-      let yy = this.seriesData.data && this.seriesData.data.map(x => {
-        return {
-          name: x.name,
-          type: "bar",
-          stack: "stack",
-          barWidth: "45%",
-          label: {
-            normal: {
-              show: false
-            }
-          },
-          itemStyle: { color: x.color },
-          data: x.data
-        };
-      });
+      let yy =
+        this.seriesData.data &&
+        this.seriesData.data.map(x => {
+          return {
+            name: x.name,
+            type: "bar",
+            stack: "stack",
+            barWidth: "45%",
+            label: {
+              normal: {
+                show: false
+              }
+            },
+            itemStyle: { color: x.color },
+            data: x.data
+          };
+        });
       return yy;
     }
   },

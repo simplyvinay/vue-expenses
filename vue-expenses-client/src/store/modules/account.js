@@ -100,10 +100,10 @@ const mutations = {
 };
 
 const getters = {
-    userNameInitials: (state) => {
+    nameInitials: (state) => {
         var initials = state.user.fullName.match(/\b\w/g) || [];
         return ((initials.shift() || "") + (initials.pop() || "")).toUpperCase();
-      }
+    }
 }
 
 export const account = {

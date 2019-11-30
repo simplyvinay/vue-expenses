@@ -105,7 +105,7 @@ export default {
     this.settings = {
       systemName: this.user.systemName,
       useDarkMode: this.user.useDarkMode,
-      displayCurrency: ''
+      displayCurrency: ""
     };
   },
   data: () => ({

@@ -23,22 +23,30 @@
           <v-divider></v-divider>
           <v-container>
             <v-layout row wrap>
-              <v-flex xs12 md6>
+              <v-flex xs12 md6 mt-5>
                 <v-data-table
+                  height="340px"
                   :headers="headers"
                   :items="typesBreakdown"
                   sort-by="name"
                   :items-per-page="5"
                   loading-text="Loading... Please wait"
-                  :footer-props="{itemsPerPageOptions: [5]}"
+                  dense
+                  :footer-props="{itemsPerPageOptions: [12]}"
                 >
-                <template #item.spent="{ value }">
+                  <template #item.spent="{ value }">
                     <span>{{value.toFixed(2)}}</span>
                   </template>
                 </v-data-table>
               </v-flex>
               <v-flex xs12 md6 style="min-height:340px; height=100%">
-                <PieChart :theme="theme" :height="100" :pieRadius="80" :centerY="50" :seriesData="typesChartData" />
+                <PieChart
+                  :theme="theme"
+                  :height="100"
+                  :pieRadius="80"
+                  :centerY="50"
+                  :seriesData="typesChartData"
+                />
               </v-flex>
             </v-layout>
           </v-container>
@@ -77,31 +85,31 @@ export default {
     this.loaddata(this.selectedYear, this.selectedMonth);
   },
   methods: {
-      loaddata(year, month) {
+    loaddata(year, month) {
       this.loadyearlydata(year, month).then(() => {
         this.loadchart();
       });
     },
     loadyearlydata(year, month) {
-      return Api.get(`/statistics/gettypesbreakdownforyear/${this.selectedYear}/${this.selectedMonth}`).then(
-        response => {
-          this.typesBreakdown = response.data;
-        }
-      );
+      return Api.get(
+        `/statistics/gettypesbreakdownforyear/${this.selectedYear}/${this.selectedMonth}`
+      ).then(response => {
+        this.typesBreakdown = response.data;
+      });
     },
     loadchart() {
-        this.typesChartData = [];
-        forEach(this.typesBreakdown, (value, key) => {
-            this.typesChartData.push({
-                value: value.spent.toFixed(2),
-                name: value.name
-            })
+      this.typesChartData = [];
+      forEach(this.typesBreakdown, (value, key) => {
+        this.typesChartData.push({
+          value: value.spent.toFixed(2),
+          name: value.name
         });
+      });
     }
   },
   data: () => ({
     selectedYear: new Date().getFullYear(),
-    selectedMonth: '',
+    selectedMonth: "",
     typesBreakdown: [],
     typesChartData: [],
     headers: [

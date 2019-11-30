@@ -50,8 +50,8 @@ export default {
           {
             name: "Category",
             type: "pie",
-            radius: this.pieRadius + '%',
-            center: [this.centerX + '%', this.centerY + '%'],
+            radius: this.pieRadius + "%",
+            center: [this.centerX + "%", this.centerY + "%"],
             roseType: "radius",
             data: this.seriesData,
             itemStyle: {

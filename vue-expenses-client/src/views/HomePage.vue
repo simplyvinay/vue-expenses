@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import { mapState } from "vuex";
 import Navbar from "@/components/TheNavbar";
 import {
   LOAD_EXPENSE_TYPES,
@@ -32,16 +32,16 @@ export default {
     this.$store.dispatch(`statistics/${LOAD_CATEGORIES_BREAKDOWN}`);
     this.$store.dispatch(`statistics/${LOAD_EXPENSES_BREAKDOWN}`);
     this.$store.dispatch(`expenses/${LOAD_EXPENSES}`);
-    this.$vuetify.theme.dark = this.theme === 'dark';
+    this.$vuetify.theme.dark = this.theme === "dark";
   },
   computed: {
     ...mapState({
-      theme: state => state.account.user ? state.account.user.theme : ''
+      theme: state => (state.account.user ? state.account.user.theme : "")
     })
   },
   watch: {
-    theme (newTheme, oldTheme) {
-      this.$vuetify.theme.dark = newTheme === 'dark'
+    theme(newTheme, oldTheme) {
+      this.$vuetify.theme.dark = newTheme === "dark";
     }
   },
   data: () => ({
@@ -90,5 +90,4 @@ export default {
 .v-text-field__slot {
   font-size: smaller;
 }
-
 </style>

@@ -60,8 +60,8 @@ api.interceptors.response.use((response) => {
             return retryOriginalRequest
         }
     }
-    
-    store.dispatch(`alert/${ADD_ALERT}`, { message: errormessage, color: 'error' }, { root: true });    
+
+    store.dispatch(`alert/${ADD_ALERT}`, { message: errormessage, color: 'error' }, { root: true });
     return Promise.reject(error);
 });
 

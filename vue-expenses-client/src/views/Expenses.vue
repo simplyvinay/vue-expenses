@@ -19,14 +19,14 @@
                     </v-card-title>
 
                     <v-card-text>
-                        <ExpenseForm
-                          :expense="editedExpense"
-                          :showCloseButton="true"
-                          :onCloseClick="close"
-                          :onSubmitClick="saveExpense"
-                          :loading="loading"
-                          ref="form"
-                        />
+                      <ExpenseForm
+                        :expense="editedExpense"
+                        :showCloseButton="true"
+                        :onCloseClick="close"
+                        :onSubmitClick="saveExpense"
+                        :loading="loading"
+                        ref="form"
+                      />
                     </v-card-text>
                   </v-card>
                 </v-dialog>

@@ -1,10 +1,6 @@
 <template>
   <v-app>
-    <v-snackbar
-      v-model="alert.show"
-      :color="alert.color"
-      top
-    >
+    <v-snackbar v-model="alert.show" :color="alert.color" top>
       {{alert.message}}
       <v-icon small dark @click="alert.show = false">close</v-icon>
     </v-snackbar>
@@ -24,9 +20,7 @@ export default {
     })
   },
   data() {
-    return {
-      
-    };
+    return {};
   }
 };
 </script>
