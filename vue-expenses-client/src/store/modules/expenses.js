@@ -77,8 +77,9 @@ const mutations = {
 }
 
 const getters = {
-    overallSpent: state => {
-        return new Intl.NumberFormat(window.navigator.language).format(sumBy(state.expenses, "value").toFixed(2))
+    overallSpent: (state, getters, rootState) => {
+        var overallSpent = new Intl.NumberFormat(window.navigator.language).format(sumBy(state.expenses, "value").toFixed(2))
+        return `${rootState.account.user.displayCurrency} ${overallSpent}`
     },
     mostSpentBy: state => {
         return orderBy(
@@ -100,12 +101,12 @@ const getters = {
                     value: sumBy(category, 'value')
                 })), ['value'], ['desc'])[0].category;
     },
-    spentThisYear: state => {
+    spentThisYear: (state, getters, rootState) => {
         var currentYear = new Date().getFullYear();
-        return new Intl.NumberFormat(window.navigator.language).format(sumBy(
-            state.expenses.filter((o) => {
-                return new Date(o.date).getFullYear() == currentYear
-            }), "value").toFixed(2))
+        var spentThisYear = new Intl.NumberFormat(window.navigator.language).format(sumBy(state.expenses.filter((o) => {
+            return new Date(o.date).getFullYear() == currentYear;
+        }), "value").toFixed(2))
+        return `${rootState.account.user.displayCurrency} ${spentThisYear}`
     }
 }
 

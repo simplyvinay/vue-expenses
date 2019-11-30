@@ -1,10 +1,11 @@
 import Api from '@/services/api'
 import router from '@/router/index';
-import { LOGIN, LOGOUT, REFRESHTOKEN, EDIT_USER_DETAILS, EDIT_USER_SETTINGS, EDIT_USER_PROFILE, ADD_ALERT } from '@/store/_actiontypes'
-import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER, UPDATE_USER_DETAILS, UPDATE_USER_SETTINGS, UPDATE_USER_PROFILE } from '@/store/_mutationtypes'
+import { LOGIN, LOGOUT, REFRESHTOKEN, EDIT_USER_DETAILS, EDIT_USER_SETTINGS, EDIT_USER_PROFILE, ADD_ALERT, LOAD_CURRENCIES } from '@/store/_actiontypes'
+import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER, UPDATE_USER_DETAILS, UPDATE_USER_SETTINGS, UPDATE_USER_PROFILE, SET_CURRENCIES } from '@/store/_mutationtypes'
 
 const state = {
-    user: null
+    user: null, 
+    currencies: []
 };
 
 const actions = {
@@ -41,10 +42,10 @@ const actions = {
     [EDIT_USER_DETAILS]({ commit }) {
         commit(UPDATE_USER_DETAILS);
     },
-    [EDIT_USER_SETTINGS]({ commit, dispatch }, { systemName, displayCurrency, useDarkMode }) {
-        return Api.post('/settings', {
+    [EDIT_USER_SETTINGS]({ commit, dispatch }, { systemName, currencyRegionName, useDarkMode }) {
+        return Api.put('/settings', {
             systemName,
-            displayCurrency,
+            currencyRegionName,
             useDarkMode
         })
             .then(response => {
@@ -53,13 +54,19 @@ const actions = {
             })
     },
     [EDIT_USER_PROFILE]({ commit, dispatch }, { firstName, lastName }) {
-        return Api.post('/profile', {
+        return Api.put('/profile', {
             firstName,
             lastName
         })
             .then(response => {
                 commit(UPDATE_USER_PROFILE, response.data);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Profile updaded successfully', color: 'success' }, { root: true });
+            })
+    },
+    [LOAD_CURRENCIES]({ commit }) {
+        Api.get('/currencies')
+            .then(response => {
+                commit(SET_CURRENCIES, response.data);
             })
     }
 };
@@ -87,16 +94,21 @@ const mutations = {
     [UPDATE_USER_DETAILS](state) {
         state.user.useDarkMode = !state.user.useDarkMode;
     },
-    [UPDATE_USER_SETTINGS](state, { systemName, displayCurrency, useDarkMode, theme }) {
+    [UPDATE_USER_SETTINGS](state, { systemName, currencyRegionName, useDarkMode, theme, displayCurrency }) {
         state.user.systemName = systemName;
         state.user.useDarkMode = useDarkMode;
         state.user.theme = theme;
+        state.user.currencyRegionName = currencyRegionName;
+        state.user.displayCurrency = displayCurrency;
     },
     [UPDATE_USER_PROFILE](state, { firstName, lastName, fullName }) {
         state.user.firstName = firstName;
         state.user.lastName = lastName;
         state.user.fullName = fullName;
     },
+    [SET_CURRENCIES](state, currencies){
+        state.currencies = currencies;
+    }
 };
 
 const getters = {

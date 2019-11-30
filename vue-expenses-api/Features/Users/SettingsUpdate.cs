@@ -15,13 +15,16 @@ namespace vue_expenses_api.Features.Users
         {
             public Command(
                 string systemName,
+                string currencyRegionName,
                 bool useDarkMode)
             {
                 SystemName = systemName;
+                CurrencyRegionName = currencyRegionName;
                 UseDarkMode = useDarkMode;
             }
 
             public string SystemName { get; set; }
+            public string CurrencyRegionName { get; set; }
             public bool UseDarkMode { get; set; }
         }
 
@@ -54,12 +57,14 @@ namespace vue_expenses_api.Features.Users
                     x => x.Email == _currentUser.EmailId,
                     cancellationToken);
                 user.SystemName = request.SystemName;
+                user.CurrencyRegionName = request.CurrencyRegionName;
                 user.UseDarkMode = request.UseDarkMode;
 
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new UserDetailsDto(
                     user.SystemName,
+                    user.CurrencyRegionName,
                     user.UseDarkMode);
             }
         }

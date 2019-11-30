@@ -27,7 +27,7 @@
             <v-divider></v-divider>
             <DoughnutChart
               :height="75"
-              :theme="theme"
+              :theme="user.theme"
               :showLabel="true"
               :showLabelLines="true"
               :seriesData="monthlyBudget.data"
@@ -37,11 +37,11 @@
             <div class="d-flex justify-space-around subtitle-2 px-12 mx-12">
               <div>
                 <div>Limit</div>
-                <div>{{monthlyBudget.totalBudget}}</div>
+                <div>{{`${user.displayCurrency} ${monthlyBudget.totalBudget}`}}</div>
               </div>
               <div>
                 <div>Spent</div>
-                <div>{{monthlyBudget.totalSpent}}</div>
+                <div>{{`${user.displayCurrency} ${monthlyBudget.totalSpent}`}}</div>
               </div>
             </div>
           </v-card>
@@ -64,7 +64,7 @@
                     :showTitle="true"
                     :height="90"
                     :titleFontSize="14"
-                    :theme="theme"
+                    :theme="user.theme"
                     :showTooltip="false"
                     :seriesData="budget.monthlyBudget"
                   />
@@ -87,14 +87,14 @@
                       <v-layout row wrap>
                         <v-flex xs12 md6 style="min-height:340px;height=100%">
                           <BarChart
-                            :theme="theme"
+                            :theme="user.theme"
                             titleText="Expenses"
                             :seriesData="yearlyExpenses"
                           />
                         </v-flex>
                         <v-flex xs12 md6 style="min-height:340px;height=100%">
                           <PieChart
-                            :theme="theme"
+                            :theme="user.theme"
                             titleText="Category"
                             :seriesData="categoryExpenses"
                           />
@@ -129,7 +129,7 @@ export default {
       "categoryExpenses"
     ]),
     ...mapState({
-      theme: state => (state.account.user ? state.account.user.theme : "")
+      user: state => state.account.user
     })
   },
   data() {

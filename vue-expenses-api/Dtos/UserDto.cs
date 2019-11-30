@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Globalization;
+using Newtonsoft.Json;
 
 namespace vue_expenses_api.Dtos
 {
@@ -16,6 +17,7 @@ namespace vue_expenses_api.Dtos
             string email,
             string token,
             string refreshToken,
+            string currencyRegionName,
             bool useDarkMode)
         {
             FirstName = firstName;
@@ -25,8 +27,10 @@ namespace vue_expenses_api.Dtos
             Email = email;
             Token = token;
             RefreshToken = refreshToken;
+            CurrencyRegionName = currencyRegionName;
             UseDarkMode = useDarkMode;
             Theme = useDarkMode ? "dark" : "light";
+            DisplayCurrency = new RegionInfo(currencyRegionName).CurrencySymbol;
         }
 
         public string FirstName { get; set; }
@@ -36,9 +40,11 @@ namespace vue_expenses_api.Dtos
         public string Email { get; set; }
         public string Token { get; set; }
         public string RefreshToken { get; set; }
+        public string CurrencyRegionName { get; }
         public bool UseDarkMode { get; set; }
         public string Theme { get; set; }
-        
+        public string DisplayCurrency { get; set; }
+
         [JsonIgnore]
         public byte[] Hash { get; set; }
 

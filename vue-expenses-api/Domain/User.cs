@@ -28,6 +28,7 @@ namespace vue_expenses_api.Domain
         public string FullName { get; set; }
         public string Email { get; set; }
         public string SystemName { get; set; } = "VueExpenses";
+        public string CurrencyRegionName { get; set; } = "GB";
         public bool UseDarkMode { get; set; }
 
         [JsonIgnore]

@@ -42,12 +42,12 @@
         </v-flex>
         <v-flex xs12 md12>
           <v-flex>
-            <CategoryStats :years="getYears()" :months="months" :theme="theme" />
+            <ExpenseCategoryStats :years="getYears()" :months="months" :theme="theme" />
           </v-flex>
         </v-flex>
         <v-flex xs12 md12>
           <v-flex>
-            <TypeStats :years="getYears()" :months="months" :theme="theme" />
+            <ExpenseTypeStats :years="getYears()" :months="months" :theme="theme" />
           </v-flex>
         </v-flex>
       </v-layout>
@@ -56,12 +56,12 @@
 </template>
 <script>
 import ExpensesStats from "@/components/ExpensesStats";
-import CategoryStats from "@/components/CategoryStats";
-import TypeStats from "@/components/TypeStats";
+import ExpenseCategoryStats from "@/components/ExpenseCategoryStats";
+import ExpenseTypeStats from "@/components/ExpenseTypeStats";
 import { mapState, mapGetters } from "vuex";
 
 export default {
-  components: { ExpensesStats, CategoryStats, TypeStats },
+  components: { ExpensesStats, ExpenseCategoryStats, ExpenseTypeStats },
   methods: {
     getYears() {
       var items = [];

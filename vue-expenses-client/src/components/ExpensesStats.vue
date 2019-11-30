@@ -6,7 +6,13 @@
           <div class="d-flex align-baseline">
             <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Expenses Breakdown</div>
             <div class="ml-2 mt-2">
-              <v-select :items="years" dense label="Year" v-model="selectedYear" @change="loaddata"></v-select>
+              <v-autocomplete
+                :items="years"
+                dense
+                label="Year"
+                v-model="selectedYear"
+                @change="loaddata"
+              ></v-autocomplete>
             </div>
           </div>
           <v-divider></v-divider>
@@ -24,7 +30,7 @@
                   :footer-props="{itemsPerPageOptions: [12]}"
                 >
                   <template #item.value="{ value }">
-                    <span>{{value.toFixed(2)}}</span>
+                    <span>{{`${user.displayCurrency} ${value.toFixed(2)}`}}</span>
                   </template>
                 </v-data-table>
               </v-flex>
@@ -67,7 +73,10 @@ export default {
     this.loaddata(this.selectedYear);
   },
   computed: {
-    ...mapState({ categories: state => state.expenseCategories.categories })
+    ...mapState({
+      categories: state => state.expenseCategories.categories,
+      user: state => state.account.user
+    })
   },
   methods: {
     loaddata(year) {

@@ -4,12 +4,12 @@
       <v-flex xs12 md12>
         <v-card class="pa-2 mr-2" tile>
           <div class="d-flex align-baseline">
-            <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Types Breakdown</div>
+            <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Category Breakdown</div>
             <div class="ml-2 mt-2">
-              <v-select :items="years" dense label="Year" v-model="selectedYear" @change="loaddata"></v-select>
+              <v-autocomplete :items="years" dense label="Year" v-model="selectedYear" @change="loaddata"></v-autocomplete>
             </div>
             <div class="ml-2 mt-2">
-              <v-select
+              <v-autocomplete
                 :items="months"
                 dense
                 label="Month"
@@ -17,7 +17,7 @@
                 item-value="value"
                 v-model="selectedMonth"
                 @change="loaddata"
-              ></v-select>
+              ></v-autocomplete>
             </div>
           </div>
           <v-divider></v-divider>
@@ -27,7 +27,7 @@
                 <v-data-table
                   height="340px"
                   :headers="headers"
-                  :items="typesBreakdown"
+                  :items="categoryBreakdown"
                   sort-by="name"
                   :items-per-page="5"
                   loading-text="Loading... Please wait"
@@ -35,7 +35,7 @@
                   :footer-props="{itemsPerPageOptions: [12]}"
                 >
                   <template #item.spent="{ value }">
-                    <span>{{value.toFixed(2)}}</span>
+                    <span>{{`${user.displayCurrency} ${value.toFixed(2)}`}}</span>
                   </template>
                 </v-data-table>
               </v-flex>
@@ -45,7 +45,7 @@
                   :height="100"
                   :pieRadius="80"
                   :centerY="50"
-                  :seriesData="typesChartData"
+                  :seriesData="categoryChartData"
                 />
               </v-flex>
             </v-layout>
@@ -59,6 +59,7 @@
 import Api from "@/services/api";
 import PieChart from "@/components/Charts/PieChart";
 import forEach from "lodash/forEach";
+import { mapState } from "vuex";
 
 export default {
   props: {
@@ -92,28 +93,35 @@ export default {
     },
     loadyearlydata(year, month) {
       return Api.get(
-        `/statistics/gettypesbreakdownforyear/${this.selectedYear}/${this.selectedMonth}`
+        `/statistics/getcategoriesbreakdownforyear/${this.selectedYear}/${this.selectedMonth}`
       ).then(response => {
-        this.typesBreakdown = response.data;
+        this.categoryBreakdown = response.data;
       });
     },
     loadchart() {
-      this.typesChartData = [];
-      forEach(this.typesBreakdown, (value, key) => {
-        this.typesChartData.push({
+      this.categoryChartData = [];
+      forEach(this.categoryBreakdown, (value, key) => {
+        this.categoryChartData.push({
           value: value.spent.toFixed(2),
-          name: value.name
+          name: value.name,
+          itemStyle: { color: value.colour }
         });
       });
     }
   },
+  computed: {
+    ...mapState({
+      user: state => state.account.user
+    })
+  },
   data: () => ({
     selectedYear: new Date().getFullYear(),
     selectedMonth: "",
-    typesBreakdown: [],
-    typesChartData: [],
+    categoryBreakdown: [],
+    categoryChartData: [],
     headers: [
-      { text: "Type", value: "name" },
+      { text: "Category", value: "name" },
+      { text: "Budget (cumulative)", value: "budget" },
       { text: "Spent", value: "spent" }
     ]
   })

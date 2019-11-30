@@ -4,7 +4,7 @@
       <v-row>
         <v-col cols="12" md="6" class="py-0 ma-0">
           <input type="hidden" v-model="expense.id" />
-          <v-select
+          <v-autocomplete
             v-model="expense.categoryId"
             :items="categories"
             item-text="name"
@@ -14,7 +14,7 @@
             dense
             offset-x
             :rules="[required('Category')]"
-          ></v-select>
+          ></v-autocomplete>
         </v-col>
         <v-col cols="12" md="6" class="py-0 ma-0">
           <v-menu v-model="dateMenu" :close-on-content-click="false" max-width="290">
@@ -35,7 +35,7 @@
       </v-row>
       <v-row>
         <v-col cols="12" md="6" class="py-0 ma-0">
-          <v-select
+          <v-autocomplete
             v-model="expense.typeId"
             :items="types"
             item-text="name"
@@ -45,7 +45,7 @@
             dense
             offset-x
             :rules="[required('Type')]"
-          ></v-select>
+          ></v-autocomplete>
         </v-col>
         <v-col cols="12" md="6" class="py-0 ma-0">
           <v-text-field
