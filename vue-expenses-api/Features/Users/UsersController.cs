@@ -28,6 +28,13 @@ namespace vue_expenses_api.Features.Users
             return await _mediator.Send(command);
         }
 
+        [HttpPost("register")]
+        public async Task<Unit> Register(
+            [FromBody] Register.Command command)
+        {
+            return await _mediator.Send(command);
+        }
+
         [HttpPost("refreshtoken")]
         public async Task<UserDto> RefreshToken(
             [FromBody] ExchangeRefreshToken.Command command)
