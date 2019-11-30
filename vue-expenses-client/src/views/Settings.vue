@@ -32,7 +32,7 @@
                       color="grey"
                       label="Dark Theme"
                       dense
-                      v-model="user.useDarkMode"
+                      v-model="useDarkMode"
                       @change="updateLocalSettings('useDarkMode', $event)"
                     ></v-switch>
 
@@ -91,8 +91,8 @@ export default {
   },
   computed: {
     ...mapState({
-      user: state => state.account.user
-    })
+      useDarkMode: state => state.account.user ? state.account.user.useDarkMode : false
+    }),
   },
   methods: {
     ...mapActions("account", [EDIT_USER_SETTINGS]),
