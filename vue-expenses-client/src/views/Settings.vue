@@ -13,27 +13,25 @@
                 <v-form class="xs12">
                   <v-container>
                     <v-text-field
-                      label="System Name"
+                      placeholder="System Name"
                       required
-                      clearable
                       class="ma-0 pa-0 form-label"
                       dense
+                      v-model="settings.systemName"
                     ></v-text-field>
                     <v-text-field
-                      label="Display Currency"
+                      placeholder="Display Currency"
                       required
-                      clearable
                       class="ma-0 pa-0 form-label"
                       dense
-                      @input="updateLocalSettings('currency', $event)"
+                      v-model="settings.displayCurrency"
                     ></v-text-field>
                     <v-switch
                       class="ma-0 pa-0 form-label"
                       color="grey"
-                      label="Dark Theme"
+                      placeholder="Dark Theme"
                       dense
-                      v-model="useDarkMode"
-                      @change="updateLocalSettings('useDarkMode', $event)"
+                      v-model="settings.useDarkMode"
                     ></v-switch>
 
                     <v-row class="justify-end">
@@ -91,21 +89,24 @@ export default {
   },
   computed: {
     ...mapState({
-      useDarkMode: state => state.account.user ? state.account.user.useDarkMode : false
-    }),
+      user: state => state.account.user
+    })
   },
   methods: {
     ...mapActions("account", [EDIT_USER_SETTINGS]),
-    updateLocalSettings(id, value) {
-      this.$set(this.settings, id, value);
-    },
     handleSubmit() {
       this.loading = true;
-      this.EDIT_USER_SETTINGS(this.settings)
-      .finally(() => {
+      this.EDIT_USER_SETTINGS(this.settings).finally(() => {
         this.loading = false;
       });
     }
+  },
+  mounted() {
+    this.settings = {
+      systemName: this.user.systemName,
+      useDarkMode: this.user.useDarkMode,
+      displayCurrency: ''
+    };
   },
   data: () => ({
     loading: false,

@@ -21,8 +21,8 @@
       <v-spacer class="hidden-md-and-up"></v-spacer>
       <v-toolbar-title class="text-uppercase">
         <router-link to="/dashboard" tag="span" style="cursor: pointer" class="headline">
-          <span class="grey--text text--lighten-1">Vue</span>
-          <span class="font-weight-bold">{{ appTitle }}</span>
+          <!-- <span class="grey--text text--lighten-1">Vue</span> -->
+          <span class="font-weight-bold">{{ systemName }}</span>
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -35,7 +35,7 @@
             </v-avatar>
             <div class="hidden-sm-and-down">
               <v-btn text class="pa-1">
-                <span class="text-capitalize">{{userName}}</span>
+                <span class="text-capitalize">{{fullName}}</span>
                 <v-icon>expand_more</v-icon>
               </v-btn>
             </div>
@@ -72,21 +72,23 @@
 
 <script>
 import ProgressBar from "@/components/TheProgressBar";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   components: {
     ProgressBar
   },
   computed: {
-    userNameInitials() {
-      var initials = this.userName.match(/\b\w/g) || [];
-      return ((initials.shift() || "") + (initials.pop() || "")).toUpperCase();
-    }
+     ...mapGetters("account", [
+      "userNameInitials"
+    ]),
+     ...mapState({
+      fullName: state => state.account.user ? state.account.user.fullName : '',
+      systemName: state => state.account.user ? state.account.user.systemName : ''
+    })
   },
   data() {
     return {
-      userName: "John Doe",
-      appTitle: "Expenses",
       sidebar: false,
       navItems: [
         { icon: "dashboard", text: "Dashboard", route: "/dashboard" },

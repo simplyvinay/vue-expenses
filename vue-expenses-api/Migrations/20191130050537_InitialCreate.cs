@@ -20,6 +20,7 @@ namespace vue_expenses_api.Migrations
                     LastName = table.Column<string>(nullable: true),
                     FullName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
+                    SystemName = table.Column<string>(nullable: true),
                     UseDarkMode = table.Column<bool>(nullable: false),
                     Hash = table.Column<byte[]>(nullable: true),
                     Salt = table.Column<byte[]>(nullable: true)
@@ -143,168 +144,168 @@ namespace vue_expenses_api.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Archived", "CreatedAt", "Email", "FirstName", "FullName", "Hash", "LastName", "Salt", "UpdatedAt", "UseDarkMode" },
-                values: new object[] { 1, false, new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), "test@demo.com", "John", "John Doe", new byte[] { 101, 82, 137, 122, 217, 80, 111, 2, 33, 136, 86, 230, 36, 123, 139, 119, 207, 101, 193, 76, 175, 214, 50, 139, 59, 97, 224, 44, 163, 237, 175, 251, 187, 33, 230, 77, 230, 155, 207, 99, 53, 1, 232, 235, 72, 12, 227, 119, 243, 79, 219, 179, 58, 23, 183, 213, 162, 226, 48, 70, 85, 12, 111, 71 }, "Doe", new byte[] { 25, 70, 37, 112, 172, 210, 101, 75, 174, 193, 187, 225, 154, 132, 5, 107 }, new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), true });
+                columns: new[] { "Id", "Archived", "CreatedAt", "Email", "FirstName", "FullName", "Hash", "LastName", "Salt", "SystemName", "UpdatedAt", "UseDarkMode" },
+                values: new object[] { 1, false, new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), "test@demo.com", "John", "John Doe", new byte[] { 111, 209, 94, 38, 124, 54, 81, 184, 61, 106, 133, 236, 16, 4, 211, 153, 75, 49, 182, 85, 126, 174, 27, 100, 2, 197, 200, 107, 180, 100, 124, 255, 28, 7, 242, 191, 185, 178, 150, 39, 159, 251, 191, 120, 94, 252, 230, 191, 100, 49, 247, 236, 130, 9, 24, 43, 223, 24, 89, 97, 222, 248, 31, 156 }, "Doe", new byte[] { 237, 49, 99, 254, 190, 29, 86, 64, 139, 32, 160, 208, 150, 248, 183, 184 }, "VueExpenses", new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), true });
 
             migrationBuilder.InsertData(
                 table: "ExpenseCategories",
                 columns: new[] { "Id", "Archived", "Budget", "ColourHex", "CreatedAt", "Description", "Name", "UpdatedAt", "UserId" },
-                values: new object[] { 1, false, 2000m, "#CE93D8", new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), null, "General Expenses", new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), 1 });
+                values: new object[] { 1, false, 2000m, "#CE93D8", new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), null, "General Expenses", new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), 1 });
 
             migrationBuilder.InsertData(
                 table: "ExpenseCategories",
                 columns: new[] { "Id", "Archived", "Budget", "ColourHex", "CreatedAt", "Description", "Name", "UpdatedAt", "UserId" },
-                values: new object[] { 2, false, 3000m, "#64B5F6", new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), null, "Shopping", new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), 1 });
+                values: new object[] { 2, false, 3000m, "#64B5F6", new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), null, "Shopping", new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), 1 });
 
             migrationBuilder.InsertData(
                 table: "ExpenseCategories",
                 columns: new[] { "Id", "Archived", "Budget", "ColourHex", "CreatedAt", "Description", "Name", "UpdatedAt", "UserId" },
-                values: new object[] { 3, false, 2500m, "#26A69A", new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), null, "Utilities", new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), 1 });
+                values: new object[] { 3, false, 2500m, "#26A69A", new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), null, "Utilities", new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), 1 });
 
             migrationBuilder.InsertData(
                 table: "ExpenseCategories",
                 columns: new[] { "Id", "Archived", "Budget", "ColourHex", "CreatedAt", "Description", "Name", "UpdatedAt", "UserId" },
-                values: new object[] { 4, false, 1000m, "#FB8C00", new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), null, "Travel", new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), 1 });
+                values: new object[] { 4, false, 1000m, "#FB8C00", new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), null, "Travel", new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), 1 });
 
             migrationBuilder.InsertData(
                 table: "ExpenseTypes",
                 columns: new[] { "Id", "Archived", "CreatedAt", "Description", "Name", "UpdatedAt", "UserId" },
-                values: new object[] { 1, false, new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), null, "Credit Card", new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), 1 });
+                values: new object[] { 1, false, new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), null, "Credit Card", new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), 1 });
 
             migrationBuilder.InsertData(
                 table: "ExpenseTypes",
                 columns: new[] { "Id", "Archived", "CreatedAt", "Description", "Name", "UpdatedAt", "UserId" },
-                values: new object[] { 2, false, new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), null, "Debit Card", new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), 1 });
+                values: new object[] { 2, false, new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), null, "Debit Card", new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), 1 });
 
             migrationBuilder.InsertData(
                 table: "ExpenseTypes",
                 columns: new[] { "Id", "Archived", "CreatedAt", "Description", "Name", "UpdatedAt", "UserId" },
-                values: new object[] { 3, false, new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), null, "Cheque", new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), 1 });
+                values: new object[] { 3, false, new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), null, "Cheque", new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), 1 });
 
             migrationBuilder.InsertData(
                 table: "ExpenseTypes",
                 columns: new[] { "Id", "Archived", "CreatedAt", "Description", "Name", "UpdatedAt", "UserId" },
-                values: new object[] { 4, false, new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), null, "Cash", new DateTime(2019, 11, 25, 4, 47, 36, 948, DateTimeKind.Local).AddTicks(354), 1 });
+                values: new object[] { 4, false, new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), null, "Cash", new DateTime(2019, 11, 30, 5, 5, 37, 516, DateTimeKind.Local).AddTicks(5044), 1 });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 7, false, 2, null, new DateTime(2019, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 834.733957347802m });
+                values: new object[] { 5, false, 3, null, new DateTime(2019, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 95.0586225814459m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 16, false, 4, null, new DateTime(2019, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 39.9421092774449m });
+                values: new object[] { 17, false, 3, null, new DateTime(2019, 9, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 9, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 569.429925908069m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 11, false, 2, null, new DateTime(2019, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 6, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1033.30513277711m });
+                values: new object[] { 15, false, 3, null, new DateTime(2019, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 8, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 791.063266010519m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 4, false, 3, null, new DateTime(2019, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 2, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 2, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 102.233988513348m });
+                values: new object[] { 13, false, 4, null, new DateTime(2019, 7, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 7, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 926.95278833944m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 3, false, 3, null, new DateTime(2019, 2, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 2, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 448.488216823194m });
+                values: new object[] { 7, false, 2, null, new DateTime(2019, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 4, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1225.22129361761m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 1, false, 2, null, new DateTime(2019, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 1, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 195.825609004044m });
+                values: new object[] { 6, false, 2, null, new DateTime(2019, 3, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 3, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 3, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 57.5379180058548m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 20, false, 4, null, new DateTime(2019, 10, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, new DateTime(2019, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 146.792317110483m });
+                values: new object[] { 3, false, 2, null, new DateTime(2019, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 2, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 2, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 273.147948446287m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 15, false, 2, null, new DateTime(2019, 8, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, new DateTime(2019, 8, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 183.956792198101m });
+                values: new object[] { 2, false, 3, null, new DateTime(2019, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1037.87581531232m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 13, false, 3, null, new DateTime(2019, 7, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 7, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, new DateTime(2019, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1249.70522255157m });
+                values: new object[] { 1, false, 4, null, new DateTime(2019, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 1, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 1, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 693.004991483411m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 10, false, 2, null, new DateTime(2019, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 5, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, new DateTime(2019, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 242.583433511939m });
+                values: new object[] { 21, false, 4, null, new DateTime(2019, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, new DateTime(2019, 11, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 62.4153886746687m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 9, false, 4, null, new DateTime(2019, 5, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, new DateTime(2019, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1005.37289306772m });
+                values: new object[] { 12, false, 4, null, new DateTime(2019, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, new DateTime(2019, 6, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 429.541639950844m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 8, false, 4, null, new DateTime(2019, 4, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, new DateTime(2019, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 161.579044843828m });
+                values: new object[] { 10, false, 2, null, new DateTime(2019, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, new DateTime(2019, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 558.802198646032m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 6, false, 2, null, new DateTime(2019, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 3, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, new DateTime(2019, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 593.344512671858m });
+                values: new object[] { 8, false, 3, null, new DateTime(2019, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, new DateTime(2019, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 516.605302932023m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 5, false, 2, null, new DateTime(2019, 3, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, new DateTime(2019, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1499.34558570354m });
+                values: new object[] { 4, false, 3, null, new DateTime(2019, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 2, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, new DateTime(2019, 2, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 733.048331100982m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 2, false, 4, null, new DateTime(2019, 1, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, new DateTime(2019, 1, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 274.332978424771m });
+                values: new object[] { 24, false, 2, null, new DateTime(2019, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 12, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 300.668819714649m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 24, false, 4, null, new DateTime(2019, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 511.151510761656m });
+                values: new object[] { 23, false, 3, null, new DateTime(2019, 12, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 12, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1435.69466748074m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 22, false, 3, null, new DateTime(2019, 11, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 11, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 45.5323595300002m });
+                values: new object[] { 22, false, 4, null, new DateTime(2019, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 11, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 87.4004010518084m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 21, false, 2, null, new DateTime(2019, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 11, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1385.74551576085m });
+                values: new object[] { 19, false, 2, null, new DateTime(2019, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 10, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1183.62335124222m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 19, false, 3, null, new DateTime(2019, 10, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 10, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 702.721334855408m });
+                values: new object[] { 16, false, 3, null, new DateTime(2019, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 8, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 8, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 706.41427566596m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 17, false, 3, null, new DateTime(2019, 9, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 9, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 9, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 243.119241782985m });
+                values: new object[] { 14, false, 2, null, new DateTime(2019, 7, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 216.697256181714m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 14, false, 4, null, new DateTime(2019, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 598.494613123357m });
+                values: new object[] { 11, false, 4, null, new DateTime(2019, 6, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 6, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 6, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 140.770092904926m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 12, false, 2, null, new DateTime(2019, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 6, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 166.989741459018m });
+                values: new object[] { 9, false, 2, null, new DateTime(2019, 5, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2019, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 650.345050101329m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 18, false, 2, null, new DateTime(2019, 9, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 9, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 9, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 692.028396386666m });
+                values: new object[] { 18, false, 4, null, new DateTime(2019, 9, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 9, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 520.646970030222m });
 
             migrationBuilder.InsertData(
                 table: "Expenses",
                 columns: new[] { "Id", "Archived", "CategoryId", "Comments", "CreatedAt", "Date", "TypeId", "UpdatedAt", "UserId", "Value" },
-                values: new object[] { 23, false, 4, null, new DateTime(2019, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 12, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 426.361364976671m });
+                values: new object[] { 20, false, 2, null, new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, new DateTime(2019, 10, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1005.15954289826m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExpenseCategories_UserId",

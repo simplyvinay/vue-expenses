@@ -29,7 +29,6 @@ api.interceptors.response.use((response) => {
     var errormessage = error.response && error.response.data.errors && error.response.data.errors.Error
         ? error.response.data.errors.Error
         : error.message;
-
     if (error.response && error.response.status === 422) {
         errormessage = '';
         error.response.data.errors.forEach((value) => {
@@ -61,9 +60,8 @@ api.interceptors.response.use((response) => {
             return retryOriginalRequest
         }
     }
-    else {
-        store.dispatch(`alert/${ADD_ALERT}`, { message: errormessage, color: 'error' }, { root: true });
-    }
+    
+    store.dispatch(`alert/${ADD_ALERT}`, { message: errormessage, color: 'error' }, { root: true });    
     return Promise.reject(error);
 });
 

@@ -86,6 +86,10 @@ namespace vue_expenses_api.Features.Users
                 await _context.SaveChangesAsync(cancellationToken);
                 
                 return new UserDto(
+                    user.FirstName,
+                    user.LastName,
+                    user.FullName,
+                    user.SystemName,
                     user.Email,
                     token,
                     refreshToken,

@@ -39,5 +39,14 @@ namespace vue_expenses_api.Features.Users
         {
             return await _mediator.Send(command);
         }
+
+        
+        [HttpPost("profile")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ProfileDetailsDto> Profile(
+            [FromBody] ProfileUpdate.Command command)
+        {
+            return await _mediator.Send(command);
+        }
     }
 }
