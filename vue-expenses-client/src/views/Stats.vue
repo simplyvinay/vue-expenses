@@ -5,7 +5,7 @@
         <v-flex xs12 sm6 md3>
           <v-card class="pa-4 mr-2" outlined>
             <div class="overline mb-2">Overall Spent</div>
-            <div class="title blue--text text-capitalize">8,000</div>
+            <div class="title blue--text text-capitalize">{{overallSpent}}</div>
           </v-card>
         </v-flex>
         <v-flex xs12 sm6 md3>
@@ -14,7 +14,7 @@
             outlined
           >
             <div class="overline mb-2">Most Spent By</div>
-            <div class="title blue--text text-capitalize">Credit Card</div>
+            <div class="title blue--text text-capitalize">{{mostSpentBy}}</div>
           </v-card>
         </v-flex>
         <v-flex xs12 sm6 md3>
@@ -23,7 +23,7 @@
             outlined
           >
             <div class="overline mb-2">Most Spent On</div>
-            <div class="title blue--text text-capitalize">General Expenses</div>
+            <div class="title blue--text text-capitalize">{{mostSpentOn}}</div>
           </v-card>
         </v-flex>
         <v-flex xs12 sm6 md3>
@@ -32,7 +32,7 @@
             outlined
           >
             <div class="overline mb-2">Spent This Year</div>
-            <div class="title blue--text text-capitalize">5,000</div>
+            <div class="title blue--text text-capitalize">{{spentThisYear}}</div>
           </v-card>
         </v-flex>
         <v-flex xs12 md12>
@@ -58,7 +58,7 @@
 import ExpensesStats from "@/components/ExpensesStats";
 import CategoryStats from "@/components/CategoryStats";
 import TypeStats from "@/components/TypeStats";
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   components: { ExpensesStats, CategoryStats, TypeStats },
@@ -73,6 +73,12 @@ export default {
     }
   },
   computed: {
+    ...mapGetters("expenses", [
+      "overallSpent",
+      "mostSpentBy",
+      "mostSpentOn",
+      "spentThisYear"
+    ]),
     ...mapState({
       theme: state => state.account.user.theme
     })

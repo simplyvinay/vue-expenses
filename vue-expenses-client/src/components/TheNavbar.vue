@@ -58,7 +58,7 @@
       fixed
     >
       <v-toolbar-items>
-        <v-btn text v-for="item in navItems" :key="item.text" :to="item.route">
+        <v-btn text v-for="item in navItems" :key="item.text" :to="item.route" :ripple="false">
           <span>
             <v-icon small class="blue--text mr-1">{{ item.icon }}</v-icon>
           </span>

@@ -42,7 +42,7 @@ const actions = {
         commit(UPDATE_USER_DETAILS);
     },
     [EDIT_USER_SETTINGS]({ commit, dispatch }, { systemName, displayCurrency, useDarkMode }) {
-        Api.post('/settings', {
+        return Api.post('/settings', {
             systemName,
             displayCurrency,
             useDarkMode
