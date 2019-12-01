@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/views/Login.vue'
+import Register from '@/views/Register.vue'
 import HomePage from '@/views/HomePage.vue'
 import Dashboard from '@/views/Dashboard.vue'
 import Expenses from '@/views/Expenses.vue'
@@ -26,6 +27,7 @@ const router = new Router({
       ]
     },
     { path: '/login', component: Login },
+    { path: '/register', component: Register },
     // otherwise redirect to home
     { path: '*', redirect: '/' }
   ],
@@ -40,7 +42,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
-  const publicPages = ['/login'];
+  const publicPages = ['/login', '/register'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
 

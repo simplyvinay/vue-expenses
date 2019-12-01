@@ -58,7 +58,7 @@ namespace vue_expenses_api.Features.Users
                 Command request,
                 CancellationToken cancellationToken)
             {
-                var user = await _context.Users.SingleAsync(
+                var user = await _context.Users.SingleOrDefaultAsync(
                     x => x.Email == request.Email && !x.Archived,
                     cancellationToken);
 
