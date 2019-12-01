@@ -13,10 +13,9 @@
                 <v-form class="xs12">
                   <v-container>
                     <v-text-field
-                      placeholder="System Name"
+                      label="System Name"
                       required
                       class="ma-0 pa-0 form-label"
-                      dense
                       v-model="settings.systemName"
                     ></v-text-field>
 
@@ -25,9 +24,8 @@
                       :items="currencies"
                       item-text="name"
                       item-value="id"
-                      placeholder="Display Currency"
+                      label="Display Currency"
                       class="ma-0 pa-0 form-label"
-                      dense
                     ></v-autocomplete>
                     <v-switch
                       class="ma-0 pa-0 form-label"
