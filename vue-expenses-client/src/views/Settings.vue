@@ -17,6 +17,7 @@
                       required
                       class="ma-0 pa-0 form-label"
                       v-model="settings.systemName"
+                      dense
                     ></v-text-field>
 
                     <v-autocomplete
@@ -26,6 +27,7 @@
                       item-value="id"
                       label="Display Currency"
                       class="ma-0 pa-0 form-label"
+                      dense
                     ></v-autocomplete>
                     <v-switch
                       class="ma-0 pa-0 form-label"
