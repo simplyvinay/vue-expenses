@@ -25,7 +25,7 @@ const actions = {
                 commit(LOGIN_FAILURE);
             });
     },
-    [REGISTER]({ commit, dispatch }, { email, firstName, lastName, password }) {
+    [REGISTER]({ dispatch }, { email, firstName, lastName, password }) {
         Api.post('/register', {
             email, firstName, lastName, password
         })
