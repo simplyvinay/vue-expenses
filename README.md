@@ -22,7 +22,7 @@ A simple expenses tracking application built with VueJs and .NET Core
 - Username: `test@demo.com`
 - Password: `test`
 
-Please note that you can change the theme in the setting page and the data on the demo website will be reset at regular intervals
+Please note that you can change the theme in the settings page and the data on the demo website will be reset at regular intervals
 
 # Tech Stack
 
@@ -84,13 +84,12 @@ Please note that you can change the theme in the setting page and the data on th
 - Go to vue-expenses-api folder and run `dotnet restore` and `dotnet build`
 - Run `dotnet run` to start the server at `http://localhost:5000/`
 - You can view the API reference at `http://localhost:5000/swagger`
-- Included database is seeded with dummy data and you can you the same credentials as the demo site to login
 
 ### Client
 
 - Go to vue-expenses-client folder and run `npm install`
 - Run `npm run serve` to start the client at `http://localhost:8080/`
-- The application is seeded with dummy data and you can use `email: test@demo.com` and `password: test` to login
+- Included database is seeded with dummy data and you can use `email: test@demo.com` and `password: test` to login
 
 # Config
 
@@ -131,7 +130,7 @@ Please note that you can change the theme in the setting page and the data on th
 
 - Have an admin role and an admin section to manage users
 - Add search functionality to expenses page
-- Add server side sorting/paging/searching to expensese page (and fix all actions/getters that rely on expenses being in the store)
+- Add server side sorting/paging/searching to expenses page (and fix all actions/getters that rely on expenses being in the store)
 
 # How to Contribute
 
