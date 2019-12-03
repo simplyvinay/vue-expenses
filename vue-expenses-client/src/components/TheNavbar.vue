@@ -1,6 +1,13 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="sidebar" app left offset-y style="margin-top: 50px;">
+    <v-navigation-drawer
+      v-model="sidebar"
+      app
+      left
+      offset-y
+      style="margin-top: 50px;"
+      class="hidden-md-and-up"
+    >
       <v-list-item
         v-for="item in navItems"
         :key="item.text"
