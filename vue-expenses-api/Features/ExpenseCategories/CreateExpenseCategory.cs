@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using vue_expenses_api.Domain;
 using vue_expenses_api.Dtos;
 using vue_expenses_api.Infrastructure;
 using vue_expenses_api.Infrastructure.Exceptions;
@@ -11,25 +12,22 @@ using vue_expenses_api.Infrastructure.Security;
 
 namespace vue_expenses_api.Features.ExpenseCategories
 {
-    public class ExpenseCategoryUpdate
+    public class CreateExpenseCategory
     {
         public class Command : IRequest<ExpenseCategoryDto>
         {
             public Command(
-                int id,
                 string name,
                 string description,
                 decimal budget,
                 string colourHex)
             {
-                Id = id;
                 Name = name;
                 Description = description;
                 Budget = budget;
                 ColourHex = colourHex;
             }
 
-            public int Id { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
             public decimal Budget { get; set; }
@@ -40,7 +38,6 @@ namespace vue_expenses_api.Features.ExpenseCategories
         {
             public CommandValidator()
             {
-                RuleFor(x => x.Id).NotNull().NotEmpty();
                 RuleFor(x => x.Name).NotNull().NotEmpty().MaximumLength(50);
                 RuleFor(x => x.Description).MaximumLength(100);
                 RuleFor(x => x.Budget).NotNull().NotEmpty().GreaterThan(0);
@@ -69,7 +66,7 @@ namespace vue_expenses_api.Features.ExpenseCategories
                     cancellationToken);
 
                 if (await _context.ExpenseCategories.AnyAsync(
-                    x => x.Name == request.Name && x.User == user && x.Id != request.Id,
+                    x => x.Name == request.Name && x.User == user,
                     cancellationToken))
                 {
                     throw new HttpException(
@@ -80,15 +77,16 @@ namespace vue_expenses_api.Features.ExpenseCategories
                         });
                 }
                 
-                var expenseCategory = await _context.ExpenseCategories.FirstAsync(
-                    x => x.Id == request.Id,
-                    cancellationToken);
+                var expenseCategory = new ExpenseCategory(
+                    request.Name,
+                    request.Description,
+                    request.Budget,
+                    request.ColourHex,
+                    user);
 
-                expenseCategory.Name = request.Name;
-                expenseCategory.Description = request.Description;
-                expenseCategory.Budget = request.Budget;
-                expenseCategory.ColourHex = request.ColourHex;
-                
+                await _context.ExpenseCategories.AddAsync(
+                    expenseCategory,
+                    cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new ExpenseCategoryDto(

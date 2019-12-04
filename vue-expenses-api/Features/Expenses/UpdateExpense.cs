@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -11,17 +11,19 @@ using vue_expenses_api.Infrastructure.Security;
 
 namespace vue_expenses_api.Features.Expenses
 {
-    public class ExpenseCreate
+    public class UpdateExpense
     {
         public class Command : IRequest<ExpenseDto>
         {
             public Command(
+                int id,
                 DateTime date,
                 int categoryId,
                 int typeId,
                 decimal value,
                 string comments)
             {
+                Id = id;
                 Date = date;
                 CategoryId = categoryId;
                 TypeId = typeId;
@@ -29,6 +31,7 @@ namespace vue_expenses_api.Features.Expenses
                 Comments = comments;
             }
 
+            public int Id { get; set; }
             public DateTime Date { get; set; }
             public int CategoryId { get; set; }
             public int TypeId { get; set; }
@@ -40,6 +43,7 @@ namespace vue_expenses_api.Features.Expenses
         {
             public CommandValidator()
             {
+                RuleFor(x => x.Id).NotNull().NotEmpty();
                 RuleFor(x => x.Date).NotNull().NotEmpty();
                 RuleFor(x => x.CategoryId).NotNull().NotEmpty();
                 RuleFor(x => x.TypeId).NotNull().NotEmpty();
@@ -65,28 +69,23 @@ namespace vue_expenses_api.Features.Expenses
                 CancellationToken cancellationToken)
             {
                 var user = await _context.Users.SingleAsync(x => x.Email == _currentUser.EmailId);
+                var expense = await _context.Expenses.FirstAsync(
+                    x => x.Id == request.Id,
+                    cancellationToken);
 
                 var expenseCategory = await _context.ExpenseCategories.SingleAsync(
                         x => x.Id == request.CategoryId,
                         cancellationToken);
-
                 var expenseType = await _context.ExpenseTypes.SingleAsync(
                         x => x.Id == request.TypeId,
                         cancellationToken);
 
-                var expense = new Expense(
-                    request.Date,
-                    expenseCategory,
-                    _context.ExpenseTypes.SingleOrDefaultAsync(
-                        x => x.Id == request.TypeId,
-                        cancellationToken).Result,
-                    request.Value,
-                    request.Comments,
-                    user);
+                expense.Date = request.Date;
+                expense.Category = expenseCategory;
+                expense.Type = expenseType;
+                expense.Value = request.Value;
+                expense.Comments = request.Comments;
 
-                await _context.Expenses.AddAsync(
-                    expense,
-                    cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new ExpenseDto(
