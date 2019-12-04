@@ -9,7 +9,7 @@ using vue_expenses_api.Infrastructure.Security;
 
 namespace vue_expenses_api.Features.Users
 {
-    public class ProfileUpdate
+    public class UpdateProfile
     {
         public class Command : IRequest<ProfileDetailsDto>
         {

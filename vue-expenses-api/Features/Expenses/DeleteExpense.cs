@@ -6,9 +6,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using vue_expenses_api.Infrastructure;
 
-namespace vue_expenses_api.Features.ExpenseTypes
+namespace vue_expenses_api.Features.Expenses
 {
-    public class ExpenseTypeDelete
+    public class DeleteExpense
     {
         public class Command : IRequest
         {
@@ -21,7 +21,7 @@ namespace vue_expenses_api.Features.ExpenseTypes
             public int Id { get; set; }
         }
 
-        public class CommandValidator : AbstractValidator<Command>
+        public class CommandValidator : AbstractValidator<DeleteExpense.Command>
         {
             public CommandValidator()
             {
@@ -43,16 +43,16 @@ namespace vue_expenses_api.Features.ExpenseTypes
                 Command request,
                 CancellationToken cancellationToken)
             {
-                var expenseType = await _context.ExpenseTypes.FirstAsync(
+                var expense = await _context.Expenses.FirstOrDefaultAsync(
                     x => x.Id == request.Id,
                     cancellationToken);
 
-                if (expenseType == null)
+                if (expense == null)
                 {
                     throw new Exception("Not Found");
                 }
 
-                expenseType.Archive();
+                expense.Archive();
                 await _context.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
