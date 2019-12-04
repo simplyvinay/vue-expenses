@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Data;
 using FluentValidation.AspNetCore;
@@ -29,7 +28,6 @@ namespace vue_expenses_api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(
             IServiceCollection services)
         {
@@ -50,7 +48,7 @@ namespace vue_expenses_api
                 .AddEntityFrameworkSqlite()
                 .AddDbContext<ExpensesContext>();
 
-            // Inject an implementation of ISwaggerProvider with defaulted settings applied
+            //Hook up swagger
             services.AddSwaggerGen(
                 x =>
                 {
@@ -103,15 +101,14 @@ namespace vue_expenses_api
 
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICurrentUser, CurrentUser>();
             services.AddScoped<IJwtSigningCredentials, JwtSigningCredentials>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddCors();
             services.AddJwt();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
             IApplicationBuilder app,
             IWebHostEnvironment env,
@@ -120,17 +117,9 @@ namespace vue_expenses_api
             loggerFactory.AddSerilogLogging();
             app.UseMiddlewares();
 
-            if (env.IsDevelopment())
-            {
-                //app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
-            }
-
             if (!env.IsDevelopment())
             {
+                app.UseHsts();
                 app.UseHttpsRedirection();
             }
 
@@ -142,10 +131,8 @@ namespace vue_expenses_api
                         .AllowAnyMethod()
                         .WithExposedHeaders("Token-Expired"));
 
-            // Enable middleware to serve generated Swagger as a JSON endpoint
             app.UseSwagger(c => { c.RouteTemplate = "swagger/{documentName}/swagger.json"; });
 
-            // Enable middleware to serve swagger-ui assets(HTML, JS, CSS etc.)
             app.UseSwaggerUI(
                 x =>
                 {

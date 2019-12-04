@@ -114,7 +114,7 @@ namespace vue_expenses_api.Features.Users
                     ValidateAudience = true,
                     ValidAudience = _signingCredentials.Audience,
                     ValidateLifetime = false, // do not check for expiry date time
-                    ClockSkew = new TimeSpan(0, 0, 0, 0)
+                    ClockSkew = TimeSpan.Zero
                 };
 
                 var tokenHandler = new JwtSecurityTokenHandler();

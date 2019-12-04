@@ -39,7 +39,7 @@ namespace vue_expenses_api
                 ValidateAudience = true,
                 ValidAudience = signingCredentials.Audience,
                 ValidateLifetime = true,
-                ClockSkew = new TimeSpan(0, 0, 0, 0)
+                ClockSkew = TimeSpan.Zero
             };
 
             services.AddAuthentication(
