@@ -128,9 +128,7 @@ Please note that you can change the theme in the settings page and the data on t
 
 # Future Enhancements
 
-- Have an admin role and an admin section to manage users
-- Add search functionality to expenses page
-- Add server side sorting/paging/searching to expenses page (and fix all actions/getters that rely on expenses being in the store)
+- Check project [To do list](https://github.com/simplyvinay/vue-expenses/projects/1)
 
 # How to Contribute
 
