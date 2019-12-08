@@ -1,3 +1,5 @@
+using System.Globalization;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -5,6 +7,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using vue_expenses_api.Dtos;
 using vue_expenses_api.Infrastructure;
+using vue_expenses_api.Infrastructure.Exceptions;
 using vue_expenses_api.Infrastructure.Security;
 
 namespace vue_expenses_api.Features.Users
@@ -53,6 +56,18 @@ namespace vue_expenses_api.Features.Users
                 Command request,
                 CancellationToken cancellationToken)
             {
+
+                try 
+                {
+                   new RegionInfo(request.CurrencyRegionName);
+                }
+                catch 
+                {
+                    throw new HttpException(
+                        HttpStatusCode.BadRequest,
+                        new {Error = "Display currency is not yet supported"});
+                }
+
                 var user = await _context.Users.SingleAsync(
                     x => x.Email == _currentUser.EmailId,
                     cancellationToken);

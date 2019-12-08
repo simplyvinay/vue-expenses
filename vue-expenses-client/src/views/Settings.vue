@@ -13,19 +13,18 @@
                 <v-form class="xs12">
                   <v-container>
                     <v-text-field
-                      placeholder="System Name"
+                      label="System Name"
                       required
                       class="ma-0 pa-0 form-label"
-                      dense
                       v-model="settings.systemName"
+                      dense
                     ></v-text-field>
-
                     <v-autocomplete
                       v-model="settings.currencyRegionName"
                       :items="currencies"
                       item-text="name"
                       item-value="id"
-                      placeholder="Display Currency"
+                      label="Display Currency"
                       class="ma-0 pa-0 form-label"
                       dense
                     ></v-autocomplete>

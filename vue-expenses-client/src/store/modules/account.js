@@ -1,10 +1,12 @@
+const localUser = JSON.parse(localStorage.getItem('user'));
+
 import Api from '@/services/api'
 import router from '@/router/index';
 import { LOGIN, LOGOUT, REFRESHTOKEN, EDIT_USER_DETAILS, EDIT_USER_SETTINGS, EDIT_USER_PROFILE, ADD_ALERT, LOAD_CURRENCIES } from '@/store/_actiontypes'
 import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER, UPDATE_USER_DETAILS, UPDATE_USER_SETTINGS, UPDATE_USER_PROFILE, SET_CURRENCIES } from '@/store/_mutationtypes'
 
 const state = {
-    user: null, 
+    user: localUser ? localUser : null,
     currencies: []
 };
 
@@ -76,10 +78,7 @@ const mutations = {
         // login successful if there's a jwt token in the response
         if (user.token) {
             // store user details and jwt token in local storage
-            localStorage.setItem('user', JSON.stringify({
-                token: user.token,
-                refreshToken: user.refreshToken
-            }));
+            localStorage.setItem('user', JSON.stringify(user));
         }
         state.user = user;
     },

@@ -156,7 +156,18 @@ namespace vue_expenses_api
 
             app.UseRouting();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(
+                endpoints =>
+                {
+                    endpoints.MapControllers();
+                    endpoints.MapFallbackToController(
+                        "Index",
+                        "Home"
+                    );
+                });
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
         }
     }
 }
