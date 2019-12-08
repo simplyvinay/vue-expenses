@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using vue_expenses_api.Dtos;
 using vue_expenses_api.Infrastructure;
@@ -44,16 +45,16 @@ namespace vue_expenses_api.Features.Users
         {
             private readonly ExpensesContext _context;
             private readonly IJwtTokenGenerator _jwtTokenGenerator;
-            private IJwtSigningCredentials _signingCredentials;
+            private IOptions<JwtSettings> _jwtSettings;
 
             public Handler(
                 ExpensesContext context,
                 IJwtTokenGenerator jwtTokenGenerator,
-                IJwtSigningCredentials signingCredentials)
+                IOptions<JwtSettings> jwtSettings)
             {
                 _context = context;
                 _jwtTokenGenerator = jwtTokenGenerator;
-                _signingCredentials = signingCredentials;
+                _jwtSettings = jwtSettings;
             }
 
             public async Task<UserDto> Handle(
@@ -61,7 +62,7 @@ namespace vue_expenses_api.Features.Users
                 CancellationToken cancellationToken)
             {
                 var email = GetIdentifierFromExpiredToken(request.Token).Value;
-                
+
                 var user = await _context.Users.Include(u => u.RefreshTokens)
                     .SingleAsync(
                         x => x.Email == email && !x.Archived,
@@ -108,11 +109,11 @@ namespace vue_expenses_api.Features.Users
                 var tokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = _signingCredentials.SigningCredentials.Key,
+                    IssuerSigningKey = _jwtSettings.Value.SigningCredentials.Key,
                     ValidateIssuer = true,
-                    ValidIssuer = _signingCredentials.Issuer,
+                    ValidIssuer = _jwtSettings.Value.Issuer,
                     ValidateAudience = true,
-                    ValidAudience = _signingCredentials.Audience,
+                    ValidAudience = _jwtSettings.Value.Audience,
                     ValidateLifetime = false, // do not check for expiry date time
                     ClockSkew = TimeSpan.Zero
                 };

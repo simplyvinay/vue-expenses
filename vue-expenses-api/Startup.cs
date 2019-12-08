@@ -99,10 +99,12 @@ namespace vue_expenses_api
                 .AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<Startup>(); })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
+            services.Configure<JwtSettings>(Configuration.GetSection(typeof(JwtSettings).Name));
+            services.Configure<PasswordHasherSettings>(Configuration.GetSection(typeof(PasswordHasherSettings).Name));
+
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<ICurrentUser, CurrentUser>();
-            services.AddScoped<IJwtSigningCredentials, JwtSigningCredentials>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddCors();
