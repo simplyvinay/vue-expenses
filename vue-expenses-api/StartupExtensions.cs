@@ -1,10 +1,10 @@
 using System;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -20,24 +20,24 @@ namespace vue_expenses_api
         {
             services.AddOptions();
 
-            var signingCredentials = services.BuildServiceProvider().GetService<IJwtSigningCredentials>();
+            var signingCredentials = services.BuildServiceProvider().GetService<IOptions<JwtSettings>>();
 
             services.Configure<JwtIssuerOptions>(
                 options =>
                 {
-                    options.Issuer = signingCredentials.Issuer;
-                    options.Audience = signingCredentials.Audience;
-                    options.SigningCredentials = signingCredentials.SigningCredentials;
+                    options.Issuer = signingCredentials.Value.Issuer;
+                    options.Audience = signingCredentials.Value.Audience;
+                    options.SigningCredentials = signingCredentials.Value.SigningCredentials;
                 });
 
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = signingCredentials.SigningCredentials.Key,
+                IssuerSigningKey = signingCredentials.Value.SigningCredentials.Key,
                 ValidateIssuer = true,
-                ValidIssuer = signingCredentials.Issuer,
+                ValidIssuer = signingCredentials.Value.Issuer,
                 ValidateAudience = true,
-                ValidAudience = signingCredentials.Audience,
+                ValidAudience = signingCredentials.Value.Audience,
                 ValidateLifetime = true,
                 ClockSkew = TimeSpan.Zero
             };
