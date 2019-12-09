@@ -1,0 +1,46 @@
+name: Demo Release CI
+
+on:
+  push:
+    branches:
+    - demo
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v1
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - name: Install Dependencies
+      working-directory: ./vue-expenses-client
+      run: | 
+        npm install
+    - name: Build Client Project
+      working-directory: ./vue-expenses-client
+      run: | 
+        npm run build --if-present
+      env:
+        CI: true
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.100' # SDK Version to use.
+    - name: Restore Dependencies
+      working-directory: ./vue-expenses-api
+      run: | 
+        dotnet restore
+    - name: Build Project
+      working-directory: ./vue-expenses-api
+      run: | 
+        dotnet build
+    - name: Publish Project
+      working-directory: ./vue-expenses-api
+      run: | 
+        dotnet publish -c Release  
+    
