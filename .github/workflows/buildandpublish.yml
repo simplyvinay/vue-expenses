@@ -39,8 +39,8 @@ jobs:
       working-directory: ./vue-expenses-api
       run: | 
         dotnet build
-    - name: Publish Project
+    - name: Build docker container
       working-directory: ./vue-expenses-api
       run: | 
-        dotnet publish -c Release  
+        docker build -t vue-expense .  
     
