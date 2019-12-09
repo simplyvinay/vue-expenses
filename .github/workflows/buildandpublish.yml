@@ -17,11 +17,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '10.x'
-    - name: Install Dependencies
+    - name: Install dependencies
       working-directory: ./vue-expenses-client
       run: | 
         npm install
-    - name: Build Client Project
+    - name: Build client project
       working-directory: ./vue-expenses-client
       run: | 
         npm run build --if-present
@@ -31,11 +31,11 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '3.1.100' # SDK Version to use.
-    - name: Restore Dependencies
+    - name: Restore dependencies
       working-directory: ./vue-expenses-api
       run: | 
         dotnet restore
-    - name: Build Project
+    - name: Build server project
       working-directory: ./vue-expenses-api
       run: | 
         dotnet build
@@ -43,4 +43,13 @@ jobs:
       working-directory: ./vue-expenses-api
       run: | 
         docker build -t vue-expense .  
+    - name: Heroku release
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}  
+      run: |
+        docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+        docker tag vue-expense registry.heroku.com/vue-expense/web
+        docker push registry.heroku.com/vue-expense/web
+        heroku container:release web -a vue-expense
+      
     

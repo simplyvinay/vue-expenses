@@ -6,7 +6,7 @@
           <v-flex xs12 sm8 md4>
             <v-card tile>
               <v-toolbar flat color="primary" dark>
-                <v-toolbar-title>Login</v-toolbar-title>
+                <v-toolbar-title>Login To Vue Expenses</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
                 <v-form ref="loginform">
