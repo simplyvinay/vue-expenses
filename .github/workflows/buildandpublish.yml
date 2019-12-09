@@ -45,11 +45,9 @@ jobs:
         docker build -t vue-expense .  
     - name: Heroku release
       env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}  
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: |
         docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
         docker tag vue-expense registry.heroku.com/vue-expense/web
         docker push registry.heroku.com/vue-expense/web
         heroku container:release web -a vue-expense
-      
-    
