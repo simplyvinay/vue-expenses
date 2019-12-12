@@ -19,7 +19,6 @@
                       v-model="settings.systemName"
                       dense
                     ></v-text-field>
-
                     <v-autocomplete
                       v-model="settings.currencyRegionName"
                       :items="currencies"

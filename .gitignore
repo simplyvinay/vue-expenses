@@ -25,3 +25,5 @@ yarn-error.log*
 
 /vue-expenses-api/bin/
 /vue-expenses-api/obj
+*.orig
+*.user

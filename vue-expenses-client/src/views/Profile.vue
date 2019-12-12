@@ -16,7 +16,7 @@
                   readonly
                 ></v-text-field>
                 <v-text-field
-                  placeholder="First Name"
+                  label="First Name"
                   required
                   dense
                   class="ma-0 pa-0 form-label"
@@ -24,7 +24,7 @@
                   :rules="[required('First Name')]"
                 ></v-text-field>
                 <v-text-field
-                  placeholder="Last Name"
+                  label="Last Name"
                   required
                   class="ma-0 pa-0 form-label"
                   v-model="profile.lastName"
@@ -38,30 +38,6 @@
                     @click="handleSubmit"
                     :loading="loading"
                   >Submit</v-btn>
-                </v-row>
-              </v-container>
-            </v-form>
-          </v-card>
-        </v-flex>
-      </v-layout>
-      <v-layout mt-3 row justify-space-around>
-        <v-flex xs12 sm8>
-          <v-card class="pa-2 mr-2" flat height="100%">
-            <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Security</div>
-            <v-divider></v-divider>
-            <v-form class="xs12">
-              <v-container>
-                <v-text-field label="Current Password" required class="ma-0 pa-0 form-label" dense></v-text-field>
-                <v-text-field label="New Password" required class="ma-0 pa-0 form-label" dense></v-text-field>
-                <v-text-field
-                  label="Retype Password"
-                  required
-                  clearable
-                  class="ma-0 pa-0 form-label"
-                  dense
-                ></v-text-field>
-                <v-row class="justify-end">
-                  <v-btn outlined small class="blue--text font-weight-bold">Submit</v-btn>
                 </v-row>
               </v-container>
             </v-form>

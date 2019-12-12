@@ -56,18 +56,16 @@ namespace vue_expenses_api.Features.Users
                 Command request,
                 CancellationToken cancellationToken)
             {
-                //demo site hosted on linux container falls over for certain regions, works ok on dev box
-                //so check if the selected currency region can be converted to a region
-                //if not throw an error. 
-                try
+
+                try 
                 {
-                    new RegionInfo(request.CurrencyRegionName);
+                   new RegionInfo(request.CurrencyRegionName);
                 }
-                catch
+                catch 
                 {
                     throw new HttpException(
                         HttpStatusCode.BadRequest,
-                        new { Error = "Display currency is not yet supported" });
+                        new {Error = "Display currency is not yet supported"});
                 }
 
                 var user = await _context.Users.SingleAsync(
