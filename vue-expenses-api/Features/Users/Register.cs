@@ -1,30 +1,37 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using vue_expenses_api.Dtos;
+using vue_expenses_api.Domain;
 using vue_expenses_api.Infrastructure;
 using vue_expenses_api.Infrastructure.Exceptions;
 using vue_expenses_api.Infrastructure.Security;
 
 namespace vue_expenses_api.Features.Users
 {
-    public class Login
+    public class Register
     {
-        public class Command : IRequest<UserDto>
+        public class Command : IRequest
         {
             public Command(
                 string email,
+                string firstName,
+                string lastName,
                 string password)
             {
                 Email = email;
+                FirstName = firstName;
+                LastName = lastName;
                 Password = password;
             }
 
             public string Email { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
             public string Password { get; set; }
 
         }
@@ -34,11 +41,12 @@ namespace vue_expenses_api.Features.Users
             public CommandValidator()
             {
                 RuleFor(x => x.Email).NotNull().NotEmpty();
+                RuleFor(x => x.FirstName).NotNull().NotEmpty();
                 RuleFor(x => x.Password).NotNull().NotEmpty();
             }
         }
 
-        public class Handler : IRequestHandler<Command, UserDto>
+        public class Handler : IRequestHandler<Command>
         {
             private readonly IPasswordHasher _passwordHasher;
             private readonly IJwtTokenGenerator _jwtTokenGenerator;
@@ -54,47 +62,41 @@ namespace vue_expenses_api.Features.Users
                 _context = context;
             }
 
-            public async Task<UserDto> Handle(
+            public async Task<Unit> Handle(
                 Command request,
                 CancellationToken cancellationToken)
             {
                 var user = await _context.Users.SingleOrDefaultAsync(
-                    x => x.Email == request.Email && !x.Archived,
+                    x => x.Email == request.Email,
                     cancellationToken);
 
-                if (user == null)
+                if (user != null)
                 {
                     throw new HttpException(
-                        HttpStatusCode.Unauthorized,
-                        new {Error = "Invalid credentials."});
+                        HttpStatusCode.BadRequest,
+                        new
+                        {
+                            Error = $"There is already a user with email {request.Email}."
+                        });
                 }
 
-                if (!user.Hash.SequenceEqual(
+
+                var salt = Guid.NewGuid().ToByteArray();
+                var newUser = new User(
+                    request.FirstName,
+                    request.LastName,
+                    request.Email,
                     _passwordHasher.Hash(
-                        request.Password,
-                        user.Salt)))
-                {
-                    throw new HttpException(
-                        HttpStatusCode.Unauthorized,
-                        new {Error = "Invalid credentials."});
-                }
-                // generate refresh token
-                var refreshToken = _jwtTokenGenerator.GenerateRefreshToken();
-                user.AddRefreshToken(refreshToken, user.Id);
-                
-                var token = await _jwtTokenGenerator.CreateToken(request.Email);
+                        "test",
+                        salt),
+                    salt);
+
+                await _context.Users.AddAsync(
+                    newUser,
+                    cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
-                
-                return new UserDto(
-                    user.FirstName,
-                    user.LastName,
-                    user.FullName,
-                    user.SystemName,
-                    user.Email,
-                    token,
-                    refreshToken,
-                    user.CurrencyRegionName,
-                    user.UseDarkMode);
+
+                return Unit.Value;
             }
         }
     }

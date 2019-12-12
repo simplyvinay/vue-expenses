@@ -28,6 +28,13 @@ namespace vue_expenses_api.Features.Users
             return await _mediator.Send(command);
         }
 
+        [HttpPost("register")]
+        public async Task<Unit> Register(
+            [FromBody] Register.Command command)
+        {
+            return await _mediator.Send(command);
+        }
+
         [HttpPost("refreshtoken")]
         public async Task<UserDto> RefreshToken(
             [FromBody] ExchangeRefreshToken.Command command)
@@ -38,7 +45,7 @@ namespace vue_expenses_api.Features.Users
         [HttpPut("settings")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<UserDetailsDto> Settings(
-            [FromBody] SettingsUpdate.Command command)
+            [FromBody] UpdateSettings.Command command)
         {
             return await _mediator.Send(command);
         }
@@ -47,7 +54,7 @@ namespace vue_expenses_api.Features.Users
         [HttpPut("profile")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ProfileDetailsDto> Profile(
-            [FromBody] ProfileUpdate.Command command)
+            [FromBody] UpdateProfile.Command command)
         {
             return await _mediator.Send(command);
         }

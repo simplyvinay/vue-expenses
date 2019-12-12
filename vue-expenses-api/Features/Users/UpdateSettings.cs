@@ -12,7 +12,7 @@ using vue_expenses_api.Infrastructure.Security;
 
 namespace vue_expenses_api.Features.Users
 {
-    public class SettingsUpdate
+    public class UpdateSettings
     {
         public class Command : IRequest<UserDetailsDto>
         {

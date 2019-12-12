@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <v-content :dark="true">
-      <v-container fluid fill-height>
+    <v-content>
+      <v-container fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
             <v-card tile>
@@ -9,31 +9,39 @@
                 <v-toolbar-title>Login</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
-                <v-form ref="loginform">
+                <v-form ref="loginForm">
                   <v-text-field
-                    v-model="form.email"
-                    label="E-mail"
+                    v-model="loginForm.email"
+                    placeholder="E-mail"
                     prepend-icon="email"
                     :rules="[required('Email'), email('Email')]"
+                    dense
                   ></v-text-field>
                   <v-text-field
-                    v-model="form.password"
-                    label="Password"
+                    v-model="loginForm.password"
+                    placeholder="Password"
                     prepend-icon="lock"
                     :type="showPassword ? 'text' : 'password'"
                     :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                     @click:append="showPassword = !showPassword"
                     :rules="[required('Password')]"
+                    dense
                   ></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
+                <v-btn
+                  small
+                  outlined
+                  class="primary--text"
+                  @click.native="handleRegisterClick()"
+                >Register</v-btn>
                 <v-spacer></v-spacer>
                 <v-btn
                   small
                   outlined
                   class="primary--text"
-                  @click="handleSubmit"
+                  @click="handleLoginSubmit"
                   :loading="loading"
                 >Login</v-btn>
               </v-card-actions>
@@ -49,11 +57,12 @@
 import { mapState, mapActions } from "vuex";
 import { LOGIN, LOGOUT } from "@/store/_actiontypes";
 import validations from "@/helpers/validations";
+import router from "@/router/index";
 
 export default {
   data() {
     return {
-      form: {
+      loginForm: {
         email: "test@demo.com",
         password: ""
       },
@@ -74,13 +83,16 @@ export default {
   },
   methods: {
     ...mapActions("account", [LOGIN, LOGOUT]),
-    handleSubmit() {
-      if (!this.$refs.loginform.validate()) return;
+    handleLoginSubmit() {
+      if (!this.$refs.loginForm.validate()) return;
 
-      const { email, password } = this.form;
+      const { email, password } = this.loginForm;
       if (email && password) {
         this.LOGIN({ email, password });
       }
+    },
+    handleRegisterClick() {
+      router.push("/register");
     }
   }
 };

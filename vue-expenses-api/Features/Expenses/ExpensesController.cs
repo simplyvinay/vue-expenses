@@ -42,7 +42,7 @@ namespace vue_expenses_api.Features.Expenses
 
         [HttpPost]
         public async Task<ExpenseDto> Create(
-            [FromBody] ExpenseCreate.Command command)
+            [FromBody] CreateExpense.Command command)
         {
             return await _mediator.Send(command);
         }
@@ -50,7 +50,7 @@ namespace vue_expenses_api.Features.Expenses
         [HttpPut("{id}")]
         public async Task<ExpenseDto> Update(
             int? id,
-            [FromBody] ExpenseUpdate.Command command)
+            [FromBody] UpdateExpense.Command command)
         {
             return await _mediator.Send(command);
         }
@@ -59,7 +59,7 @@ namespace vue_expenses_api.Features.Expenses
         public async Task Delete(
             int id)
         {
-            await _mediator.Send(new ExpenseDelete.Command(id));
+            await _mediator.Send(new DeleteExpense.Command(id));
         }
     }
 }

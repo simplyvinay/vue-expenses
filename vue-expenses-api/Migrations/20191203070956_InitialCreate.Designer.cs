@@ -9,7 +9,7 @@ using vue_expenses_api.Infrastructure;
 namespace vue_expenses_api.Migrations
 {
     [DbContext(typeof(ExpensesContext))]
-    [Migration("20191130111117_InitialCreate")]
+    [Migration("20191203070956_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,289 +66,289 @@ namespace vue_expenses_api.Migrations
                         {
                             Id = 1,
                             Archived = false,
-                            CategoryId = 4,
-                            CreatedAt = new DateTime(2019, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 1, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TypeId = 4,
-                            UpdatedAt = new DateTime(2019, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2019, 1, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 2,
+                            UpdatedAt = new DateTime(2019, 1, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 1481.09623369812m
+                            Value = 1403.46750426268m
                         },
                         new
                         {
                             Id = 2,
                             Archived = false,
-                            CategoryId = 3,
-                            CreatedAt = new DateTime(2019, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 4,
+                            CreatedAt = new DateTime(2019, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TypeId = 4,
-                            UpdatedAt = new DateTime(2019, 1, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2019, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 491.45149369326m
+                            Value = 791.256844667372m
                         },
                         new
                         {
                             Id = 3,
                             Archived = false,
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2019, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TypeId = 4,
-                            UpdatedAt = new DateTime(2019, 2, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2019, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 2, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 2,
+                            UpdatedAt = new DateTime(2019, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 1452.83474724406m
+                            Value = 99.009541607932m
                         },
                         new
                         {
                             Id = 4,
                             Archived = false,
                             CategoryId = 3,
-                            CreatedAt = new DateTime(2019, 2, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 2, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TypeId = 4,
-                            UpdatedAt = new DateTime(2019, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2019, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 2, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 2,
+                            UpdatedAt = new DateTime(2019, 2, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 1087.71644234085m
+                            Value = 1126.86389969981m
                         },
                         new
                         {
                             Id = 5,
                             Archived = false,
                             CategoryId = 4,
-                            CreatedAt = new DateTime(2019, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 3, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TypeId = 3,
-                            UpdatedAt = new DateTime(2019, 3, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2019, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 4,
+                            UpdatedAt = new DateTime(2019, 3, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 615.049501934578m
+                            Value = 835.003490017263m
                         },
                         new
                         {
                             Id = 6,
                             Archived = false,
-                            CategoryId = 4,
-                            CreatedAt = new DateTime(2019, 3, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2019, 3, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TypeId = 4,
-                            UpdatedAt = new DateTime(2019, 3, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2019, 3, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 1147.95312711408m
+                            Value = 672.835299360024m
                         },
                         new
                         {
                             Id = 7,
                             Archived = false,
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2019, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2019, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TypeId = 3,
-                            UpdatedAt = new DateTime(2019, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2019, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 917.354376948138m
+                            Value = 492.141799299112m
                         },
                         new
                         {
                             Id = 8,
                             Archived = false,
-                            CategoryId = 4,
-                            CreatedAt = new DateTime(2019, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TypeId = 2,
-                            UpdatedAt = new DateTime(2019, 4, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2019, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 4,
+                            UpdatedAt = new DateTime(2019, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 105.833950967451m
+                            Value = 334.451731217304m
                         },
                         new
                         {
                             Id = 9,
                             Archived = false,
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2019, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2019, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TypeId = 2,
-                            UpdatedAt = new DateTime(2019, 5, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2019, 5, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 1114.26524543868m
+                            Value = 1103.60175958071m
                         },
                         new
                         {
                             Id = 10,
                             Archived = false,
-                            CategoryId = 4,
-                            CreatedAt = new DateTime(2019, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TypeId = 4,
-                            UpdatedAt = new DateTime(2019, 5, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(2019, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 5, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 2,
+                            UpdatedAt = new DateTime(2019, 5, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 651.29653301616m
+                            Value = 833.508845108333m
                         },
                         new
                         {
                             Id = 11,
                             Archived = false,
-                            CategoryId = 3,
-                            CreatedAt = new DateTime(2019, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 6, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 4,
+                            CreatedAt = new DateTime(2019, 6, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 6, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TypeId = 3,
-                            UpdatedAt = new DateTime(2019, 6, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2019, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 452.825443797198m
+                            Value = 1454.17837749896m
                         },
                         new
                         {
                             Id = 12,
                             Archived = false,
-                            CategoryId = 3,
-                            CreatedAt = new DateTime(2019, 6, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 4,
+                            CreatedAt = new DateTime(2019, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Date = new DateTime(2019, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TypeId = 3,
-                            UpdatedAt = new DateTime(2019, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 4,
+                            UpdatedAt = new DateTime(2019, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 94.9888620967925m
+                            Value = 850.961542618909m
                         },
                         new
                         {
                             Id = 13,
                             Archived = false,
-                            CategoryId = 2,
-                            CreatedAt = new DateTime(2019, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TypeId = 4,
-                            UpdatedAt = new DateTime(2019, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2019, 7, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 7, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 3,
+                            UpdatedAt = new DateTime(2019, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 99.6778943108758m
+                            Value = 854.321417330914m
                         },
                         new
                         {
                             Id = 14,
                             Archived = false,
-                            CategoryId = 3,
-                            CreatedAt = new DateTime(2019, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TypeId = 2,
-                            UpdatedAt = new DateTime(2019, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 4,
+                            CreatedAt = new DateTime(2019, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 3,
+                            UpdatedAt = new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 241.126274569485m
+                            Value = 343.066516492081m
                         },
                         new
                         {
                             Id = 15,
                             Archived = false,
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2019, 8, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 8, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2019, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TypeId = 2,
-                            UpdatedAt = new DateTime(2019, 8, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2019, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 1225.00458090799m
+                            Value = 530.740105794156m
                         },
                         new
                         {
                             Id = 16,
                             Archived = false,
-                            CategoryId = 3,
-                            CreatedAt = new DateTime(2019, 8, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TypeId = 4,
-                            UpdatedAt = new DateTime(2019, 8, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(2019, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 2,
+                            UpdatedAt = new DateTime(2019, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 1014.34336370525m
+                            Value = 758.134676496561m
                         },
                         new
                         {
                             Id = 17,
                             Archived = false,
-                            CategoryId = 4,
-                            CreatedAt = new DateTime(2019, 9, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TypeId = 3,
-                            UpdatedAt = new DateTime(2019, 9, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(2019, 9, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 4,
+                            UpdatedAt = new DateTime(2019, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 1201.57336453049m
+                            Value = 922.086741506162m
                         },
                         new
                         {
                             Id = 18,
                             Archived = false,
-                            CategoryId = 2,
-                            CreatedAt = new DateTime(2019, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TypeId = 2,
-                            UpdatedAt = new DateTime(2019, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2019, 9, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 4,
+                            UpdatedAt = new DateTime(2019, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 1036.16591893889m
+                            Value = 1349.4523751314m
                         },
                         new
                         {
                             Id = 19,
                             Archived = false,
-                            CategoryId = 4,
-                            CreatedAt = new DateTime(2019, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TypeId = 2,
-                            UpdatedAt = new DateTime(2019, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2019, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 10, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 3,
+                            UpdatedAt = new DateTime(2019, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 1079.02304459318m
+                            Value = 440.349611658766m
                         },
                         new
                         {
                             Id = 20,
                             Archived = false,
-                            CategoryId = 2,
-                            CreatedAt = new DateTime(2019, 10, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 10, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TypeId = 2,
-                            UpdatedAt = new DateTime(2019, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2019, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 3,
+                            UpdatedAt = new DateTime(2019, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 129.617189816021m
+                            Value = 228.618344631334m
                         },
                         new
                         {
                             Id = 21,
                             Archived = false,
-                            CategoryId = 2,
-                            CreatedAt = new DateTime(2019, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TypeId = 4,
-                            UpdatedAt = new DateTime(2019, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 4,
+                            CreatedAt = new DateTime(2019, 11, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 2,
+                            UpdatedAt = new DateTime(2019, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 1115.76661612641m
+                            Value = 1391.87224064575m
                         },
                         new
                         {
                             Id = 22,
                             Archived = false,
-                            CategoryId = 4,
-                            CreatedAt = new DateTime(2019, 11, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 11, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TypeId = 4,
-                            UpdatedAt = new DateTime(2019, 11, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(2019, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 11, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 2,
+                            UpdatedAt = new DateTime(2019, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 1399.78958871206m
+                            Value = 168.342807641413m
                         },
                         new
                         {
                             Id = 23,
                             Archived = false,
-                            CategoryId = 3,
-                            CreatedAt = new DateTime(2019, 12, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CategoryId = 4,
+                            CreatedAt = new DateTime(2019, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TypeId = 4,
-                            UpdatedAt = new DateTime(2019, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2019, 12, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 96.7421746331929m
+                            Value = 1129.74741199508m
                         },
                         new
                         {
                             Id = 24,
                             Archived = false,
                             CategoryId = 4,
-                            CreatedAt = new DateTime(2019, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2019, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2019, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 12, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TypeId = 2,
-                            UpdatedAt = new DateTime(2019, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2019, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1,
-                            Value = 415.896273178932m
+                            Value = 1091.68861228586m
                         });
                 });
 
@@ -395,9 +395,9 @@ namespace vue_expenses_api.Migrations
                             Archived = false,
                             Budget = 2000m,
                             ColourHex = "#CE93D8",
-                            CreatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            CreatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             Name = "General Expenses",
-                            UpdatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            UpdatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             UserId = 1
                         },
                         new
@@ -406,9 +406,9 @@ namespace vue_expenses_api.Migrations
                             Archived = false,
                             Budget = 3000m,
                             ColourHex = "#64B5F6",
-                            CreatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            CreatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             Name = "Shopping",
-                            UpdatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            UpdatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             UserId = 1
                         },
                         new
@@ -417,9 +417,9 @@ namespace vue_expenses_api.Migrations
                             Archived = false,
                             Budget = 2500m,
                             ColourHex = "#26A69A",
-                            CreatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            CreatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             Name = "Utilities",
-                            UpdatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            UpdatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             UserId = 1
                         },
                         new
@@ -428,9 +428,9 @@ namespace vue_expenses_api.Migrations
                             Archived = false,
                             Budget = 1000m,
                             ColourHex = "#FB8C00",
-                            CreatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            CreatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             Name = "Travel",
-                            UpdatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            UpdatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             UserId = 1
                         });
                 });
@@ -470,36 +470,36 @@ namespace vue_expenses_api.Migrations
                         {
                             Id = 1,
                             Archived = false,
-                            CreatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            CreatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             Name = "Credit Card",
-                            UpdatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            UpdatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             UserId = 1
                         },
                         new
                         {
                             Id = 2,
                             Archived = false,
-                            CreatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            CreatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             Name = "Debit Card",
-                            UpdatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            UpdatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             UserId = 1
                         },
                         new
                         {
                             Id = 3,
                             Archived = false,
-                            CreatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            CreatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             Name = "Cheque",
-                            UpdatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            UpdatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             UserId = 1
                         },
                         new
                         {
                             Id = 4,
                             Archived = false,
-                            CreatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            CreatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             Name = "Cash",
-                            UpdatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            UpdatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             UserId = 1
                         });
                 });
@@ -583,16 +583,16 @@ namespace vue_expenses_api.Migrations
                         {
                             Id = 1,
                             Archived = false,
-                            CreatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            CreatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             CurrencyRegionName = "GB",
                             Email = "test@demo.com",
                             FirstName = "John",
                             FullName = "John Doe",
-                            Hash = new byte[] { 180, 148, 181, 234, 119, 66, 64, 255, 188, 216, 171, 34, 96, 152, 156, 57, 236, 236, 206, 115, 206, 89, 215, 98, 90, 63, 116, 27, 212, 87, 21, 14, 27, 14, 24, 164, 244, 218, 13, 142, 100, 206, 107, 78, 185, 197, 188, 61, 254, 164, 245, 5, 44, 145, 36, 166, 131, 242, 200, 34, 216, 234, 183, 55 },
+                            Hash = new byte[] { 87, 187, 231, 98, 18, 94, 234, 113, 35, 110, 119, 13, 89, 84, 4, 174, 99, 10, 173, 17, 131, 198, 189, 178, 105, 37, 173, 28, 112, 254, 45, 92, 142, 10, 75, 183, 131, 93, 232, 147, 9, 253, 122, 45, 214, 157, 245, 101, 78, 86, 210, 97, 54, 142, 199, 227, 150, 150, 50, 113, 32, 25, 213, 79 },
                             LastName = "Doe",
-                            Salt = new byte[] { 81, 140, 156, 185, 25, 149, 112, 64, 170, 29, 97, 209, 127, 212, 127, 25 },
+                            Salt = new byte[] { 52, 239, 132, 228, 105, 110, 101, 66, 183, 165, 173, 144, 153, 137, 12, 116 },
                             SystemName = "VueExpenses",
-                            UpdatedAt = new DateTime(2019, 11, 30, 11, 11, 16, 787, DateTimeKind.Local).AddTicks(6977),
+                            UpdatedAt = new DateTime(2019, 12, 3, 7, 9, 55, 787, DateTimeKind.Local).AddTicks(9411),
                             UseDarkMode = true
                         });
                 });

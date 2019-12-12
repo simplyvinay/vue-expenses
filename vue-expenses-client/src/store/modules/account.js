@@ -2,7 +2,7 @@ const localUser = JSON.parse(localStorage.getItem('user'));
 
 import Api from '@/services/api'
 import router from '@/router/index';
-import { LOGIN, LOGOUT, REFRESHTOKEN, EDIT_USER_DETAILS, EDIT_USER_SETTINGS, EDIT_USER_PROFILE, ADD_ALERT, LOAD_CURRENCIES } from '@/store/_actiontypes'
+import { LOGIN, LOGOUT, REGISTER, REFRESHTOKEN, EDIT_USER_DETAILS, EDIT_USER_SETTINGS, EDIT_USER_PROFILE, ADD_ALERT, LOAD_CURRENCIES } from '@/store/_actiontypes'
 import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER, UPDATE_USER_DETAILS, UPDATE_USER_SETTINGS, UPDATE_USER_PROFILE, SET_CURRENCIES } from '@/store/_mutationtypes'
 
 const state = {
@@ -23,6 +23,15 @@ const actions = {
             })
             .catch(() => {
                 commit(LOGIN_FAILURE);
+            });
+    },
+    [REGISTER]({ dispatch }, { email, firstName, lastName, password }) {
+        Api.post('/register', {
+            email, firstName, lastName, password
+        })
+            .then(() => {
+                dispatch(`alert/${ADD_ALERT}`, { message: 'User registered successfully', color: 'success' }, { root: true });
+                router.push('/login');
             });
     },
     [REFRESHTOKEN]({ commit }, { refreshtoken, token }) {
@@ -105,7 +114,7 @@ const mutations = {
         state.user.lastName = lastName;
         state.user.fullName = fullName;
     },
-    [SET_CURRENCIES](state, currencies){
+    [SET_CURRENCIES](state, currencies) {
         state.currencies = currencies;
     }
 };
