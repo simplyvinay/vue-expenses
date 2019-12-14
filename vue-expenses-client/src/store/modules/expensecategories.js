@@ -1,5 +1,5 @@
 import Api from '@/services/api'
-import { LOAD_CATEGORIES, CREATE_CATEGORY, EDIT_CATEGORY, REMOVE_CATEGORY, ADD_ALERT, CREATE_NEWCATEGORY_STATISTICS, EDIT_CATEGORY_STATISTICS, DELETE_CATEGORY_STATISTICS } from '@/store/_actiontypes'
+import { LOAD_CATEGORIES, CREATE_CATEGORY, EDIT_CATEGORY, REMOVE_CATEGORY, ADD_ALERT, CREATE_NEWCATEGORY_STATISTICS, EDIT_CATEGORY_STATISTICS, REMOVE_EXPENSESOFCATEGORY } from '@/store/_actiontypes'
 import { SET_CATEGORIES, ADD_CATEGORY, UPDATE_CATEGORY, DELETE_CATEGORY } from '@/store/_mutationtypes'
 
 const state = {
@@ -42,7 +42,7 @@ const actions = {
             .then(() => {
                 commit(DELETE_CATEGORY, id);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense category deleted successfully', color: 'success' }, { root: true });
-                dispatch(`statistics/${DELETE_CATEGORY_STATISTICS}`, { categoryId: id }, { root: true });
+                dispatch(`expenses/${REMOVE_EXPENSESOFCATEGORY}`, { categoryId: id }, { root: true });
             })
     },
 }
