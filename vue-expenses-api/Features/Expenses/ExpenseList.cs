@@ -59,9 +59,9 @@ namespace vue_expenses_api.Features.Expenses
                             FROM 
                                 Expenses e
                             INNER JOIN
-                                ExpenseCategories ec ON ec.Id = e.CategoryId
+                                ExpenseCategories ec ON ec.Id = e.CategoryId AND ec.Archived = 0
                             INNER JOIN
-                                ExpenseTypes et ON et.Id = e.TypeId
+                                ExpenseTypes et ON et.Id = e.TypeId AND et.Archived = 0
                             INNER JOIN
                                 Users u ON u.Id = e.UserId
                             WHERE 
