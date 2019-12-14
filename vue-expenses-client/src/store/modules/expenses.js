@@ -1,6 +1,6 @@
 import Api from '@/services/api'
-import { LOAD_EXPENSES, CREATE_EXPENSE, EDIT_EXPENSE, REMOVE_EXPENSE, ADD_ALERT, EDIT_STATISTICS } from '@/store/_actiontypes'
-import { SET_EXPENSES, ADD_EXPENSE, UPDATE_EXPENSE, DELETE_EXPENSE } from '@/store/_mutationtypes'
+import { LOAD_EXPENSES, CREATE_EXPENSE, EDIT_EXPENSE, REMOVE_EXPENSE, ADD_ALERT, EDIT_STATISTICS, REMOVE_EXPENSESOFTYPE, REMOVE_EXPENSESOFCATEGORY } from '@/store/_actiontypes'
+import { SET_EXPENSES, ADD_EXPENSE, UPDATE_EXPENSE, DELETE_EXPENSE, DELETE_EXPENSESOFTYPE, DELETE_EXPENSESOFCATEGORY } from '@/store/_mutationtypes'
 import sumBy from 'lodash/sumBy'
 import groupBy from 'lodash/groupBy'
 import map from 'lodash/map'
@@ -52,6 +52,12 @@ const actions = {
                 dispatch(`statistics/${EDIT_STATISTICS}`, { expense: expense, operation: 'remove' }, { root: true });
             })
     },
+    [REMOVE_EXPENSESOFTYPE]({commit}, { typeId }){
+        commit(DELETE_EXPENSESOFTYPE, typeId);
+    },
+    [REMOVE_EXPENSESOFCATEGORY]({commit}, { categoryId }){
+        commit(DELETE_EXPENSESOFCATEGORY, categoryId);
+    }
 }
 
 const mutations = {
@@ -73,6 +79,12 @@ const mutations = {
     },
     [DELETE_EXPENSE](state, id) {
         state.expenses = state.expenses.filter(ec => ec.id != id)
+    },
+    [DELETE_EXPENSESOFTYPE](state, typeId){
+        state.expenses = state.expenses.filter(ec => ec.typeId != typeId)
+    },
+    [DELETE_EXPENSESOFCATEGORY](state, categoryId){
+        state.expenses = state.expenses.filter(ec => ec.categoryId != categoryId)
     }
 }
 
@@ -82,7 +94,7 @@ const getters = {
         return `${rootState.account.user.displayCurrency} ${overallSpent}`
     },
     mostSpentBy: state => {
-        return orderBy(
+        return state.expenses.length <= 0 ? 'N/A' : orderBy(
             map(
                 groupBy(state.expenses, (e) => {
                     return e.type
@@ -92,7 +104,7 @@ const getters = {
                 })), ['value'], ['desc'])[0].type;
     },
     mostSpentOn: state => {
-        return orderBy(
+        return state.expenses.length <= 0 ? 'N/A' : orderBy(
             map(
                 groupBy(state.expenses, (e) => {
                     return e.category

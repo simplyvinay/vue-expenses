@@ -59,6 +59,8 @@ namespace vue_expenses_api.Features.Statistics
 	                            Expenses e ON e.TypeId = et.Id 
 					                    AND STRFTIME('%Y', e.Date) = '{request.Year}' 
 					                    {monthConstraint}
+                                        AND e.Archived = 0
+                                        AND (SELECT Id FROM ExpenseCategories WHERE Id = e.CategoryId AND Archived = 0) = e.CategoryId
                             WHERE	
                                 u.Email = @userEmailId
 	                            AND et.Archived = 0

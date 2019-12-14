@@ -64,6 +64,7 @@ namespace vue_expenses_api.Features.Statistics
 									AND STRFTIME('%Y', e.Date) = STRFTIME('%Y', DATE('now'))
 									--AND STRFTIME('%m', e.Date) <= STRFTIME('%m', DATE('now'))
 									AND STRFTIME('%m', e.Date) = month
+									AND (SELECT Id FROM ExpenseTypes WHERE Id = e.TypeId AND Archived = 0) = e.TypeId
 							WHERE
 								u.Email = @userEmailId  
 								AND ec.Archived = 0

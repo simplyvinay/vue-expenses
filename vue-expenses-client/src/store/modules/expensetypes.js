@@ -1,5 +1,5 @@
 import Api from '@/services/api'
-import { LOAD_EXPENSE_TYPES, CREATE_EXPENSE_TYPE, EDIT_EXPENSE_TYPE, REMOVE_EXPENSE_TYPE, ADD_ALERT } from '@/store/_actiontypes'
+import { LOAD_EXPENSE_TYPES, CREATE_EXPENSE_TYPE, EDIT_EXPENSE_TYPE, REMOVE_EXPENSE_TYPE, ADD_ALERT, REMOVE_EXPENSESOFTYPE, LOAD_CATEGORIES_BREAKDOWN, LOAD_EXPENSES_BREAKDOWN } from '@/store/_actiontypes'
 import { SET_EXPENSE_TYPE, ADD_EXPENSE_TYPE, UPDATE_EXPENSE_TYPE, DELETE_EXPENSE_TYPE } from '@/store/_mutationtypes'
 
 const state = {
@@ -38,6 +38,9 @@ const actions = {
             .then(() => {
                 commit(DELETE_EXPENSE_TYPE, id);
                 dispatch(`alert/${ADD_ALERT}`, { message: 'Expense type deleted successfully', color: 'success' }, { root: true });
+                dispatch(`expenses/${REMOVE_EXPENSESOFTYPE}`, { typeId: id }, { root: true });
+                dispatch(`statistics/${LOAD_CATEGORIES_BREAKDOWN}`, {}, { root: true });
+                dispatch(`statistics/${LOAD_EXPENSES_BREAKDOWN}`, {}, { root: true });
             })
     },
 }
