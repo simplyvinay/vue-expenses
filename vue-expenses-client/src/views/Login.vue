@@ -4,6 +4,9 @@
       <v-container fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
+            <v-alert dense dark border="bottom" >
+              Please note that the data will be reset at regular intervals.
+            </v-alert>          
             <v-card tile>
               <v-toolbar flat color="primary" dark>
                 <v-toolbar-title>Login</v-toolbar-title>
@@ -64,7 +67,7 @@ export default {
     return {
       loginForm: {
         email: "test@demo.com",
-        password: ""
+        password: "test"
       },
       showPassword: false,
       ...validations
