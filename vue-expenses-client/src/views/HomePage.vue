@@ -92,4 +92,8 @@ export default {
 .v-text-field__slot {
   font-size: smaller;
 }
+
+.theme--light.v-application{
+  background-color: #FAFAFA;
+}
 </style>
