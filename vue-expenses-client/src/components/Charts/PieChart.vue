@@ -42,7 +42,7 @@ export default {
   computed: {
     options() {
       return {
-        backgroundColor: this.$vuetify.theme.dark ? "#424242" : "",
+        backgroundColor: this.$vuetify.theme.dark ? "#1E1E1E" : "",
         textStyle: {
           fontFamily: "Nunito"
         },

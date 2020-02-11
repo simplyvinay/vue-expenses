@@ -3,7 +3,7 @@
     <v-container>
       <v-layout row justify-space-between>
         <v-flex xs12 md6>
-          <v-card class="pa-2 mr-2" raised>
+          <v-card class="pa-2 mr-2" raised min-height="350px">
             <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Add New Expense</div>
             <v-divider></v-divider>
             <ExpenseForm
