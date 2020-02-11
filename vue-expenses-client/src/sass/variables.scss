@@ -1,2 +1,13 @@
 $body-font-family: 'Nunito', sans-serif !default;
 $font-size-root: 16px !default;
+
+$material-light: ('background': #FAFAFA);
+
+$material-dark: (
+  'app-bar': #424242,
+  'bottom-navigation': #424242,
+  'background': #303030,
+  'cards': #424242,
+  'navigation-drawer': #424242,
+  'toolbar': #424242
+);
