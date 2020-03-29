@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using vue_expenses_api.Domain;
 using vue_expenses_api.Infrastructure.Security;
 
@@ -13,14 +14,17 @@ namespace vue_expenses_api.Infrastructure
     {
         private readonly IConfiguration _configuration;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly ILoggerFactory _loggerFactory;
 
         public ExpensesContext(
             DbContextOptions options,
             IConfiguration configuration,
-            IPasswordHasher passwordHasher) : base(options)
+            IPasswordHasher passwordHasher,
+            ILoggerFactory loggerFactory) : base(options)
         {
             _configuration = configuration;
             _passwordHasher = passwordHasher;
+            _loggerFactory = loggerFactory;
         }
 
         public DbSet<User> Users { get; set; }
@@ -33,6 +37,7 @@ namespace vue_expenses_api.Infrastructure
             DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite(_configuration.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseLoggerFactory(_loggerFactory);
         }
 
         public override Task<int> SaveChangesAsync(
