@@ -27,7 +27,7 @@
       </span>
       <v-spacer class="hidden-md-and-up"></v-spacer>
       <v-toolbar-title class="text-uppercase">
-        <router-link to="/dashboard" tag="span" style="cursor: pointer" class="headline">
+        <router-link to="/dashboard" tag="span" style="cursor: pointer" class="text-h5">
           <!-- <span class="grey--text text--lighten-1">Vue</span> -->
           <span class="font-weight-bold">{{ systemName }}</span>
         </router-link>
@@ -69,7 +69,7 @@
           <span>
             <v-icon small class="blue--text mr-1">{{ item.icon }}</v-icon>
           </span>
-          <span class="mt-1 subtitle-2 text-capitalize">{{ item.text }}</span>
+          <span class="mt-1 text-subtitle-2 text-capitalize">{{ item.text }}</span>
         </v-btn>
       </v-toolbar-items>
     </v-app-bar>

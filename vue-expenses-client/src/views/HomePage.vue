@@ -5,9 +5,9 @@
       pt-2
       :class="{'singleAppbar': $vuetify.breakpoint.smAndDown, 'doubleAppbar': $vuetify.breakpoint.mdAndUp}"
     >
-      <v-content class="pt-1 pl-1">
+      <v-main class="pt-1 pl-1">
         <router-view></router-view>
-      </v-content>
+      </v-main>
     </v-container>
   </div>
 </template>

@@ -34,7 +34,7 @@
               :centerY="50"
               :pieRadiusOuter="75"
             />
-            <div class="d-flex justify-space-around subtitle-2 px-12 mx-12">
+            <div class="d-flex justify-space-around text-subtitle-2 px-12 mx-12">
               <div>
                 <div>Limit</div>
                 <div>{{`${user.displayCurrency} ${monthlyBudget.totalBudget}`}}</div>
