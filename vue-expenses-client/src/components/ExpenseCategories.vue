@@ -17,7 +17,7 @@
           </template>
           <v-card>
             <v-card-title>
-              <span class="headline">{{ categoryFormTitle }}</span>
+              <span class="text-h5">{{ categoryFormTitle }}</span>
             </v-card-title>
 
             <v-card-text>
