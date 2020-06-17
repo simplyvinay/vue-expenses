@@ -2,7 +2,9 @@
   <v-app>
     <v-snackbar v-model="alert.show" :color="alert.color" top>
       {{alert.message}}
-      <v-icon small dark @click="alert.show = false">close</v-icon>
+      <template v-slot:action="{ attrs }">
+        <v-icon small dark v-bind="attrs" @click="alert.show = false">close</v-icon>
+      </template>
     </v-snackbar>
     <router-view></router-view>
   </v-app>
