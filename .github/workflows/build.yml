@@ -1,0 +1,41 @@
+name: Master Build
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v1
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - name: Install dependencies
+      working-directory: ./vue-expenses-client
+      run: | 
+        npm install
+    - name: Build client project
+      working-directory: ./vue-expenses-client
+      run: | 
+        npm run build --if-present
+      env:
+        CI: true
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.100' # SDK Version to use.
+    - name: Restore dependencies
+      working-directory: ./vue-expenses-api
+      run: | 
+        dotnet restore
+    - name: Build server project
+      working-directory: ./vue-expenses-api
+      run: | 
+        dotnet build    
