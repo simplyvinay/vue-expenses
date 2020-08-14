@@ -38,7 +38,6 @@ Please note that you can change the theme in the settings page and the data on t
 - [ASP.NET Core JWT Bearer Authentication](https://github.com/aspnet/Security) for [JWT](https://jwt.io/) authentication with support for [refresh tokens](https://tools.ietf.org/html/rfc6749#section-1.5).
 - [Serilog](https://github.com/serilog/serilog) for logging
 - Reference architecture [ContosoUniversity](https://github.com/jbogard/ContosoUniversityDotNetCore)
-- Feature folders and vertical slices
 
 ### Client Side
 
@@ -48,7 +47,7 @@ Please note that you can change the theme in the settings page and the data on t
 - [Axios](https://github.com/axios/axios) for HTTP requests
 - [Vuetify](https://github.com/vuetifyjs/vuetify) as component framework
 - [Lodash](https://github.com/lodash/lodash) for client side utility
-- [Vue-echarts](https://github.com/ecomfe/vue-echarts) for [Echarts](https://echarts.apache.org/en/index.html)
+- [Vue-echarts](https://github.com/ecomfe/vue-echarts) ([Echarts](https://echarts.apache.org/en/index.html)) for charting
 
 # Screenshots
 
