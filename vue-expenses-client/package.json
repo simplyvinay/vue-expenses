@@ -9,12 +9,12 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "core-js": "^3.6.4",
+    "core-js": "^3.7.0",
     "echarts": "^4.9.0",
     "lodash": "^4.17.20",
     "vue": "^2.6.12",
     "vue-echarts": "^4.1.0",
-    "vue-router": "^3.4.8",
+    "vue-router": "^3.4.9",
     "vuetify": "^2.3.16",
     "vuex": "^3.5.1"
   },
@@ -30,7 +30,7 @@
     "http-proxy": ">=1.18.1",
     "node-forge": ">=0.10.0",
     "node-sass": "^4.14.1",
-    "sass": "^1.28.0",
+    "sass": "^1.29.0",
     "sass-loader": "^8.0.2",
     "serialize-javascript": "^3.1.0",
     "vue-cli-plugin-vuetify": "^1.1.2",
