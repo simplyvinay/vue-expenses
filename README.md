@@ -14,7 +14,7 @@
 
 # Vue Expenses
 
-A simple expenses tracking application built with VueJs and .NET Core
+A simple expenses tracking application built with VueJs and .NET
 
 ### Demo
 
@@ -28,7 +28,7 @@ Please note that you can change the theme in the settings page and the data on t
 
 ### Server Side
 
-- [.NET Core 3.0](https://github.com/dotnet/core) for server side API
+- [.NET 5.0](https://github.com/dotnet/core) for server side API
 - [Fluent Validation](https://github.com/JeremySkinner/FluentValidation)
 - CQRS
   - [MediatR](https://github.com/jbogard/MediatR)
