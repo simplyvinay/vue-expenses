@@ -119,10 +119,10 @@ Please note that you can change the theme in the settings page and the data on t
 - `productionSourceMap`: `false`
   - Generates source map file when building for production, this can be changed in `vue.config.js` file
 
-- `outputDir`: comment out by default
+- `outputDir`: commented out by default
   - Where the built files will be copied over, this can be changed in `vue.config.js` file
 
-- `assetsDir`: comment out by default
+- `assetsDir`: commented out by default
   - Where the built minified css/js files will be copied over, this path is relative path from the `outputDir`, this can be changed in `vue.config.js` file
 
 # Future Enhancements
