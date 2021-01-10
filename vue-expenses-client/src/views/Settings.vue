@@ -4,13 +4,13 @@
       <v-layout row justify-space-between>
         <v-flex xs12>
           <v-layout row justify-space-between>
-            <v-flex xs12 md4>
+            <v-flex xs12 md4 my-3>
               <v-card class="pa-2 mr-2" flat min-height="340px" height="100%">
                 <div
                   class="blue--text px-2 py-1 text-capitalize font-weight-medium"
                 >General Settings</div>
                 <v-divider></v-divider>
-                <v-form class="xs12">
+                <v-form class="xs12 my-1">
                   <v-container>
                     <v-text-field
                       label="System Name"
@@ -48,7 +48,7 @@
                 </v-form>
               </v-card>
             </v-flex>
-            <v-flex xs12 md8>
+            <v-flex xs12 md8 my-3>
               <v-card
                 :class="{'pa-2 mr-2 mt-2': $vuetify.breakpoint.smAndDown, 'pa-2 mr-2': $vuetify.breakpoint.mdAndUp}"
                 flat
@@ -64,8 +64,8 @@
         <v-flex xs12>
           <v-container px-0 pb-0>
             <v-layout row justify-space-between>
-              <v-flex xs12>
-                <v-card class="pa-2 mr-2" flat min-height="340px" height="100%">
+              <v-flex xs12 >
+                <v-card class="pa-2 mr-2 my-3" flat min-height="340px" height="100%">
                   <ExpenseCategories />
                 </v-card>
               </v-flex>
