@@ -2,7 +2,7 @@
   <v-form class="mt-1" ref="expenseform">
     <v-container>
       <v-row>
-        <v-col cols="12" md="6" class="py-0 ma-0">
+        <v-col cols="12" md="6" class="py-0 ma-0 my-3">
           <input type="hidden" v-model="expense.id" />
           <v-autocomplete
             v-model="expense.categoryId"
@@ -16,7 +16,7 @@
             :rules="[required('Category')]"
           ></v-autocomplete>
         </v-col>
-        <v-col cols="12" md="6" class="py-0 ma-0">
+        <v-col cols="12" md="6" class="py-0 ma-0 my-3">
           <v-menu v-model="dateMenu" :close-on-content-click="false" max-width="290">
             <template v-slot:activator="{ on }">
               <v-text-field
@@ -64,7 +64,7 @@
         :auto-grow="true"
         required
         clearable
-        class="ma-0 pa-0 form-label"
+        class="ma-0 pa-0 form-label my-3"
         dense
       ></v-textarea>
       <v-row class="justify-end">

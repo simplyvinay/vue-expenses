@@ -6,7 +6,7 @@
           <v-card class="pa-2 mr-2" flat height="100%">
             <div class="blue--text px-2 py-1 text-capitalize font-weight-medium">Profile</div>
             <v-divider></v-divider>
-            <v-form class="xs12">
+            <v-form class="xs12 my-1">
               <v-container>
                 <v-text-field
                   label="Email"
