@@ -17,7 +17,7 @@
           </div>
           <v-divider></v-divider>
           <v-container>
-            <v-layout row wrap>
+            <v-layout row wrap my-0>
               <v-flex xs12 md6 mt-4>
                 <v-data-table
                   height="280px"

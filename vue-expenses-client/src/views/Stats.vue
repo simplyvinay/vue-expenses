@@ -35,17 +35,17 @@
             <div class="text-h6 blue--text text-capitalize">{{spentThisYear}}</div>
           </v-card>
         </v-flex>
-        <v-flex xs12 md12>
+        <v-flex xs12 md12 my-3>
           <v-flex>
             <ExpensesStats :years="getYears()" :theme="theme" />
           </v-flex>
         </v-flex>
-        <v-flex xs12 md12>
+        <v-flex xs12 md12 my-3>
           <v-flex>
             <ExpenseCategoryStats :years="getYears()" :months="months" :theme="theme" />
           </v-flex>
         </v-flex>
-        <v-flex xs12 md12>
+        <v-flex xs12 md12 my-3>
           <v-flex>
             <ExpenseTypeStats :years="getYears()" :months="months" :theme="theme" />
           </v-flex>
