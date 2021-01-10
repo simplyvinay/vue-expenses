@@ -6,7 +6,7 @@
         <v-icon small dark v-bind="attrs" @click="alert.show = false">close</v-icon>
       </template>
     </v-snackbar>
-    <router-view></router-view>
+    <router-view class="my-3"></router-view>
   </v-app>
 </template>
 
