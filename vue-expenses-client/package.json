@@ -14,9 +14,9 @@
     "lodash": "^4.17.20",
     "vue": "^2.6.12",
     "vue-echarts": "^4.1.0",
-    "vue-router": "^3.4.9",
-    "vuetify": "^2.4.3",
-    "vuex": "^3.6.0"
+    "vue-router": "^3.5.1",
+    "vuetify": "^2.4.4",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.11",
@@ -30,12 +30,12 @@
     "http-proxy": ">=1.18.1",
     "node-forge": ">=0.10.0",
     "node-sass": "^4.14.1",
-    "sass": "^1.32.5",
+    "sass": "^1.32.7",
     "sass-loader": "^8.0.2",
     "serialize-javascript": "^3.1.0",
     "vue-cli-plugin-vuetify": "^1.1.2",
     "vue-template-compiler": "^2.6.12",
-    "vuetify-loader": "^1.6.0"
+    "vuetify-loader": "^1.7.2"
   },
   "eslintConfig": {
     "root": true,
