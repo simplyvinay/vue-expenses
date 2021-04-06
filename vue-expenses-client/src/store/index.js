@@ -7,6 +7,9 @@ import { expenseTypes } from '@/store/modules/expensetypes';
 import { expenseCategories } from '@/store/modules/expensecategories';
 import { expenses } from '@/store/modules/expenses';
 import { statistics } from '@/store/modules/statistics';
+import createPersistedState from "vuex-persistedstate";
+import SecureLS from "secure-ls";
+const ls = new SecureLS({ isCompression: false });
 
 Vue.use(Vuex);
 
@@ -19,7 +22,16 @@ const store = new Vuex.Store({
         expenseCategories,
         expenses,
         statistics
-    }
+    },
+    plugins: [
+        createPersistedState({
+          storage: {
+            getItem: key => ls.get(key),
+            setItem: (key, value) => ls.set(key, value),
+            removeItem: key => ls.remove(key)
+          }
+        })
+      ],
 });
 
 export default store;
