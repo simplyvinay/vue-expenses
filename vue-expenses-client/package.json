@@ -9,13 +9,13 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "core-js": "^3.9.1",
+    "core-js": "^3.10.0",
     "echarts": "^4.9.0",
     "lodash": "^4.17.21",
     "vue": "^2.6.12",
     "vue-echarts": "^4.1.0",
     "vue-router": "^3.5.1",
-    "vuetify": "^2.4.8",
+    "vuetify": "^2.4.9",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
