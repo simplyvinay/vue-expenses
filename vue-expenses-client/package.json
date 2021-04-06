@@ -12,11 +12,13 @@
     "core-js": "^3.10.0",
     "echarts": "^4.9.0",
     "lodash": "^4.17.21",
+    "secure-ls": "^1.2.6",
     "vue": "^2.6.12",
     "vue-echarts": "^4.1.0",
     "vue-router": "^3.5.1",
     "vuetify": "^2.4.9",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "vuex-persistedstate": "^4.0.0-beta.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.12",

@@ -12,7 +12,7 @@ let api = axios.create({
 
 api.interceptors.request.use((request) => {
     //add authorization header with jwt token to each request
-    let user = JSON.parse(localStorage.getItem('user'))
+    let user = store.state.account.user;
     if (user && user.token) {
         request.headers['Authorization'] = `Bearer ${user.token}`
     }
@@ -36,7 +36,7 @@ api.interceptors.response.use((response) => {
         });
     }
     else if (error.response && error.response.status === 401 && error.response.headers['token-expired']) {
-        let user = JSON.parse(localStorage.getItem('user'))
+        let user = store.state.account.user;
         if (user && user.refreshToken) {
             const originalRequest = error.config;
             if (!isRefreshingToken) {
@@ -53,7 +53,7 @@ api.interceptors.response.use((response) => {
 
             const retryOriginalRequest = new Promise((resolve) => {
                 addCallback(() => {
-                    originalRequest.headers.Authorization = `Bearer ${store.state.account.user.token}`
+                    originalRequest.headers.Authorization = `Bearer ${user.token}`
                     resolve(api(originalRequest))
                 })
             })

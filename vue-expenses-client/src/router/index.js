@@ -8,6 +8,7 @@ import Expenses from '@/views/Expenses.vue'
 import Stats from '@/views/Stats.vue'
 import Settings from '@/views/Settings.vue'
 import Profile from '@/views/Profile.vue'
+import store from '@/store/index.js'
 
 Vue.use(Router)
 
@@ -44,7 +45,7 @@ router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const publicPages = ['/login', '/register'];
   const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem('user');
+  const loggedIn = store.state.account.user != undefined && store.state.account.user != null;
 
   if (authRequired && !loggedIn) {
     return next('/login');
