@@ -42,7 +42,7 @@ Please note that you can change the theme in the settings page and the data on t
 ### Client Side
 
 - [VueJs](https://github.com/vuejs/vue) for client application
-- [Vuex](https://github.com/vuejs/vuex) for state management
+- [Vuex](https://github.com/vuejs/vuex) with [Vuex-persistedstate](https://github.com/robinvdvleuten/vuex-persistedstate) for state management
 - [Vue-router](https://github.com/vuejs/vue-router) for client routing
 - [Axios](https://github.com/axios/axios) for HTTP requests
 - [Vuetify](https://github.com/vuetifyjs/vuetify) as component framework
