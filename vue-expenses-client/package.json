@@ -32,7 +32,7 @@
     "http-proxy": ">=1.18.1",
     "node-forge": ">=0.10.0",
     "node-sass": "^4.14.1",
-    "sass": "^1.35.1",
+    "sass": "^1.35.2",
     "sass-loader": "^8.0.2",
     "serialize-javascript": "^3.1.0",
     "vue-cli-plugin-vuetify": "^1.1.2",
