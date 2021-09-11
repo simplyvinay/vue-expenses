@@ -8,17 +8,17 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "core-js": "^3.16.4",
+    "axios": "^0.21.4",
+    "core-js": "^3.17.3",
     "echarts": "^4.9.0",
     "lodash": "^4.17.21",
     "secure-ls": "^1.2.6",
     "vue": "^2.6.14",
     "vue-echarts": "^4.1.0",
     "vue-router": "^3.5.2",
-    "vuetify": "^2.5.6",
+    "vuetify": "^2.5.8",
     "vuex": "^3.6.2",
-    "vuex-persistedstate": "^4.0.0-beta.3"
+    "vuex-persistedstate": "^4.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.13",
@@ -31,13 +31,13 @@
     "eslint-plugin-vue": "^5.0.0",
     "http-proxy": ">=1.18.1",
     "node-forge": ">=0.10.0",
-    "node-sass": "^4.14.1",
-    "sass": "^1.35.2",
+    "node-sass": "^6.0.1",
+    "sass": "^1.39.2",
     "sass-loader": "^8.0.2",
     "serialize-javascript": "^3.1.0",
     "vue-cli-plugin-vuetify": "^1.1.2",
     "vue-template-compiler": "^2.6.14",
-    "vuetify-loader": "^1.7.2"
+    "vuetify-loader": "^1.7.3"
   },
   "eslintConfig": {
     "root": true,
