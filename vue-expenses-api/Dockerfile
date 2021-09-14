@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:latest AS build-env
 WORKDIR /app
 
 ENV PATH="$PATH:$HOME/.dotnet/tools/"
