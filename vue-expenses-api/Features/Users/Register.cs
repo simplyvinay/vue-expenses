@@ -87,7 +87,7 @@ namespace vue_expenses_api.Features.Users
                     request.LastName,
                     request.Email,
                     _passwordHasher.Hash(
-                        "test",
+                        request.Password,
                         salt),
                     salt);
 
