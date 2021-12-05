@@ -26,3 +26,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.container {
+  max-width: 1185px !important;
+}
+</style>
