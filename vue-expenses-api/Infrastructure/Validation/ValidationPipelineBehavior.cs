@@ -9,7 +9,7 @@ namespace vue_expenses_api.Infrastructure.Validation
 {
     //https://stackoverflow.com/a/42289038
     public class ValidationPipelineBehavior<TRequest, TResponse>
-        : IPipelineBehavior<TRequest, TResponse>
+        : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
     {
         private readonly List<IValidator<TRequest>> _validators;
 
