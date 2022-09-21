@@ -16,7 +16,7 @@
     "vue": "^2.6.14",
     "vue-echarts": "^4.1.0",
     "vue-router": "^3.5.4",
-    "vuetify": "^2.6.6",
+    "vuetify": "^2.6.10",
     "vuex": "^3.6.2",
     "vuex-persistedstate": "^4.1.0"
   },
