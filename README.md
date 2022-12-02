@@ -16,13 +16,15 @@
 
 A simple expenses tracking application built with VueJs and .NET
 
-### Demo
+~~### Demo~~
 
-[Vue Expenses](https://vue-expense.herokuapp.com)
-- Username: `test@demo.com`
-- Password: `test`
+~~[Vue Expenses](https://vue-expense.herokuapp.com)~~
 
-Please note that you can change the theme in the settings page and the data on the demo website will be reset at regular intervals
+~~- Username: `test@demo.com`~~
+
+~~- Password: `test`~~
+
+~~Please note that you can change the theme in the settings page and the data on the demo website will be reset at regular intervals~~
 
 # Tech Stack
 
