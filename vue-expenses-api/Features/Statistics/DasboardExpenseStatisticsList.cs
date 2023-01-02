@@ -8,35 +8,35 @@ using MediatR;
 using vue_expenses_api.Dtos;
 using vue_expenses_api.Infrastructure.Security;
 
-namespace vue_expenses_api.Features.Statistics
+namespace vue_expenses_api.Features.Statistics;
+
+public class DasboardExpenseStatisticsList
 {
-    public class DasboardExpenseStatisticsList
+    public class ExpensesByCategoryThisYearQuery : IRequest<List<ExpenseByCategoryStatisticsDto>>
     {
-        public class ExpensesByCategoryThisYearQuery : IRequest<List<ExpenseByCategoryStatisticsDto>>
+        public ExpensesByCategoryThisYearQuery()
         {
-            public ExpensesByCategoryThisYearQuery()
-            {
-            }
+        }
+    }
+
+    public class QueryHandler : IRequestHandler<ExpensesByCategoryThisYearQuery, List<ExpenseByCategoryStatisticsDto>>
+    {
+        private readonly IDbConnection _dbConnection;
+        private readonly ICurrentUser _currentUser;
+
+        public QueryHandler(
+            IDbConnection dbConnection,
+            ICurrentUser currentUser)
+        {
+            _dbConnection = dbConnection;
+            _currentUser = currentUser;
         }
 
-        public class QueryHandler : IRequestHandler<ExpensesByCategoryThisYearQuery, List<ExpenseByCategoryStatisticsDto>>
+        public async Task<List<ExpenseByCategoryStatisticsDto>> Handle(
+            ExpensesByCategoryThisYearQuery request,
+            CancellationToken cancellationToken)
         {
-            private readonly IDbConnection _dbConnection;
-            private readonly ICurrentUser _currentUser;
-
-            public QueryHandler(
-                IDbConnection dbConnection,
-                ICurrentUser currentUser)
-            {
-                _dbConnection = dbConnection;
-                _currentUser = currentUser;
-            }
-
-            public async Task<List<ExpenseByCategoryStatisticsDto>> Handle(
-                ExpensesByCategoryThisYearQuery request,
-                CancellationToken cancellationToken)
-            {
-                var sql = $@"SELECT
+            var sql = $@"SELECT
                                 ec.Id AS Id, 
 	                            ec.Name AS CategoryName,
 	                            ec.ColourHex AS CategoryColour,
@@ -62,15 +62,14 @@ namespace vue_expenses_api.Features.Statistics
                             ORDER BY 
                                 Month";
 
-                var expenses = await _dbConnection.QueryAsync<ExpenseByCategoryStatisticsDto>(
-                    sql,
-                    new
-                    {
-                        userEmailId = _currentUser.EmailId
-                    });
+            var expenses = await _dbConnection.QueryAsync<ExpenseByCategoryStatisticsDto>(
+                sql,
+                new
+                {
+                    userEmailId = _currentUser.EmailId
+                });
 
-                return expenses.ToList();
-            }
+            return expenses.ToList();
         }
     }
 }

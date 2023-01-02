@@ -7,55 +7,54 @@ using MediatR;
 using vue_expenses_api.Dtos;
 using vue_expenses_api.Infrastructure.Exceptions;
 
-namespace vue_expenses_api.Features.Expenses
-{
-    public class ExpenseDetails
-    {
-        public class Query : IRequest<ExpenseDto>
-        {
-            public Query(
-                int id)
-            {
-                Id = id;
-            }
+namespace vue_expenses_api.Features.Expenses;
 
-            public int Id { get; set; }
+public class ExpenseDetails
+{
+    public class Query : IRequest<ExpenseDto>
+    {
+        public Query(
+            int id)
+        {
+            Id = id;
         }
 
-        public class QueryHandler : IRequestHandler<Query, ExpenseDto>
+        public int Id { get; set; }
+    }
+
+    public class QueryHandler : IRequestHandler<Query, ExpenseDto>
+    {
+        private readonly IDbConnection _dbConnection;
+
+        public QueryHandler(
+            IDbConnection dbConnection)
         {
-            private readonly IDbConnection _dbConnection;
+            _dbConnection = dbConnection;
+        }
 
-            public QueryHandler(
-                IDbConnection dbConnection)
-            {
-                _dbConnection = dbConnection;
-            }
+        public async Task<ExpenseDto> Handle(
+            Query message,
+            CancellationToken cancellationToken)
+        {
+            var sql = "SELECT * FROM Expense WHERE Id=@id";
+            var expense = await _dbConnection.QuerySingleOrDefaultAsync<ExpenseDto>(
+                sql,
+                new
+                {
+                    id = message.Id
+                });
 
-            public async Task<ExpenseDto> Handle(
-                Query message,
-                CancellationToken cancellationToken)
+            if (expense == null)
             {
-                var sql = "SELECT * FROM Expense WHERE Id=@id";
-                var expense = await _dbConnection.QuerySingleOrDefaultAsync<ExpenseDto>(
-                    sql,
+                throw new HttpException(
+                    HttpStatusCode.NotFound,
                     new
                     {
-                        id = message.Id
+                        Error = "Couldn't find the expense record."
                     });
-
-                if (expense == null)
-                {
-                    throw new HttpException(
-                        HttpStatusCode.NotFound,
-                        new
-                        {
-                            Error = "Couldn't find the expense record."
-                        });
-                }
-
-                return expense;
             }
+
+            return expense;
         }
     }
 }

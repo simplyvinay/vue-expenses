@@ -6,60 +6,59 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using vue_expenses_api.Dtos;
 
-namespace vue_expenses_api.Features.Expenses
+namespace vue_expenses_api.Features.Expenses;
+
+[Route("expenses")]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+public class ExpensesController : Controller
 {
-    [Route("expenses")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class ExpensesController : Controller
+    private readonly IMediator _mediator;
+
+    public ExpensesController(
+        IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public ExpensesController(
-            IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
-        [HttpGet]
-        public async Task<List<ExpenseDto>> Get()
-        {
-            return await _mediator.Send(new ExpenseList.Query());
-        }
+    [HttpGet]
+    public async Task<List<ExpenseDto>> Get()
+    {
+        return await _mediator.Send(new ExpenseList.Query());
+    }
         
-        [HttpGet]
-        [Route("getbyyear/{year}")]
-        public async Task<List<ExpenseDto>> GetByYear(int year)
-        {
-            return await _mediator.Send(new ExpenseList.Query(year));
-        }
+    [HttpGet]
+    [Route("getbyyear/{year}")]
+    public async Task<List<ExpenseDto>> GetByYear(int year)
+    {
+        return await _mediator.Send(new ExpenseList.Query(year));
+    }
 
-        [HttpGet("{id}")]
-        public async Task<ExpenseDto> Get(
-            int id)
-        {
-            return await _mediator.Send(new ExpenseDetails.Query(id));
-        }
+    [HttpGet("{id}")]
+    public async Task<ExpenseDto> Get(
+        int id)
+    {
+        return await _mediator.Send(new ExpenseDetails.Query(id));
+    }
 
-        [HttpPost]
-        public async Task<ExpenseDto> Create(
-            [FromBody] CreateExpense.Command command)
-        {
-            return await _mediator.Send(command);
-        }
+    [HttpPost]
+    public async Task<ExpenseDto> Create(
+        [FromBody] CreateExpense.Command command)
+    {
+        return await _mediator.Send(command);
+    }
 
-        [HttpPut("{id}")]
-        public async Task<ExpenseDto> Update(
-            int? id,
-            [FromBody] UpdateExpense.Command command)
-        {
-            return await _mediator.Send(command);
-        }
+    [HttpPut("{id}")]
+    public async Task<ExpenseDto> Update(
+        int? id,
+        [FromBody] UpdateExpense.Command command)
+    {
+        return await _mediator.Send(command);
+    }
 
-        [HttpDelete("{id}")]
-        public async Task Delete(
-            int id)
-        {
-            await _mediator.Send(new DeleteExpense.Command(id));
-        }
+    [HttpDelete("{id}")]
+    public async Task Delete(
+        int id)
+    {
+        await _mediator.Send(new DeleteExpense.Command(id));
     }
 }

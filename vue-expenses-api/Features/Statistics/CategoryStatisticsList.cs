@@ -8,50 +8,50 @@ using MediatR;
 using vue_expenses_api.Dtos;
 using vue_expenses_api.Infrastructure.Security;
 
-namespace vue_expenses_api.Features.Statistics
-{
-    public class CategoryStatisticsList
-    {
-        public class Query : IRequest<List<CategoryStatisticsDto>>
-        {
-            public int Year { get; }
-            public int? Month { get; }
+namespace vue_expenses_api.Features.Statistics;
 
-            public Query(
-                int year,
-                int? month)
-            {
-                Year = year;
-                Month = month;
-            }
+public class CategoryStatisticsList
+{
+    public class Query : IRequest<List<CategoryStatisticsDto>>
+    {
+        public int Year { get; }
+        public int? Month { get; }
+
+        public Query(
+            int year,
+            int? month)
+        {
+            Year = year;
+            Month = month;
+        }
+    }
+
+    public class QueryHandler : IRequestHandler<Query, List<CategoryStatisticsDto>>
+    {
+        private readonly IDbConnection _dbConnection;
+        private readonly ICurrentUser _currentUser;
+
+        public QueryHandler(
+            IDbConnection dbConnection,
+            ICurrentUser currentUser)
+        {
+            _dbConnection = dbConnection;
+            _currentUser = currentUser;
         }
 
-        public class QueryHandler : IRequestHandler<Query, List<CategoryStatisticsDto>>
+        public async Task<List<CategoryStatisticsDto>> Handle(
+            Query request,
+            CancellationToken cancellationToken)
         {
-            private readonly IDbConnection _dbConnection;
-            private readonly ICurrentUser _currentUser;
+            var monthConstraint = request.Month.HasValue
+                ? $" AND CAST (STRFTIME('%m', e.Date) AS INT) = {request.Month.Value} "
+                : string.Empty;
 
-            public QueryHandler(
-                IDbConnection dbConnection,
-                ICurrentUser currentUser)
-            {
-                _dbConnection = dbConnection;
-                _currentUser = currentUser;
-            }
+            var budgetSelector = request.Month.HasValue
+                ? "ec.Budget AS Budget"
+                : "ec.Budget * 12 AS Budget";
 
-            public async Task<List<CategoryStatisticsDto>> Handle(
-                Query request,
-                CancellationToken cancellationToken)
-            {
-                var monthConstraint = request.Month.HasValue
-                    ? $" AND CAST (STRFTIME('%m', e.Date) AS INT) = {request.Month.Value} "
-                    : string.Empty;
-
-                var budgetSelector = request.Month.HasValue
-                    ? "ec.Budget AS Budget"
-                    : "ec.Budget * 12 AS Budget";
-
-                var sql = $@"SELECT 
+            var sql = $@"SELECT 
 	                            ec.Id AS Id,
 	                            ec.Name AS Name,
 	                            {budgetSelector},
@@ -73,15 +73,14 @@ namespace vue_expenses_api.Features.Statistics
                             GROUP BY
 	                            ec.Name";
 
-                var expenses = await _dbConnection.QueryAsync<CategoryStatisticsDto>(
-                    sql,
-                    new
-                    {
-                        userEmailId = _currentUser.EmailId
-                    });
+            var expenses = await _dbConnection.QueryAsync<CategoryStatisticsDto>(
+                sql,
+                new
+                {
+                    userEmailId = _currentUser.EmailId
+                });
 
-                return expenses.ToList();
-            }
+            return expenses.ToList();
         }
     }
 }

@@ -1,23 +1,22 @@
-namespace vue_expenses_api.Dtos
+namespace vue_expenses_api.Dtos;
+
+public class ProfileDetailsDto
 {
-    public class ProfileDetailsDto
+    protected ProfileDetailsDto()
     {
-        protected ProfileDetailsDto()
-        {
-        }
-
-        public ProfileDetailsDto(
-            string firstName,
-            string lastName,
-            string fullName)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            FullName = fullName;
-        }
-
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string FullName { get; set; }
     }
+
+    public ProfileDetailsDto(
+        string firstName,
+        string lastName,
+        string fullName)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        FullName = fullName;
+    }
+
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string FullName { get; set; }
 }

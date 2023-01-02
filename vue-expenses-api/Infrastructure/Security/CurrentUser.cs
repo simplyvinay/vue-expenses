@@ -1,23 +1,22 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
-namespace vue_expenses_api.Infrastructure.Security
+namespace vue_expenses_api.Infrastructure.Security;
+
+public interface ICurrentUser
 {
-    public interface ICurrentUser
+    string EmailId { get; }
+}
+
+public class CurrentUser : ICurrentUser
+{
+    private readonly IHttpContextAccessor _httpContextAccessor;
+
+    public CurrentUser(
+        IHttpContextAccessor httpContextAccessor)
     {
-        string EmailId { get; }
+        _httpContextAccessor = httpContextAccessor;
     }
 
-    public class CurrentUser : ICurrentUser
-    {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public CurrentUser(
-            IHttpContextAccessor httpContextAccessor)
-        {
-            _httpContextAccessor = httpContextAccessor;
-        }
-
-        public string EmailId => _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-    }
+    public string EmailId => _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 }

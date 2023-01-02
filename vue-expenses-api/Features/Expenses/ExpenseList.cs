@@ -8,43 +8,43 @@ using MediatR;
 using vue_expenses_api.Dtos;
 using vue_expenses_api.Infrastructure.Security;
 
-namespace vue_expenses_api.Features.Expenses
-{
-    public class ExpenseList
-    {
-        public class Query : IRequest<List<ExpenseDto>>
-        {
-            public int? Year { get; }
+namespace vue_expenses_api.Features.Expenses;
 
-            public Query(
-                int? year = null)
-            {
-                Year = year;
-            }
+public class ExpenseList
+{
+    public class Query : IRequest<List<ExpenseDto>>
+    {
+        public int? Year { get; }
+
+        public Query(
+            int? year = null)
+        {
+            Year = year;
+        }
+    }
+
+    public class QueryHandler : IRequestHandler<Query, List<ExpenseDto>>
+    {
+        private readonly IDbConnection _dbConnection;
+        private readonly ICurrentUser _currentUser;
+
+        public QueryHandler(
+            IDbConnection connection,
+            ICurrentUser currentUser)
+        {
+            _dbConnection = connection;
+            _currentUser = currentUser;
         }
 
-        public class QueryHandler : IRequestHandler<Query, List<ExpenseDto>>
+        //Implement Paging
+        public async Task<List<ExpenseDto>> Handle(
+            Query message,
+            CancellationToken cancellationToken)
         {
-            private readonly IDbConnection _dbConnection;
-            private readonly ICurrentUser _currentUser;
-
-            public QueryHandler(
-                IDbConnection connection,
-                ICurrentUser currentUser)
-            {
-                _dbConnection = connection;
-                _currentUser = currentUser;
-            }
-
-            //Implement Paging
-            public async Task<List<ExpenseDto>> Handle(
-                Query message,
-                CancellationToken cancellationToken)
-            {
-                var yearCriteria = message.Year.HasValue
-                    ? $" AND STRFTIME('%Y', e.Date) = '{message.Year}'"
-                    : string.Empty;
-                var sql = $@"SELECT 
+            var yearCriteria = message.Year.HasValue
+                ? $" AND STRFTIME('%Y', e.Date) = '{message.Year}'"
+                : string.Empty;
+            var sql = $@"SELECT 
                                 e.Id,
                                 STRFTIME('%Y-%m-%d', e.Date) AS Date,
                                 STRFTIME('%m', e.Date) AS Month,
@@ -69,15 +69,14 @@ namespace vue_expenses_api.Features.Expenses
                                 AND e.Archived = 0
                                 {yearCriteria}";
 
-                var expenses = await _dbConnection.QueryAsync<ExpenseDto>(
-                    sql,
-                    new
-                    {
-                        userEmailId = _currentUser.EmailId
-                    });
+            var expenses = await _dbConnection.QueryAsync<ExpenseDto>(
+                sql,
+                new
+                {
+                    userEmailId = _currentUser.EmailId
+                });
 
-                return expenses.ToList();
-            }
+            return expenses.ToList();
         }
     }
 }

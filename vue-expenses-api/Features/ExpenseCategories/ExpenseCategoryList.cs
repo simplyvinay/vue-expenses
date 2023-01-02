@@ -8,33 +8,33 @@ using MediatR;
 using vue_expenses_api.Dtos;
 using vue_expenses_api.Infrastructure.Security;
 
-namespace vue_expenses_api.Features.ExpenseCategories
+namespace vue_expenses_api.Features.ExpenseCategories;
+
+public class ExpenseCategoryList
 {
-    public class ExpenseCategoryList
+    public class Query : IRequest<List<ExpenseCategoryDto>>
     {
-        public class Query : IRequest<List<ExpenseCategoryDto>>
+    }
+
+    public class QueryHandler : IRequestHandler<Query, List<ExpenseCategoryDto>>
+    {
+        private readonly IDbConnection _dbConnection;
+        private readonly ICurrentUser _currentUser;
+
+        public QueryHandler(
+            IDbConnection connection,
+            ICurrentUser currentUser)
         {
+            _dbConnection = connection;
+            _currentUser = currentUser;
         }
 
-        public class QueryHandler : IRequestHandler<Query, List<ExpenseCategoryDto>>
+        //Implement Paging
+        public async Task<List<ExpenseCategoryDto>> Handle(
+            Query message,
+            CancellationToken cancellationToken)
         {
-            private readonly IDbConnection _dbConnection;
-            private readonly ICurrentUser _currentUser;
-
-            public QueryHandler(
-                IDbConnection connection,
-                ICurrentUser currentUser)
-            {
-                _dbConnection = connection;
-                _currentUser = currentUser;
-            }
-
-            //Implement Paging
-            public async Task<List<ExpenseCategoryDto>> Handle(
-                Query message,
-                CancellationToken cancellationToken)
-            {
-                var sql = @"SELECT 
+            var sql = @"SELECT 
                                 ec.*
                             FROM 
                                 ExpenseCategories ec
@@ -44,15 +44,14 @@ namespace vue_expenses_api.Features.ExpenseCategories
                                 u.Email=@userEmailId
                                 AND ec.Archived = 0";
 
-                var expenses = await _dbConnection.QueryAsync<ExpenseCategoryDto>(
-                    sql,
-                    new
-                    {
-                        userEmailId = _currentUser.EmailId
-                    });
+            var expenses = await _dbConnection.QueryAsync<ExpenseCategoryDto>(
+                sql,
+                new
+                {
+                    userEmailId = _currentUser.EmailId
+                });
 
-                return expenses.ToList();
-            }
+            return expenses.ToList();
         }
     }
 }

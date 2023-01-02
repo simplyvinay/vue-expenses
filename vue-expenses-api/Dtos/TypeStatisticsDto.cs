@@ -1,13 +1,12 @@
-﻿namespace vue_expenses_api.Dtos
-{
-    public class TypeStatisticsDto
-    {
-        protected TypeStatisticsDto()
-        {
-        }
+﻿namespace vue_expenses_api.Dtos;
 
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public decimal Spent { get; set; }
+public class TypeStatisticsDto
+{
+    protected TypeStatisticsDto()
+    {
     }
+
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public decimal Spent { get; set; }
 }

@@ -10,78 +10,77 @@ using vue_expenses_api.Infrastructure;
 using vue_expenses_api.Infrastructure.Exceptions;
 using vue_expenses_api.Infrastructure.Security;
 
-namespace vue_expenses_api.Features.Users
+namespace vue_expenses_api.Features.Users;
+
+public class UpdateSettings
 {
-    public class UpdateSettings
+    public class Command : IRequest<UserDetailsDto>
     {
-        public class Command : IRequest<UserDetailsDto>
+        public Command(
+            string systemName,
+            string currencyRegionName,
+            bool useDarkMode)
         {
-            public Command(
-                string systemName,
-                string currencyRegionName,
-                bool useDarkMode)
-            {
-                SystemName = systemName;
-                CurrencyRegionName = currencyRegionName;
-                UseDarkMode = useDarkMode;
-            }
-
-            public string SystemName { get; set; }
-            public string CurrencyRegionName { get; set; }
-            public bool UseDarkMode { get; set; }
+            SystemName = systemName;
+            CurrencyRegionName = currencyRegionName;
+            UseDarkMode = useDarkMode;
         }
 
-        public class CommandValidator : AbstractValidator<Command>
+        public string SystemName { get; set; }
+        public string CurrencyRegionName { get; set; }
+        public bool UseDarkMode { get; set; }
+    }
+
+    public class CommandValidator : AbstractValidator<Command>
+    {
+        public CommandValidator()
         {
-            public CommandValidator()
-            {
-                RuleFor(x => x.SystemName).NotEmpty().NotNull();
-            }
+            RuleFor(x => x.SystemName).NotEmpty().NotNull();
+        }
+    }
+
+    public class Handler : IRequestHandler<Command, UserDetailsDto>
+    {
+        private readonly ExpensesContext _context;
+        private readonly ICurrentUser _currentUser;
+
+        public Handler(
+            ExpensesContext db,
+            ICurrentUser currentUser)
+        {
+            _context = db;
+            _currentUser = currentUser;
         }
 
-        public class Handler : IRequestHandler<Command, UserDetailsDto>
+        public async Task<UserDetailsDto> Handle(
+            Command request,
+            CancellationToken cancellationToken)
         {
-            private readonly ExpensesContext _context;
-            private readonly ICurrentUser _currentUser;
 
-            public Handler(
-                ExpensesContext db,
-                ICurrentUser currentUser)
+            try 
             {
-                _context = db;
-                _currentUser = currentUser;
+                new RegionInfo(request.CurrencyRegionName);
+            }
+            catch 
+            {
+                throw new HttpException(
+                    HttpStatusCode.BadRequest,
+                    new {Error = "Display currency is not yet supported"});
             }
 
-            public async Task<UserDetailsDto> Handle(
-                Command request,
-                CancellationToken cancellationToken)
-            {
+            var user = await _context.Users.SingleAsync(
+                x => x.Email == _currentUser.EmailId,
+                cancellationToken);
+            user.SystemName = request.SystemName;
+            user.CurrencyRegionName = request.CurrencyRegionName;
+            user.UseDarkMode = request.UseDarkMode;
 
-                try 
-                {
-                   new RegionInfo(request.CurrencyRegionName);
-                }
-                catch 
-                {
-                    throw new HttpException(
-                        HttpStatusCode.BadRequest,
-                        new {Error = "Display currency is not yet supported"});
-                }
+            await _context.SaveChangesAsync(cancellationToken);
 
-                var user = await _context.Users.SingleAsync(
-                    x => x.Email == _currentUser.EmailId,
-                    cancellationToken);
-                user.SystemName = request.SystemName;
-                user.CurrencyRegionName = request.CurrencyRegionName;
-                user.UseDarkMode = request.UseDarkMode;
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new UserDetailsDto(
-                    user.SystemName,
-                    user.CurrencyRegionName,
-                    user.UseDarkMode);
-            }
+            return new UserDetailsDto(
+                user.SystemName,
+                user.CurrencyRegionName,
+                user.UseDarkMode);
         }
     }
 }

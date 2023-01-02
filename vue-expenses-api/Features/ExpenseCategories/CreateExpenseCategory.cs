@@ -10,92 +10,91 @@ using vue_expenses_api.Infrastructure;
 using vue_expenses_api.Infrastructure.Exceptions;
 using vue_expenses_api.Infrastructure.Security;
 
-namespace vue_expenses_api.Features.ExpenseCategories
+namespace vue_expenses_api.Features.ExpenseCategories;
+
+public class CreateExpenseCategory
 {
-    public class CreateExpenseCategory
+    public class Command : IRequest<ExpenseCategoryDto>
     {
-        public class Command : IRequest<ExpenseCategoryDto>
+        public Command(
+            string name,
+            string description,
+            decimal budget,
+            string colourHex)
         {
-            public Command(
-                string name,
-                string description,
-                decimal budget,
-                string colourHex)
-            {
-                Name = name;
-                Description = description;
-                Budget = budget;
-                ColourHex = colourHex;
-            }
-
-            public string Name { get; set; }
-            public string Description { get; set; }
-            public decimal Budget { get; set; }
-            public string ColourHex { get; set; }
+            Name = name;
+            Description = description;
+            Budget = budget;
+            ColourHex = colourHex;
         }
 
-        public class CommandValidator : AbstractValidator<Command>
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Budget { get; set; }
+        public string ColourHex { get; set; }
+    }
+
+    public class CommandValidator : AbstractValidator<Command>
+    {
+        public CommandValidator()
         {
-            public CommandValidator()
-            {
-                RuleFor(x => x.Name).NotNull().NotEmpty().MaximumLength(50);
-                RuleFor(x => x.Description).MaximumLength(100);
-                RuleFor(x => x.Budget).NotNull().NotEmpty().GreaterThan(0);
-                RuleFor(x => x.ColourHex).NotNull().NotEmpty();
-            }
+            RuleFor(x => x.Name).NotNull().NotEmpty().MaximumLength(50);
+            RuleFor(x => x.Description).MaximumLength(100);
+            RuleFor(x => x.Budget).NotNull().NotEmpty().GreaterThan(0);
+            RuleFor(x => x.ColourHex).NotNull().NotEmpty();
+        }
+    }
+
+    public class Handler : IRequestHandler<Command, ExpenseCategoryDto>
+    {
+        private readonly ExpensesContext _context;
+        private readonly ICurrentUser _currentUser;
+
+        public Handler(
+            ExpensesContext db,
+            ICurrentUser currentUser)
+        {
+            _context = db;
+            _currentUser = currentUser;
         }
 
-        public class Handler : IRequestHandler<Command, ExpenseCategoryDto>
+        public async Task<ExpenseCategoryDto> Handle(
+            Command request,
+            CancellationToken cancellationToken)
         {
-            private readonly ExpensesContext _context;
-            private readonly ICurrentUser _currentUser;
+            var user = await _context.Users.SingleAsync(x => x.Email == _currentUser.EmailId,
+                cancellationToken);
 
-            public Handler(
-                ExpensesContext db,
-                ICurrentUser currentUser)
-            {
-                _context = db;
-                _currentUser = currentUser;
-            }
-
-            public async Task<ExpenseCategoryDto> Handle(
-                Command request,
-                CancellationToken cancellationToken)
-            {
-                var user = await _context.Users.SingleAsync(x => x.Email == _currentUser.EmailId,
-                    cancellationToken);
-
-                if (await _context.ExpenseCategories.AnyAsync(
+            if (await _context.ExpenseCategories.AnyAsync(
                     x => x.Name == request.Name && x.User == user,
                     cancellationToken))
-                {
-                    throw new HttpException(
-                        HttpStatusCode.BadRequest,
-                        new
-                        {
-                            Error = $"There is already a category with name {request.Name}."
-                        });
-                }
-                
-                var expenseCategory = new ExpenseCategory(
-                    request.Name,
-                    request.Description,
-                    request.Budget,
-                    request.ColourHex,
-                    user);
-
-                await _context.ExpenseCategories.AddAsync(
-                    expenseCategory,
-                    cancellationToken);
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new ExpenseCategoryDto(
-                    expenseCategory.Id,
-                    expenseCategory.Name,
-                    expenseCategory.Description,
-                    expenseCategory.Budget,
-                    expenseCategory.ColourHex);
+            {
+                throw new HttpException(
+                    HttpStatusCode.BadRequest,
+                    new
+                    {
+                        Error = $"There is already a category with name {request.Name}."
+                    });
             }
+                
+            var expenseCategory = new ExpenseCategory(
+                request.Name,
+                request.Description,
+                request.Budget,
+                request.ColourHex,
+                user);
+
+            await _context.ExpenseCategories.AddAsync(
+                expenseCategory,
+                cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return new ExpenseCategoryDto(
+                expenseCategory.Id,
+                expenseCategory.Name,
+                expenseCategory.Description,
+                expenseCategory.Budget,
+                expenseCategory.ColourHex);
         }
     }
 }
