@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Data;
+using System.Net.NetworkInformation;
 using System.Text.Json.Serialization;
 using FluentValidation;
 using MediatR;
@@ -34,7 +35,7 @@ public class Startup
         services.AddControllers()
             .AddNewtonsoftJson();
 
-        services.AddMediatR(typeof(Startup));
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Startup).Assembly));
 
         //hook up validation into MediatR pipeline
         services.AddTransient(

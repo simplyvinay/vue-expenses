@@ -29,7 +29,7 @@ public class DeleteExpenseType
         }
     }
 
-    public class Handler : IRequestHandler<Command, Unit>
+    public class Handler : IRequestHandler<Command>
     {
         private readonly ExpensesContext _context;
 
@@ -39,7 +39,7 @@ public class DeleteExpenseType
             _context = db;
         }
 
-        public async Task<Unit> Handle(
+        public async Task Handle(
             Command request,
             CancellationToken cancellationToken)
         {
@@ -54,7 +54,6 @@ public class DeleteExpenseType
 
             expenseType.Archive();
             await _context.SaveChangesAsync(cancellationToken);
-            return Unit.Value;
         }
     }
 }

@@ -61,7 +61,7 @@ public class Register
             _context = context;
         }
 
-        public async Task<Unit> Handle(
+        public async Task Handle(
             Command request,
             CancellationToken cancellationToken)
         {
@@ -94,8 +94,6 @@ public class Register
                 newUser,
                 cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
-
-            return Unit.Value;
         }
     }
 }

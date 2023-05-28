@@ -29,10 +29,10 @@ public class UsersController
     }
 
     [HttpPost("register")]
-    public async Task<Unit> Register(
+    public async Task Register(
         [FromBody] Register.Command command)
     {
-        return await _mediator.Send(command);
+        await _mediator.Send(command);
     }
 
     [HttpPost("refreshtoken")]
