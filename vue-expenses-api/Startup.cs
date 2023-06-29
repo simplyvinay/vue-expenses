@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Data;
 using System.Net.NetworkInformation;
@@ -16,6 +18,7 @@ using Microsoft.OpenApi.Models;
 using vue_expenses_api.Infrastructure;
 using vue_expenses_api.Infrastructure.Security;
 using vue_expenses_api.Infrastructure.Validation;
+using static Backup;
 
 namespace vue_expenses_api;
 
@@ -32,6 +35,8 @@ public class Startup
     public void ConfigureServices(
         IServiceCollection services)
     {
+        Backup.CreateBackup(Configuration.GetConnectionString("DefaultConnection"));
+
         services.AddControllers()
             .AddNewtonsoftJson();
 
