@@ -27,3 +27,6 @@ yarn-error.log*
 /vue-expenses-api/obj
 *.orig
 *.user
+
+# data files
+backups
